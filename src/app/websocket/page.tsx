@@ -29,3 +29,7 @@
 //     </div>
 //   )
 // }
+
+export default function WebSocketTestPage() {
+  return <div>웹소켓 테스트 페이지</div>
+}
