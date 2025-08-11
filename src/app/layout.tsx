@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import BottomNavigationBar from '@/shared/components/BottomNavigationBar'
+import MainBottomNavigationBar from '@/shared/components/MainBottomNavigationBar'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,7 +18,7 @@ export default function RootLayout({
         <div className="flex justify-center">
           <main className="flex h-svh w-full max-w-md flex-col">
             <section className="flex-1 overflow-auto">{children}</section>
-            <BottomNavigationBar />
+            <MainBottomNavigationBar />
           </main>
         </div>
       </body>
