@@ -18,7 +18,7 @@ export default function PostCard({
   const displayTags = tags.length > 3 ? tags.slice(0, 3) : tags
 
   return (
-    <div className="flex w-full cursor-pointer flex-col items-center gap-4 rounded-xl bg-white p-5 shadow-sm">
+    <div className="flex w-full cursor-pointer flex-col items-center gap-4 rounded-xl bg-white p-5">
       <div className="flex w-full gap-5">
         <div className="flex w-full flex-col gap-2">
           <div className="flex gap-2">
