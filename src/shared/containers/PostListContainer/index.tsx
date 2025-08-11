@@ -1,5 +1,5 @@
-import PostCard from '@/features/home/components/PostCard'
-import PostFilterContainer from '@/features/home/containers/PostFilterContainer'
+import PostCard from '@/shared/components/PostCard'
+import PostFilterContainer from '@/shared/containers/PostFilterContainer'
 
 const POSTS = [
   {
