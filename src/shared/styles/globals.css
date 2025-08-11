@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply font-apple h-svh;
+  }
+}
+
+@layer components {
+  .h2 {
+    @apply text-xl font-bold leading-[1.4] tracking-[-0.4px];
+  }
+
+  .h3 {
+    @apply text-lg font-bold leading-[1.4] tracking-[-0.36px];
+  }
+
+  .h4 {
+    @apply text-base font-semibold leading-[1.4] tracking-[-0.32px];
+  }
+
+  .b1 {
+    @apply text-base font-medium leading-[1.4] tracking-[-0.32px];
+  }
+
+  .b2 {
+    @apply text-base font-medium leading-[1.4] tracking-[-0.32px];
+  }
+
+  .b3 {
+    @apply text-base font-bold leading-[1.4] tracking-[-0.28px];
+  }
+
+  .b4 {
+    @apply text-sm font-medium leading-[1.4] tracking-[-0.28px];
+  }
+
+  .b5 {
+    @apply text-sm font-semibold leading-[1.4] tracking-[-0.28px];
+  }
+
+  .b6 {
+    @apply text-xs font-medium leading-[1.4] tracking-[-0.24px];
+  }
+
+  .b7 {
+    @apply text-[0.625rem] font-bold leading-[1.4] tracking-[-0.2px];
+  }
+
+  .b9 {
+    @apply text-[0.625rem] font-medium leading-[1.4] tracking-[-0.2px];
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
