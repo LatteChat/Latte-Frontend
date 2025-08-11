@@ -27,7 +27,7 @@
   }
 
   .b2 {
-    @apply text-base font-medium leading-[1.4] tracking-[-0.32px];
+    @apply text-base font-bold leading-[1.4] tracking-[-0.32px];
   }
 
   .b3 {
