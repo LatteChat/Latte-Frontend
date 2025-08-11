@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import './globals.css'
+import '@/shared/styles/globals.css'
+import '@/shared/styles/fonts.css'
 import BottomNavigationBar from '@/shared/components/BottomNavigationBar'
 
 export const metadata: Metadata = {

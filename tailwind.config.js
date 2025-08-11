@@ -4,6 +4,7 @@ module.exports = {
     './src/features/**/*.{js,jsx,ts,tsx}',
     './src/components/**/*.{js,jsx,ts,tsx}',
     './src/app/**/*.{js,jsx,ts,tsx}',
+    './src/shared/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
@@ -11,7 +12,7 @@ module.exports = {
         main: 'calc(100svh - 5rem)',
       },
       fontFamily: {
-        apple: ['AppleSDGothicNeoB00', 'Noto Sans KR', 'sans-serif'],
+        apple: ['AppleSDGothicNeo', 'Noto Sans KR', 'sans-serif'],
       },
     },
   },
