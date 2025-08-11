@@ -15,7 +15,9 @@ export default function LatteChatHomePage() {
           광고
         </div>
       </section>
-      <BaristaRankContainer />
+      <div className="mb-10">
+        <BaristaRankContainer />
+      </div>
       <PostListContainer />
     </div>
   )
