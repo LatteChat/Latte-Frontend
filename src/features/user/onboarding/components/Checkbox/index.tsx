@@ -13,7 +13,7 @@ export default function Checkbox({ label, required, children }: CheckboxProps) {
     <div className="flex flex-col gap-2">
       <label className="flex cursor-pointer select-none items-center">
         <input type="checkbox" className="mr-2 aspect-square h-4 w-4" />
-        <span className="flex-1 text-sm">
+        <span className="b4 flex-1">
           <span className="mr-1">{required ? '[필수]' : '[선택]'}</span>
           {label}
         </span>
@@ -24,13 +24,25 @@ export default function Checkbox({ label, required, children }: CheckboxProps) {
             aria-expanded={isExpanded}
             className="ml-2"
           >
-            {isExpanded ? '▲' : '▼'}
+            {isExpanded ? (
+              <img
+                src="/icons/up-arrow-icon.svg"
+                alt="더보기 아이콘"
+                className="aspect-square h-6 w-6"
+              />
+            ) : (
+              <img
+                src="/icons/down-arrow-icon.svg"
+                alt="닫기 아이콘"
+                className="aspect-square h-6 w-6"
+              />
+            )}
           </button>
         )}
       </label>
 
       {isExpanded && children && (
-        <div className="pl-6 text-sm text-gray-600">{children}</div>
+        <div className="b4 pl-6 text-gray-600">{children}</div>
       )}
     </div>
   )
