@@ -10,48 +10,79 @@
 }
 
 @layer components {
+  .h1 {
+    @apply text-2xl font-bold leading-[1.2] tracking-[-0.48px];
+    padding-top: 3px;
+  }
+
   .h2 {
     @apply text-xl font-bold leading-[1.4] tracking-[-0.4px];
+    padding-top: 3px;
   }
 
   .h3 {
     @apply text-lg font-bold leading-[1.4] tracking-[-0.36px];
+    padding-top: 3px;
   }
 
   .h4 {
     @apply text-base font-semibold leading-[1.4] tracking-[-0.32px];
+    padding-top: 3px;
   }
 
   .b1 {
     @apply text-base font-medium leading-[1.4] tracking-[-0.32px];
+    padding-top: 3px;
   }
 
   .b2 {
     @apply text-base font-bold leading-[1.4] tracking-[-0.32px];
+    padding-top: 3px;
   }
 
   .b3 {
-    @apply text-base font-bold leading-[1.4] tracking-[-0.28px];
+    @apply text-sm font-bold leading-[1.4] tracking-[-0.28px];
+    padding-top: 3px;
   }
 
   .b4 {
     @apply text-sm font-medium leading-[1.4] tracking-[-0.28px];
+    padding-top: 3px;
   }
 
   .b5 {
     @apply text-sm font-semibold leading-[1.4] tracking-[-0.28px];
+    padding-top: 3px;
   }
 
   .b6 {
     @apply text-xs font-medium leading-[1.4] tracking-[-0.24px];
+    padding-top: 3px;
   }
 
   .b7 {
     @apply text-[0.625rem] font-bold leading-[1.4] tracking-[-0.2px];
+    padding-top: 3px;
   }
 
   .b9 {
     @apply text-[0.625rem] font-medium leading-[1.4] tracking-[-0.2px];
+    padding-top: 3px;
+  }
+
+  .b10 {
+    @apply text-xs font-normal leading-[1.2] tracking-[-0.24px];
+    padding-top: 3px;
+  }
+
+  .b11 {
+    @apply text-lg font-medium leading-[1.4] tracking-[-0.36px];
+    padding-top: 3px;
+  }
+
+  .b12 {
+    @apply text-sm font-normal leading-[1.4] tracking-[-0.28px];
+    padding-top: 3px;
   }
 
   .scrollbar-hide::-webkit-scrollbar {

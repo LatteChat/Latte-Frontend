@@ -3,9 +3,14 @@
 import Checkbox from '@/features/user/onboarding/components/Checkbox'
 import StepButton from '@/features/user/onboarding/components/StepButton'
 import StepTitle from '@/features/user/onboarding/components/StepTitle'
+import { useRouter } from 'next/navigation'
 
 export default function UserOnBoardingAgreementsPage() {
-  const handleClickNextButton = () => {}
+  const router = useRouter()
+
+  const handleClickNextButton = () => {
+    router.push(`/latte-chat/user/onboarding/start`)
+  }
 
   return (
     <main className="min-h-main relative flex h-auto flex-1 flex-col space-y-8 bg-gray-100 px-5 py-10 pb-32">
@@ -17,7 +22,7 @@ export default function UserOnBoardingAgreementsPage() {
             type="checkbox"
             className="aspect-square h-4 w-4 text-base font-normal"
           />
-          <span>전체 동의</span>
+          <span className="h4">전체 동의</span>
         </div>
         <Checkbox label="개인 정보 수집 동의" required>
           <p>
