@@ -1,8 +1,8 @@
 'use client'
 
-import CategoryTag from '@/features/user/onboarding/components/CategoryTag'
 import StepButton from '@/features/user/onboarding/components/StepButton'
-import StepTitle from '@/features/user/onboarding/components/StepTitle'
+import Image from 'next/image'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const CATEGORIES = [
   '뉴스',
@@ -24,28 +24,36 @@ const CATEGORIES = [
 ]
 
 export default function UserOnBoardingRolePage() {
-  const handleClickNextButton = () => {}
-  return (
-    <main className="min-h-main relative flex h-auto flex-1 flex-col space-y-8 bg-gray-100 px-5 py-10 pb-32">
-      <StepTitle
-        title={`라떼챗에서 수행할 역할을\n골라주세요.`}
-        activeIndex={2}
-      />
+  const router = useRouter()
+  const params = useSearchParams()
+  const role = params.get('role') // mentor mentee
 
-      <div className="flex flex-col gap-5">
-        <div className="flex flex-wrap gap-3">
-          {CATEGORIES.map((category) => (
-            <CategoryTag key={category} label={category} selected={false} />
-          ))}
-        </div>
-        <p className="text-sm font-normal">
-          * 붉은 박스 항목은 간단한 인증이 필요합니다.
-        </p>
-      </div>
+  // role이 없을 경우
+
+  const handleClickNextButton = () => {
+    router.push('/latte-chat/user/onboarding/category')
+  }
+
+  return (
+    <div className="min-h-main relative flex h-auto flex-1 flex-col space-y-8 bg-gray-100 px-5 py-10 pb-32 pt-0">
+      <main className="flex flex-col items-center gap-9 pt-[13vh]">
+        <Image
+          src={
+            role === 'mentor'
+              ? '/images/milk-image.png'
+              : '/images/shot-image.png'
+          }
+          width={158}
+          height={158}
+          className="aspect-square h-40 w-40"
+          alt="역할 이미지"
+        />
+        <h2 className="h2 whitespace-pre-line text-center">{`${role === 'mentor' ? '멘토' : '멘티'}로 설정되었어요!\n이제부터 ${role === 'mentor' ? '답변' : '사연'}을 작성할 수 있어요.`}</h2>
+      </main>
 
       <footer className="absolute inset-x-0 bottom-0 w-full px-5 pb-11">
         <StepButton value="다음" onClick={handleClickNextButton} />
       </footer>
-    </main>
+    </div>
   )
 }
