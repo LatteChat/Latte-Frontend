@@ -57,7 +57,7 @@
 
   .b6 {
     @apply text-xs font-medium leading-[1.4] tracking-[-0.24px];
-    padding-top: 3px;
+    padding-top: 1px;
   }
 
   .b7 {
@@ -67,7 +67,7 @@
 
   .b9 {
     @apply text-[0.625rem] font-medium leading-[1.4] tracking-[-0.2px];
-    padding-top: 3px;
+    padding-top: 2px;
   }
 
   .b10 {
