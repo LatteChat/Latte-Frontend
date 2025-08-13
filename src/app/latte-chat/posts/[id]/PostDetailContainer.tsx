@@ -2,6 +2,7 @@ import PostAnswer from '@/features/post/components/PostAnswer'
 import PostContent from '@/features/post/components/PostContent'
 import PostHeader from '@/features/post/components/PostHeader'
 import Topbar from '@/shared/components/Topbar'
+import CommentListContainer from '@/features/post/containers/CommentListContainer'
 
 const TOPBAR_ICONS = [
   {
@@ -76,6 +77,8 @@ export default function PostDetailContainer() {
         </section>
 
         <hr className="h-[0.3rem] w-full border-0 bg-gray-300" />
+
+        <CommentListContainer />
       </main>
     </div>
   )
