@@ -10,7 +10,7 @@ type TopbarIcons = TopbarIcon[]
 
 export default function Topbar({ icons }: { icons: TopbarIcons }) {
   return (
-    <header className="flex h-6 justify-between px-5">
+    <header className="flex justify-between bg-white px-5 py-3">
       <span className="inline-block w-20 bg-gray-300">로고</span>
       <div className="flex gap-3">
         {icons.map((icon) => {
