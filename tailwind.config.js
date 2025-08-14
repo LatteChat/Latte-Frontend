@@ -14,6 +14,9 @@ module.exports = {
       fontFamily: {
         apple: ['AppleSDGothicNeo', 'Noto Sans KR', 'sans-serif'],
       },
+      borderRadius: {
+        10: '0.625rem',
+      },
     },
   },
   plugins: [],
