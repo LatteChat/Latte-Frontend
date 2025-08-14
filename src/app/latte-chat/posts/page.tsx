@@ -20,7 +20,7 @@ const TOPBAR_ICONS = [
 export default function LatteChatCommunityPage() {
   return (
     <div>
-      <div className="flex flex-col gap-4 pt-3">
+      <div className="flex flex-col gap-4">
         <Topbar icons={TOPBAR_ICONS} />
         <NavTabBar />
       </div>
