@@ -20,7 +20,7 @@ const HEADER_OPTIONS = [
 
 export default function Home() {
   return (
-    <div className="min-h-main h-auto bg-gray-100">
+    <div className="h-auto min-h-main bg-gray-100">
       <nav className="flex h-14 items-center justify-between bg-white px-5">
         <button>
           <img
@@ -60,10 +60,18 @@ export default function Home() {
           />
         </div>
 
-        <div className="mb-3 flex rounded-3xl bg-white px-5">
-          <img src="/icons/daum-icon.svg" alt="다음 아이콘" />
-          <input className="flex-1 px-2 py-4 outline-none" />
-          <img src="/icons/daum-icon.svg" alt="꽃 아이콘" />
+        <div className="mb-3 flex w-full items-center rounded-3xl bg-white px-5">
+          <img
+            src="/icons/daum-fill-icon.svg"
+            className="aspect-square h-6 w-6 shrink-0"
+            alt="다음 아이콘"
+          />
+          <input className="min-w-0 flex-1 px-2 py-4 outline-none" />
+          <img
+            src="/icons/flower-icon.svg"
+            className="aspect-square h-6 w-6 shrink-0"
+            alt="꽃 아이콘"
+          />
         </div>
 
         <div className="flex items-center">
