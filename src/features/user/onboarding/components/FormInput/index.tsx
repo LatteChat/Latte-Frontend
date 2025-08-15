@@ -17,17 +17,17 @@ export default function FormInput({
 }: FormInputProps) {
   return (
     <div className="flex flex-col gap-2">
-      {label && <label className="text-sm font-normal">{label}</label>}
+      {label && <label className="b4">{label}</label>}
       <div className="relative">
         <input
           type={type}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          className={`w-full rounded-xl bg-gray-300 px-4 py-3 text-sm pr-${icon ? '10' : '3'}`}
+          className={`b4 w-full rounded-[0.625rem] bg-gray-300 px-4 py-3 ${icon ? 'pr-10' : ''}`}
         />
         {icon && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+          <div className="absolute right-3 top-1/2 aspect-square h-5 w-5 -translate-y-1/2 text-gray-500">
             {icon}
           </div>
         )}

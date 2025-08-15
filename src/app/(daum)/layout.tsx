@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
-import '../globals.css'
 import MainBottomNavigationBar from '@/shared/components/MainBottomNavigationBar'
+import '@/shared/styles/globals.css'
+import '@/shared/styles/fonts.css'
 
 export const metadata: Metadata = {
   title: 'Create Next App',

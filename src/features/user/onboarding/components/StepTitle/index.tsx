@@ -21,10 +21,8 @@ export default function StepTitle({
         })}
       </div>
       <div className="flex flex-col gap-2">
-        <h1 className="whitespace-pre-line text-2xl font-normal text-black">
-          {title}
-        </h1>
-        {intro && <p className="text-sm font-normal text-gray-400">{intro}</p>}
+        <h1 className="h1 whitespace-pre-line text-black">{title}</h1>
+        {intro && <p className="b4 text-gray-400">{intro}</p>}
       </div>
     </div>
   )

@@ -12,7 +12,10 @@ module.exports = {
         main: 'calc(100svh - 5rem)',
       },
       fontFamily: {
-        apple: ['AppleSDGothicNeoB00', 'Noto Sans KR', 'sans-serif'],
+        apple: ['AppleSDGothicNeo', 'Noto Sans KR', 'sans-serif'],
+      },
+      borderRadius: {
+        10: '0.625rem',
       },
     },
   },

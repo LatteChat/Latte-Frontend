@@ -1,0 +1,24 @@
+.swiper {
+  position: relative;
+  overflow: visible !important;
+  padding-bottom: 1.3rem;
+}
+
+.swiper-pagination {
+  padding: 0 !important;
+  height: auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  bottom: 0rem !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: gray;
+  width: 0.3rem;
+  height: 0.3rem;
+  aspect-ratio: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: black !important;
+}

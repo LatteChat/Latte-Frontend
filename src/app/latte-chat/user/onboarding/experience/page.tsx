@@ -1,15 +1,19 @@
 'use client'
 
 import FormInput from '@/features/user/onboarding/components/FormInput'
-import FormInputWithButton from '@/features/user/onboarding/components/FormInputWithButton'
 import StepButton from '@/features/user/onboarding/components/StepButton'
 import StepTitle from '@/features/user/onboarding/components/StepTitle'
+import { useRouter } from 'next/navigation'
 
 export default function UserOnBoardingExperiencePage() {
-  const handleClickNextButton = () => {}
+  const router = useRouter()
+
+  const handleClickNextButton = () => {
+    router.push(`/latte-chat/user/onboarding/agreements`)
+  }
 
   return (
-    <main className="relative h-auto min-h-svh space-y-8 bg-gray-100 px-5 py-10 pb-32">
+    <main className="min-h-main relative h-auto space-y-8 bg-gray-100 px-5 py-10 pb-32">
       <StepTitle
         title={'실력자임을 인증해주세요!'}
         intro={'회사, 경력 인증을 간단히 진행할게요.'}
@@ -24,24 +28,22 @@ export default function UserOnBoardingExperiencePage() {
         <FormInput
           label="회사"
           placeholder="회사를 검색해주세요."
-          icon={<img src="/icons/daum-icon.svg" />}
+          icon={<img src="/icons/search-icon.svg" />}
         />
         <FormInput label="직무" placeholder="경력을 입력해주세요." />
 
-        <div className="space-y-2">
-          <FormInputWithButton
-            label="회사 이메일"
-            placeholder="회사 이메일을 입력해주세요."
-            buttonText="인증메일 발송"
-            buttonWidth="w-28"
-          />
-          <FormInputWithButton
-            placeholder="인증번호"
-            buttonText="인증하기"
-            buttonWidth="w-28"
-          >
-            <span>03:00</span>
-          </FormInputWithButton>
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-3">
+            <label className="b4">인증하기</label>
+            <img src="/images/certification-image.svg" className="w-14" />
+          </div>
+          <div className="flex justify-between rounded-[0.625rem] bg-white py-3 pl-4 pr-3">
+            <p className="b4">경력 인증을 위해 정부24로 이동합니다.</p>
+            <img
+              src="/icons/right-arrow-icon.svg"
+              className="aspect-square h-6 w-6"
+            />
+          </div>
         </div>
       </div>
 
