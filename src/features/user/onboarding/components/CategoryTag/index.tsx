@@ -1,9 +1,7 @@
-import React from 'react'
-
 type CategoryTagProps = {
   label: string
   selected: boolean
-  onClick?: () => void
+  onClick: () => void
 }
 
 const LOCK_CATEGORY = ['취업 및 회사', '진로']
@@ -18,7 +16,7 @@ export default function CategoryTag({
   return (
     <button
       type="button"
-      onClick={onClick}
+      onClick={() => onClick()}
       className={`flex items-center rounded-lg border px-4 py-2 shadow-md transition-colors ${isLockCategory ? 'bg-red-200' : 'bg-white'} ${
         selected
           ? 'border-gray-500 bg-gray-400 text-white'
