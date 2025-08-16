@@ -7,7 +7,7 @@ export default function LatteChatLayout({
 }>) {
   return (
     <div className="flex h-svh w-full max-w-md flex-col">
-      <div className="flex-1 overflow-auto">{children}</div>
+      <main className="flex-1 overflow-auto">{children}</main>
       <BottomNavigationBar />
     </div>
   )
