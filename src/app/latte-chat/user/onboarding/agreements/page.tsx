@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { useSaveJuniorUser } from '@/features/user/hooks/useSaveJuniorUser'
+import useSaveJuniorUser from '@/features/user/hooks/useSaveJuniorUser'
+import useSaveSeniorUser from '@/features/user/hooks/useSaveSeniorUser'
 import Checkbox from '@/features/user/onboarding/components/Checkbox'
 import StepButton from '@/features/user/onboarding/components/StepButton'
 import StepTitle from '@/features/user/onboarding/components/StepTitle'
@@ -14,18 +15,36 @@ export default function UserOnBoardingAgreementsPage() {
   const [agreeList, setAgreeList] = useState([false, false])
   const pushAllowed = useSignupStore((state) => state.pushAllowed)
   const setPushAllowed = useSignupStore((state) => state.setPushAllowed)
+  const memberType = useSignupStore((state) => state.memberType)
+  const signupInfoReset = useSignupStore((state) => state.reset)
   const signupState = useSignupState()
   const { mutate: saveJuniorUserMutate } = useSaveJuniorUser()
+  const { mutate: saveSeniorUserMutate } = useSaveSeniorUser()
 
   const handleClickNextButton = async () => {
     if (agreeList.some((agree) => agree == false)) {
       alert('필수 동의를 모두 체크했는지 확인해주세요')
       return
     }
-    saveJuniorUserMutate({
-      memberId: 2,
-      body: signupState,
-    })
+
+    if (memberType === 'JUNIOR') {
+      saveJuniorUserMutate({
+        memberId: 2,
+        body: signupState,
+      })
+    } else {
+      saveSeniorUserMutate({
+        memberId: 2,
+        body: {
+          ...signupState,
+          categoryList: signupState.categoryList.map((category) => ({
+            category,
+          })),
+        },
+      })
+    }
+
+    signupInfoReset()
   }
 
   return (
