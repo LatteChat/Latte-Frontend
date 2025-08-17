@@ -22,7 +22,7 @@ export default function DaumCommunity() {
 
         <div className="flex flex-col gap-5">
           <Link
-            href={`${process.env.NEXT_BASE_URL}/oauth2/authorization/kakao`}
+            href={`${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/kakao`}
           >
             <LatteChatCard />
           </Link>

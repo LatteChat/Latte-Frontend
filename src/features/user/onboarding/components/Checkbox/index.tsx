@@ -3,16 +3,29 @@ import { useState } from 'react'
 type CheckboxProps = {
   label: React.ReactNode
   required?: boolean
+  isCheck: boolean
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   children?: React.ReactNode
 }
 
-export default function Checkbox({ label, required, children }: CheckboxProps) {
+export default function Checkbox({
+  label,
+  required,
+  isCheck,
+  onChange,
+  children,
+}: CheckboxProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex w-full flex-col gap-2">
       <label className="flex cursor-pointer select-none items-center">
-        <input type="checkbox" className="mr-2 aspect-square h-4 w-4" />
+        <input
+          checked={isCheck}
+          onChange={onChange}
+          type="checkbox"
+          className="mr-2 aspect-square h-4 w-4"
+        />
         <span className="b4 flex-1">
           <span className="mr-1">{required ? '[필수]' : '[선택]'}</span>
           {label}
