@@ -10,10 +10,12 @@ export default function CallbackContainer() {
   useEffect(() => {
     const token = searchParams.get('token')
     const status = searchParams.get('status')
+    const memberId = searchParams.get('memberId')
 
-    if (!token) return
+    if (!token || !memberId) return
 
     localStorage.setItem('accessToken', token)
+    localStorage.setItem('memberId', memberId)
 
     if (status === 'new') {
       router.replace('/latte-chat/user/onboarding/welcome')

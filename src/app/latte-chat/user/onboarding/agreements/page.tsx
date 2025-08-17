@@ -22,6 +22,10 @@ export default function UserOnBoardingAgreementsPage() {
   const { mutate: saveSeniorUserMutate } = useSaveSeniorUser()
 
   const handleClickNextButton = async () => {
+    if (typeof window === 'undefined') return
+
+    const memberId = localStorage.getItem('memberId')
+    if (!memberId) return
     if (agreeList.some((agree) => agree == false)) {
       alert('필수 동의를 모두 체크했는지 확인해주세요')
       return
@@ -29,12 +33,12 @@ export default function UserOnBoardingAgreementsPage() {
 
     if (memberType === 'JUNIOR') {
       saveJuniorUserMutate({
-        memberId: 2,
+        memberId: Number(memberId),
         body: signupState,
       })
     } else {
       saveSeniorUserMutate({
-        memberId: 2,
+        memberId: Number(memberId),
         body: {
           ...signupState,
           categoryList: signupState.categoryList.map((category) => ({
