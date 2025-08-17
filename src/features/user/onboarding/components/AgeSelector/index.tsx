@@ -1,3 +1,8 @@
+import {
+  AgeType,
+  MemberType,
+  useSignupStore,
+} from '@/features/user/stores/signupStore'
 import Image from 'next/image'
 
 export default function AgeSelector({
@@ -7,10 +12,19 @@ export default function AgeSelector({
   ages,
 }: {
   imgUrl: string
-  role: string
+  role: { label: string; value: MemberType }
   info: React.ReactNode
-  ages: string[]
+  ages: { label: string; value: AgeType }[]
 }) {
+  const selectedAge = useSignupStore((state) => state.age)
+  const setAge = useSignupStore((state) => state.setAge)
+  const setMemberType = useSignupStore((state) => state.setMemberType)
+
+  const handleSelectAge = (age: AgeType) => {
+    setAge(age)
+    setMemberType(role.value)
+  }
+
   return (
     <section className="flex flex-col gap-4">
       <div className="flex items-center gap-5">
@@ -22,7 +36,7 @@ export default function AgeSelector({
             className="aspect-square h-[5.3rem] w-[5.3rem]"
             alt="역할 이미지"
           />
-          <span className="h4">{role}</span>
+          <span className="h4">{role.label}</span>
         </div>
         <p className="b4 whitespace-pre-line text-center">{info}</p>
       </div>
@@ -31,9 +45,10 @@ export default function AgeSelector({
           return (
             <button
               key={index}
-              className="flex flex-1 items-center justify-center rounded-[0.625rem] border border-transparent bg-white py-[0.875rem]"
+              className={`${selectedAge === age.value ? 'border-gray-500 bg-gray-200' : 'border-transparent bg-white'} flex flex-1 items-center justify-center rounded-[0.625rem] border-2 py-[0.875rem]`}
+              onClick={() => handleSelectAge(age.value)}
             >
-              <span className="b1">{age}</span>
+              <span className="b1">{age.label}</span>
             </button>
           )
         })}

@@ -1,30 +1,49 @@
 'use client'
 
+import { useState } from 'react'
 import Checkbox from '@/features/user/onboarding/components/Checkbox'
 import StepButton from '@/features/user/onboarding/components/StepButton'
 import StepTitle from '@/features/user/onboarding/components/StepTitle'
-import { useRouter } from 'next/navigation'
+import { useSignupStore } from '@/features/user/stores/signupStore'
 
 export default function UserOnBoardingAgreementsPage() {
-  const router = useRouter()
+  const [agreeList, setAgreeList] = useState([false, false])
+  const pushAllowed = useSignupStore((state) => state.pushAllowed)
+  const setPushAllowed = useSignupStore((state) => state.setPushAllowed)
 
-  const handleClickNextButton = () => {
-    router.push(`/latte-chat/user/onboarding/start`)
-  }
+  const handleClickNextButton = async () => {}
 
   return (
-    <main className="min-h-main relative flex h-auto flex-1 flex-col space-y-8 bg-gray-100 px-5 py-10 pb-32">
+    <main className="relative flex h-auto min-h-main flex-1 flex-col space-y-8 bg-gray-100 px-5 py-10 pb-32">
       <StepTitle title="필요한 항목에 동의해주세요." activeIndex={4} />
 
-      <fieldset className="flex flex-col gap-4">
-        <div className="flex items-center gap-2">
+      <fieldset className="flex flex-col items-start gap-4">
+        <label className="flex cursor-pointer items-center gap-2">
           <input
             type="checkbox"
             className="aspect-square h-4 w-4 text-base font-normal"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setAgreeList([true, true])
+                setPushAllowed(true)
+              } else {
+                setAgreeList([false, false])
+                setPushAllowed(false)
+              }
+            }}
           />
           <span className="h4">전체 동의</span>
-        </div>
-        <Checkbox label="개인 정보 수집 동의" required>
+        </label>
+        <Checkbox
+          label="개인 정보 수집 동의"
+          required
+          isCheck={agreeList[0]}
+          onChange={(e) => {
+            const nAgreeList = [...agreeList]
+            nAgreeList[0] = !nAgreeList[0]
+            setAgreeList(nAgreeList)
+          }}
+        >
           <p>
             다음과 같은 글을 지속적으로 작성할 경우, 운영진에 의해 탈퇴 처리될
             수 있습니다.
@@ -37,7 +56,16 @@ export default function UserOnBoardingAgreementsPage() {
             <li>도배 및 지나친 홍보글</li>
           </ul>
         </Checkbox>
-        <Checkbox label="커피챗 이용 규정" required>
+        <Checkbox
+          label="커피챗 이용 규정"
+          required
+          isCheck={agreeList[1]}
+          onChange={(e) => {
+            const nAgreeList = [...agreeList]
+            nAgreeList[1] = !nAgreeList[1]
+            setAgreeList(nAgreeList)
+          }}
+        >
           <p>
             다음과 같은 글을 지속적으로 작성할 경우, 운영진에 의해 탈퇴 처리될
             수 있습니다.
@@ -50,7 +78,13 @@ export default function UserOnBoardingAgreementsPage() {
             <li>도배 및 지나친 홍보글</li>
           </ul>
         </Checkbox>
-        <Checkbox label="이벤트성 푸시 알림 동의">
+        <Checkbox
+          label="이벤트성 푸시 알림 동의"
+          isCheck={pushAllowed}
+          onChange={(e) => {
+            setPushAllowed(e.target.checked)
+          }}
+        >
           <p>
             다음과 같은 글을 지속적으로 작성할 경우, 운영진에 의해 탈퇴 처리될
             수 있습니다.
