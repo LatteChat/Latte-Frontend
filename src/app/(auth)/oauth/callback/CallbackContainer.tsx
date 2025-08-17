@@ -12,12 +12,12 @@ export default function CallbackContainer() {
     const status = searchParams.get('status')
     const memberId = searchParams.get('memberId')
 
-    if (!token || !memberId) return
+    if (!token) return
 
     localStorage.setItem('accessToken', token)
-    localStorage.setItem('memberId', memberId)
 
     if (status === 'new') {
+      localStorage.setItem('memberId', memberId ?? '')
       router.replace('/latte-chat/user/onboarding/welcome')
     } else {
       router.replace('/latte-chat')
