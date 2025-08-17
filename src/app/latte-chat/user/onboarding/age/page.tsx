@@ -6,13 +6,13 @@ import StepTitle from '@/features/user/onboarding/components/StepTitle'
 import { AgeType, useSignupStore } from '@/features/user/stores/signupStore'
 import { useRouter } from 'next/navigation'
 
-export const MENTEE_AGE_TYPE: { label: string; value: AgeType }[] = [
+const MENTEE_AGE_TYPE: { label: string; value: AgeType }[] = [
   { label: '10대 ↓', value: 'UNDER_10' },
   { label: '20대', value: 'TWENTIES' },
   { label: '30대', value: 'THIRTIES' },
 ]
 
-export const MENTOR_AGE_TYPE: { label: string; value: AgeType }[] = [
+const MENTOR_AGE_TYPE: { label: string; value: AgeType }[] = [
   { label: '40대', value: 'FORTIES' },
   { label: '50대', value: 'FIFTIES' },
   { label: '60대 ↑', value: 'SIXTIES_AND_ABOVE' },
