@@ -3,7 +3,8 @@
 import AgeSelector from '@/features/user/onboarding/components/AgeSelector'
 import StepButton from '@/features/user/onboarding/components/StepButton'
 import StepTitle from '@/features/user/onboarding/components/StepTitle'
-import { AgeType, useSignupStore } from '@/features/user/stores/signupStore'
+import { useSignupStore } from '@/features/user/stores/signupStore'
+import { AgeType } from '@/features/user/types/User'
 import { useRouter } from 'next/navigation'
 
 const MENTEE_AGE_TYPE: { label: string; value: AgeType }[] = [
