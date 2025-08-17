@@ -1,16 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-
-export type AgeType =
-  | 'UNDER_10'
-  | 'TEENAGER'
-  | 'TWENTIES'
-  | 'THIRTIES'
-  | 'FORTIES'
-  | 'FIFTIES'
-  | 'SIXTIES_AND_ABOVE'
-
-export type MemberType = 'SENIOR' | 'JUNIOR'
+import { AgeType, MemberType } from '../types/User'
 
 type SignupState = {
   name: string
