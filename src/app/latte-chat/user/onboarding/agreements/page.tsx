@@ -1,17 +1,32 @@
 'use client'
 
 import { useState } from 'react'
+import { useSaveJuniorUser } from '@/features/user/hooks/useSaveJuniorUser'
 import Checkbox from '@/features/user/onboarding/components/Checkbox'
 import StepButton from '@/features/user/onboarding/components/StepButton'
 import StepTitle from '@/features/user/onboarding/components/StepTitle'
-import { useSignupStore } from '@/features/user/stores/signupStore'
+import {
+  useSignupState,
+  useSignupStore,
+} from '@/features/user/stores/signupStore'
 
 export default function UserOnBoardingAgreementsPage() {
   const [agreeList, setAgreeList] = useState([false, false])
   const pushAllowed = useSignupStore((state) => state.pushAllowed)
   const setPushAllowed = useSignupStore((state) => state.setPushAllowed)
+  const signupState = useSignupState()
+  const { mutate: saveJuniorUserMutate } = useSaveJuniorUser()
 
-  const handleClickNextButton = async () => {}
+  const handleClickNextButton = async () => {
+    if (agreeList.some((agree) => agree == false)) {
+      alert('필수 동의를 모두 체크했는지 확인해주세요')
+      return
+    }
+    saveJuniorUserMutate({
+      memberId: 2,
+      body: signupState,
+    })
+  }
 
   return (
     <main className="relative flex h-auto min-h-main flex-1 flex-col space-y-8 bg-gray-100 px-5 py-10 pb-32">
