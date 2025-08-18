@@ -1,8 +1,5 @@
-import {
-  AgeType,
-  MemberType,
-  useSignupStore,
-} from '@/features/user/stores/signupStore'
+import { useSignupStore } from '@/features/user/stores/signupStore'
+import { AgeType, MemberType } from '@/features/user/types/User'
 import Image from 'next/image'
 
 export default function AgeSelector({
