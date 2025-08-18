@@ -45,7 +45,7 @@ export default function CategorySelectorModal({
           <CategoryTag
             key={category}
             label={category}
-            selected={false}
+            isSelected={false}
             onClick={() => onSelectCategory(category)}
           />
         ))}
