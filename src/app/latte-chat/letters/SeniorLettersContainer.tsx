@@ -79,7 +79,7 @@ export default function SeniorLettersContainer() {
         </section>
 
         <LetterActionSection
-          href="/latte-chat/letters/1"
+          href="/latte-chat/letters/1/answer/new"
           linkLabel="답변 쓰기"
           description="샷을 눌러 사연을 확인해보세요."
         />
