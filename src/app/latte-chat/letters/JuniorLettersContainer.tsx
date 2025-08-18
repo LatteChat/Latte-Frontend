@@ -79,7 +79,7 @@ export default function JuniorLettersContainer() {
         </section>
 
         <LetterActionSection
-          href="/latte-chat/letters/1/answer/new"
+          href="/latte-chat/letters/new"
           linkLabel="사연 쓰기"
           description="커피콩을 눌러 사연을 작성해보세요."
         />
