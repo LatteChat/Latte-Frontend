@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import '@/shared/styles/globals.css'
 import '@/shared/styles/fonts.css'
-import BottomNavigationBar from '@/shared/components/BottomNavigationBar'
+import ReactQueryProvider from '@/shared/providers/ReactQueryProvider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,12 +16,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <div className="flex justify-center">
-          <main className="flex h-svh w-full max-w-md flex-col">
-            <section className="flex-1 overflow-auto">{children}</section>
-            <BottomNavigationBar />
-          </main>
-        </div>
+        <ReactQueryProvider>
+          <div className="flex justify-center">{children}</div>
+        </ReactQueryProvider>
       </body>
     </html>
   )
