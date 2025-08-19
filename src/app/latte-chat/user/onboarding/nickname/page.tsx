@@ -19,21 +19,21 @@ export default function UserOnBoardingNicknamePage() {
   }
 
   return (
-    <div className="relative h-auto min-h-main space-y-8 bg-gray-100 px-5 py-10 pb-32">
+    <div className="relative h-auto min-h-main space-y-8 bg-white px-5 py-10 pb-32">
       <StepTitle title={'닉네임을 입력해주세요.'} activeIndex={0} />
 
       <div className="flex w-full flex-col gap-8">
-        <div className="flex w-full items-center justify-between gap-3 overflow-hidden rounded-xl bg-gray-200 pr-5">
+        <div className="bg-gray-1 flex w-full items-center justify-between gap-3 overflow-hidden rounded-xl pr-5">
           <input
             type="text"
-            className="b1 flex-1 bg-transparent px-5 py-4 outline-none"
+            className="b1 placeholder:text-gray-5 flex-1 bg-transparent px-5 py-4 outline-none"
             placeholder="닉네임을 입력해주세요"
             value={nickname}
             onChange={(e) => {
               setNickname(e.target.value)
             }}
           />
-          <span className="b1 w-8 text-gray-400">{nickname.length}/10</span>
+          <span className="b1 text-gray-5 w-8">{nickname.length}/10</span>
         </div>
       </div>
 

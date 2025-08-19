@@ -15,7 +15,7 @@ export default function StepTitle({
           return (
             <span
               key={index}
-              className={`aspect-square h-2 w-2 shrink-0 rounded-full ${isActive ? 'bg-black' : 'bg-gray-300'}`}
+              className={`aspect-square h-2 w-2 shrink-0 rounded-full ${isActive ? 'bg-secondary-brown-4' : 'bg-gray-3'}`}
             ></span>
           )
         })}

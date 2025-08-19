@@ -12,17 +12,18 @@ export default function UserOnBoardingWelcomePage() {
   }
 
   return (
-    <div className="relative h-full bg-gray-100 py-10">
+    <div className="relative h-full bg-white py-10">
       <div className="relative left-1/2 top-1/3 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center">
         <Image
-          src="/images/test-image.png"
-          width={149}
-          height={149}
-          alt="환영 이미지"
-          className="aspect-square rounded-full"
+          src="/images/latte-mugcup-image.svg"
+          width={227}
+          height={227}
+          alt="라떼챗 이미지"
+          className="ml-5 aspect-square h-56 rounded-full"
         />
         <h1 className="h2 absolute top-[calc(50%+6.5rem)] text-center text-black">
-          라떼챗에 오신 것을 환영합니다!
+          <span className="text-secondary-brown-4">라떼챗</span>에 오신 것을
+          환영합니다!
         </h1>
       </div>
 

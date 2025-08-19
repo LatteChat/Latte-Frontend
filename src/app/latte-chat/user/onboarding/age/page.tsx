@@ -29,52 +29,28 @@ export default function UserOnBoardingAgePage() {
   }
 
   return (
-    <div className="relative min-h-main space-y-8 bg-gray-100 px-5 py-10 pb-32">
+    <div className="relative min-h-main space-y-8 bg-white px-5 py-10 pb-32">
       <StepTitle title={'연령대를 선택해주세요.'} activeIndex={1} />
 
       <div className="flex flex-col gap-7">
-        <div className="px-3">
-          <AgeSelector
-            imgUrl="/images/shot-image.png"
-            ages={MENTEE_AGE_TYPE}
-            info={
-              <>
-                <span className="b3">멘티 역할</span>을 합니다.
-                <br />
-                조언을 얻을 수 있으며,
-                <br />
-                <span className="b3">10-30대의</span>
-                <br />
-                사용자에게 권장합니다.
-              </>
-            }
-            role={{
-              label: '멘티',
-              value: 'JUNIOR',
-            }}
-          />
-        </div>
-        <div className="px-3">
-          <AgeSelector
-            imgUrl="/images/milk-image.png"
-            ages={MENTOR_AGE_TYPE}
-            info={
-              <>
-                <span className="b3">멘토 역할</span>을 합니다.
-                <br />
-                조언을 얻을 수 있으며,
-                <br />
-                <span className="b3">40-60대 이상의</span>
-                <br />
-                사용자에게 권장합니다.
-              </>
-            }
-            role={{
-              label: '멘토',
-              value: 'SENIOR',
-            }}
-          />
-        </div>
+        <AgeSelector
+          imgUrl="/images/shot-image.png"
+          ages={MENTEE_AGE_TYPE}
+          info="인생에 조언이 필요하다면, 멘티로 시작해보세요. 10-30대에게 권장해요!"
+          role={{
+            label: '멘티',
+            value: 'JUNIOR',
+          }}
+        />
+        <AgeSelector
+          imgUrl="/images/milk-image.png"
+          ages={MENTOR_AGE_TYPE}
+          info="인생에 경험을 나누고 싶다면, 멘토로 시작해보세요.40-60대에게 권장해요!"
+          role={{
+            label: '멘토',
+            value: 'SENIOR',
+          }}
+        />
       </div>
 
       <div className="absolute inset-x-0 bottom-0 w-full px-5 pb-11">

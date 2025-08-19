@@ -19,14 +19,14 @@ export default function Checkbox({
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <label className="flex cursor-pointer select-none items-center">
+      <label className="flex w-full cursor-pointer select-none items-center">
         <input
           checked={isCheck}
           onChange={onChange}
           type="checkbox"
-          className="mr-2 aspect-square h-4 w-4"
+          className="accent-secondary-brown-4 mr-2 aspect-square h-5 w-5"
         />
-        <span className="b4 flex-1">
+        <span className="b4 flex-1 text-black">
           <span className="mr-1">{required ? '[필수]' : '[선택]'}</span>
           {label}
         </span>
@@ -55,7 +55,7 @@ export default function Checkbox({
       </label>
 
       {isExpanded && children && (
-        <div className="b4 pl-6 text-gray-600">{children}</div>
+        <div className="b4 text-gray-5 pl-7">{children}</div>
       )}
     </div>
   )
