@@ -1,9 +1,13 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import AutoResizeTextarea from '@/shared/components/AutoResizeTextarea'
+import { useLetterCreateStore } from '@/features/letter/stores/letterCreateStore'
 
 export default function Editor() {
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
+  const title = useLetterCreateStore((state) => state.title)
+  const content = useLetterCreateStore((state) => state.content)
+  const setTitle = useLetterCreateStore((state) => state.setTitle)
+  const setContent = useLetterCreateStore((state) => state.setContent)
+
   const contentRef = useRef<HTMLTextAreaElement>(null)
   const titleRef = useRef<HTMLTextAreaElement>(null)
 
