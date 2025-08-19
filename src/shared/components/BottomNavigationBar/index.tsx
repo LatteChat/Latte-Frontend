@@ -49,7 +49,7 @@ export default function BottomNavigationBar() {
   }
 
   return (
-    <nav className="h-20 w-full">
+    <nav className="z-10 h-20 w-full shadow-[0_-1px_0_0_#F3F3F3]">
       <ul className="flex h-full w-full">
         {NAVIGATION_OPTIONS.map(({ iconUrl, value, name, href }) => {
           const content = (
