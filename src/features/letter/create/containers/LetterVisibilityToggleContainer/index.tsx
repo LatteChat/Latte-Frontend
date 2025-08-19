@@ -1,12 +1,12 @@
+import { useLetterCreateStore } from '@/features/letter/stores/letterCreateStore'
 import Toggle from '@/shared/components/Toggle'
-import { useState } from 'react'
 
 export default function LetterVisibilityToggleContainer() {
-  // 사연 공개 여부 상태값 관리
-  const [isChecked, setIsChecked] = useState(false)
+  const isOpen = useLetterCreateStore((state) => state.isOpen)
+  const setIsOpen = useLetterCreateStore((state) => state.setIsOpen)
 
   const handleToggle = () => {
-    setIsChecked(!isChecked)
+    setIsOpen(!isOpen)
   }
 
   return (
@@ -15,7 +15,7 @@ export default function LetterVisibilityToggleContainer() {
       onLabel="게시글 공개"
       width={'6.5rem'}
       onClick={handleToggle}
-      isChecked={isChecked}
+      isChecked={isOpen}
     />
   )
 }
