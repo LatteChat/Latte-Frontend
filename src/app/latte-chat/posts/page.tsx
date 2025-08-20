@@ -25,7 +25,7 @@ export default function LatteChatCommunityPage() {
         <NavTabBar />
       </div>
 
-      <main className="min-h-main flex h-auto flex-col bg-gray-100 py-5">
+      <main className="flex h-auto min-h-main flex-col bg-white py-5">
         <PostListContainer />
       </main>
     </div>

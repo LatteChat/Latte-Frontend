@@ -59,12 +59,12 @@ export default function PostListContainer() {
     <section className="flex flex-col">
       <header className="flex justify-between px-5">
         <h1 className="h3">게시물</h1>
-        <Link href={'/latte-chat/posts'} className="flex items-center gap-1">
-          <span className="b6">더보기</span>
+        <Link href={'/latte-chat/posts'} className="flex items-center gap-2">
+          <span className="b6">필터링</span>
           <img
-            src="/icons/right-arrow-icon.svg"
-            alt="더보기 아이콘"
-            className="aspect-square h-6 w-6"
+            src="/icons/filter-icon.svg"
+            alt="필터링 아이콘"
+            className="aspect-square h-4 w-4"
           />
         </Link>
       </header>
