@@ -13,7 +13,7 @@ const POPULAR_POSTS = [
     rank: 1,
     title: 'N기업 관련 취업 질문',
     content:
-      '최근 모기업 면접을 보고 왔는데, 아주아주 어려웠습니다. 도대체 취업은 어떻게 하는 것인가요!!!',
+      '최근 모기업 면접을 보고 왔는데, 아주아주 어려웠습니다. 도대체 취업은 어떻게 하는 것인가요!!!최근 모기업 면접을 보고 왔는데, 아주아주 어려웠습니다. 도대체 취업은 어떻게 하는 것인가요!!!',
     isLike: true,
     writer: '김유경',
     imageUrl: '/images/test-image.png',
@@ -45,8 +45,8 @@ export default function PopularPostListContainer() {
     <section className="w-full space-y-4">
       <header className="flex justify-between px-5">
         <h1 className="h3">인기 게시글</h1>
-        <Link href={`/`} className="flex cursor-pointer items-center gap-2">
-          <span className="text-xs">더보기</span>
+        <Link href={`/`} className="flex cursor-pointer items-center gap-1">
+          <span className="b6">더보기</span>
           <img
             src="/icons/right-arrow-icon.svg"
             alt="더보기 아이콘"

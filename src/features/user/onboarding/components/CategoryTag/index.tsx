@@ -33,7 +33,7 @@ export default function CategoryTag({
           'flex items-center rounded-10 border-2 px-4 py-2 shadow-md transition-colors',
           isSelected
             ? 'border-secondary-brown-2 bg-secondary-brown-1 text-black'
-            : 'shadow-select-button text-gray-5 border-transparent bg-white'
+            : 'shadow-border text-gray-5 border-transparent bg-white'
         )}
       >
         <span className="b4 select-none">{label}</span>

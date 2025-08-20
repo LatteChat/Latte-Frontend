@@ -1,30 +1,24 @@
 export default function BaristaRankContainer() {
   return (
-    <section className="flex flex-col items-start justify-center gap-4 px-5">
-      <header className="flex items-center gap-2">
-        <h1 className="h3">이달의 바리스타</h1>
-        <span className="text-[0.625rem] text-gray-500">* 채택 수 기준</span>
-      </header>
+    <section className="flex items-center gap-4 px-5">
+      <div className="bg-secondary-brown-4 flex h-[7.4rem] w-[8.7rem] shrink-0 flex-col items-start gap-1 rounded-10 p-4">
+        <h1 className="b2 text-secondary-brown-1">이달의 바리스타</h1>
+        <span className="b9 text-gray-2">* 채택 수 기준</span>
+      </div>
 
-      <main className="flex w-full items-end justify-center gap-2 pt-9">
-        {/* 2등 */}
-        <div className="relative flex h-[3.8rem] flex-1 flex-col items-center rounded-md bg-gray-300">
-          <div className="absolute -top-9 h-12 w-12 rounded-full bg-white"></div>
-          <span className="mb-1 mt-auto text-2xl text-gray-500">2</span>
-        </div>
-
-        {/* 1등 */}
-        <div className="relative flex h-[5.3rem] flex-1 flex-col items-center rounded-md bg-gray-300">
-          <div className="absolute -top-9 h-12 w-12 rounded-full bg-white"></div>
-          <span className="mb-1 mt-auto text-2xl text-gray-500">1</span>
-        </div>
-
-        {/* 3등 */}
-        <div className="relative flex h-[3.5rem] flex-1 flex-col items-center rounded-md bg-gray-300">
-          <div className="absolute -top-9 h-12 w-12 rounded-full bg-white"></div>
-          <span className="mb-1 mt-auto text-2xl text-gray-500">3</span>
-        </div>
-      </main>
+      <div className="flex h-full flex-1 items-end justify-center gap-2">
+        <ul className="flex w-full flex-col gap-2">
+          {new Array(3).fill(0).map((x, index) => {
+            return (
+              <li className="shadow-border flex items-center gap-2 rounded-10 bg-white px-5 py-1">
+                <span className="h3 w-5 text-black">0{index + 1}</span>
+                <span className="bg-gray-5 inline-block aspect-square h-7 w-7"></span>
+                <span className="b7 text-gray-5">고양이가제일좋아</span>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
     </section>
   )
 }

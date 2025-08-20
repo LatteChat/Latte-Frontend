@@ -44,7 +44,7 @@ export default function AgeSelector({
           return (
             <button
               key={index}
-              className={`${selectedAge === age.value ? 'border-secondary-brown-2 bg-secondary-brown-1 text-black' : 'text-gray-5 shadow-select-button border-transparent bg-white'} flex flex-1 items-center justify-center rounded-[0.625rem] border-2 py-[0.875rem]`}
+              className={`${selectedAge === age.value ? 'border-secondary-brown-2 bg-secondary-brown-1 text-black' : 'text-gray-5 shadow-border border-transparent bg-white'} flex flex-1 items-center justify-center rounded-[0.625rem] border-2 py-[0.875rem]`}
               onClick={() => handleSelectAge(age.value)}
             >
               <span className="b1">{age.label}</span>

@@ -13,12 +13,13 @@
 }
 
 .swiper-pagination-bullet {
-  background-color: gray;
+  background-color: #d9d9d9;
   width: 0.3rem;
   height: 0.3rem;
   aspect-ratio: 1;
+  opacity: 1;
 }
 
 .swiper-pagination-bullet-active {
-  background-color: black !important;
+  background-color: #6e4f36 !important;
 }

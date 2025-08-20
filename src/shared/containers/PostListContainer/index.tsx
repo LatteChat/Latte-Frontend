@@ -1,5 +1,6 @@
 import PostCard from '@/shared/components/PostCard'
 import PostFilterContainer from '@/shared/containers/PostFilterContainer'
+import Link from 'next/link'
 
 const POSTS = [
   {
@@ -55,22 +56,22 @@ const POSTS = [
 
 export default function PostListContainer() {
   return (
-    <section className="flex flex-col gap-[0.875rem]">
+    <section className="flex flex-col">
       <header className="flex justify-between px-5">
         <h1 className="h3">게시물</h1>
-        <div className="flex cursor-pointer items-center gap-2">
+        <Link href={'/latte-chat/posts'} className="flex items-center gap-1">
           <span className="b6">더보기</span>
           <img
             src="/icons/right-arrow-icon.svg"
             alt="더보기 아이콘"
             className="aspect-square h-6 w-6"
           />
-        </div>
+        </Link>
       </header>
 
       <PostFilterContainer />
 
-      <main className="flex flex-col gap-4 px-5">
+      <main className="flex flex-col gap-3.5 px-5">
         {POSTS.map((post, index) => {
           return <PostCard key={index} post={post} showMeta />
         })}

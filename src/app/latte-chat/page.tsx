@@ -27,8 +27,10 @@ export default function LatteChatHomePage() {
         <NavTabBar />
       </div>
 
-      <main className="min-h-main flex h-auto flex-col bg-gray-100 py-5">
-        <div className="mb-4">
+      <main className="relative flex h-auto min-h-main flex-col py-5">
+        <div className="pointer-events-none absolute left-0 top-0 -z-10 h-[96rem] w-full bg-[linear-gradient(180deg,#E5CBA5_0%,#FFF_45.67%)]" />
+
+        <div className="mb-7">
           <PopularPostListContainer />
         </div>
         <section className="mb-6 h-16 w-full px-5">
