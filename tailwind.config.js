@@ -53,7 +53,7 @@ module.exports = {
         10: '0.625rem',
       },
       boxShadow: {
-        'select-button': '0 0 4px 0 rgba(0, 0, 0, 0.20)',
+        border: '0 0 4px 0 rgba(0, 0, 0, 0.20)',
       },
     },
   },
