@@ -30,7 +30,7 @@ export default function NavTabBar() {
   const path = usePathname()
 
   return (
-    <nav className="h-8 w-full px-5">
+    <nav className="shadow-bottom-line h-8 w-full px-5">
       <ul className="flex h-full w-full justify-center gap-8">
         {NAVIGATIONS.map((navigation) => {
           let hasPath = false
