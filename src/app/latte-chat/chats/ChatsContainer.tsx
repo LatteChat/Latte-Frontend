@@ -90,15 +90,15 @@ export default function ChatsContainer() {
         <NavTabBar />
       </div>
 
-      <main className="flex h-auto min-h-[calc(100svh-11rem)] flex-col bg-gray-100 py-5">
+      <main className="flex h-auto min-h-[calc(100svh-11rem)] flex-col bg-white py-5">
         <div className="px-5">
           <h1 className="h3">채팅</h1>
-          <div className="rounded-10 mb-4 mt-5 flex items-center justify-center bg-white py-5">
+          <div className="bg-gray-1 mb-4 mt-5 flex items-center justify-center rounded-10 py-5">
             광고
           </div>
         </div>
 
-        {CHATS.length == 0 ? (
+        {CHATS.length != 0 ? (
           <div>
             {CHATS.map((chat) => {
               return <ChatItem chat={chat} key={chat.id} />
