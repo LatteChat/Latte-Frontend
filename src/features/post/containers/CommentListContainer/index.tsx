@@ -1,5 +1,7 @@
-import Image from 'next/image'
+'use client'
+
 import Comment from '../../components/Comment'
+import CommentInput from '../CommentInput'
 
 const COMMENTS = [
   {
@@ -67,32 +69,26 @@ const COMMENTS = [
 
 export default function CommentListContainer() {
   return (
-    <section className="flex flex-col items-start p-5">
-      <h3 className="h4 mb-4">
-        댓글 <span className="text-gray-500">{COMMENTS.length}</span>
-      </h3>
+    <section className="flex flex-col items-start pt-5">
+      <div className="px-5 pb-5">
+        <h3 className="h4 mb-4">
+          댓글 <span className="text-gray-500">{COMMENTS.length}</span>
+        </h3>
 
-      <div className="mb-4 flex items-center justify-start space-x-2">
-        <button className="b6 text-black">등록순</button>
-        <hr className="h-3 w-[1px] bg-gray-500" />
-        <button className="b6 text-gray-500">인기순</button>
+        <div className="mb-4 flex items-center justify-start space-x-2">
+          <button className="b6 text-black">등록순</button>
+          <hr className="h-3 w-[1px] bg-gray-500" />
+          <button className="b6 text-gray-6">인기순</button>
+        </div>
+
+        <div className="flex flex-col gap-5">
+          {COMMENTS.map((comment) => (
+            <Comment key={comment.id} comment={comment} type="comment" />
+          ))}
+        </div>
       </div>
 
-      <div className="flex flex-col gap-5">
-        {COMMENTS.map((comment) => (
-          <Comment key={comment.id} comment={comment} type="comment" />
-        ))}
-      </div>
-
-      <div className="fixed bottom-0">
-        <Image
-          src="/images/test-image.png"
-          alt="작성자 프로필 이미지"
-          className="absolute bottom-0 left-0 aspect-square w-[90%] rounded-full object-cover"
-          width={38}
-          height={38}
-        />
-      </div>
+      <CommentInput />
     </section>
   )
 }
