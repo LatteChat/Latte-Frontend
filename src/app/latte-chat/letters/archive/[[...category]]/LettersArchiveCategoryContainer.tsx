@@ -70,14 +70,14 @@ export default function LettersArchiveCategoryContainer() {
         <div className="flex h-12 items-center justify-center bg-white">
           <h1>글 보관함</h1>
         </div>
-        <nav aria-label="카테고리 탐색" className="bg-gray-200 py-[0.875rem]">
+        <nav aria-label="카테고리 탐색" className="bg-gray-1 py-[0.875rem]">
           <ul className="scrollbar-hide flex gap-2 overflow-auto px-5">
             {new Array(5).fill(0).map((_, index) => {
               return (
                 <li key={index}>
                   <Link
                     href="/latte-chat/letters/archive/travel"
-                    className="b4 flex h-full w-full flex-1 whitespace-nowrap rounded-10 border-2 border-gray-400 bg-white px-4 py-2"
+                    className="b4 text-secondary-brown-5 flex h-full w-full flex-1 whitespace-nowrap rounded-10 border-2 border-transparent bg-white px-4 py-2"
                   >
                     취업 및 회사
                   </Link>
@@ -88,7 +88,7 @@ export default function LettersArchiveCategoryContainer() {
         </nav>
       </header>
 
-      <div className="flex min-h-[calc(100svh-8rem)] flex-col gap-4 bg-gray-100 px-5 py-3">
+      <div className="flex min-h-[calc(100svh-8rem)] flex-col gap-4 bg-white px-5 py-3">
         <div className="flex justify-end">
           <LetterStatusFilter />
         </div>

@@ -38,7 +38,7 @@ export default function PostCard({
       className={`${showShadow ? 'shadow' : ''} shadow-border relative flex w-full cursor-pointer flex-col items-center gap-4 rounded-10 bg-white p-5`}
     >
       {status && showStatus && (
-        <span className="b6 absolute -top-4 left-4 rounded-full bg-gray-300 px-2 py-1">
+        <span className="b6 bg-gray-3 absolute -top-4 left-4 rounded-full px-2 py-1 text-black">
           {LETTER_STATUS_LABEL[status]}
         </span>
       )}

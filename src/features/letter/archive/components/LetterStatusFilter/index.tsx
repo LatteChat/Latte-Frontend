@@ -9,11 +9,11 @@ export default function LetterStatusFilter() {
 
   return (
     <div className="relative">
-      <div className="flex items-center gap-2 self-end">
-        <span className="b6">필터링</span>
+      <div className="flex items-center gap-1 self-end">
         <button onClick={() => setIsShow(!isShow)}>
           <img src="/icons/filter-icon.svg" alt="필터링 아이콘" />
         </button>
+        <span className="b6">전체 보기</span>
       </div>
 
       {isShow && (
