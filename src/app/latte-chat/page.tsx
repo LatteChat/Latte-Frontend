@@ -5,6 +5,7 @@ import PopularPostListContainer from '@/features/home/containers/PopularPostList
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
 import PostListContainer from '@/shared/containers/PostListContainer'
+import Image from 'next/image'
 
 const TOPBAR_ICONS = [
   {
@@ -22,7 +23,7 @@ const TOPBAR_ICONS = [
 export default function LatteChatHomePage() {
   return (
     <div>
-      <div className="flex flex-col gap-4">
+      <div className="sticky top-0 z-10 flex flex-col gap-4 bg-white">
         <Topbar icons={TOPBAR_ICONS} />
         <NavTabBar />
       </div>
@@ -34,9 +35,13 @@ export default function LatteChatHomePage() {
           <PopularPostListContainer />
         </div>
         <section className="mb-6 h-16 w-full px-5">
-          <div className="flex h-full w-full items-center justify-center rounded-[0.625rem] bg-white">
-            광고
-          </div>
+          <Image
+            src="/images/lattechat-advertisement.png"
+            alt="라떼챗 광고 이미지"
+            width={1340}
+            height={256}
+            className="w-full rounded-10"
+          />
         </section>
         <div className="mb-10">
           <BaristaRankContainer />

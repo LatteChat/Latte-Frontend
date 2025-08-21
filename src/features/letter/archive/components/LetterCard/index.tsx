@@ -17,7 +17,7 @@ export default function LetterCard({ title }: { title: string }) {
   }
 
   return (
-    <section className="rounded-10 bg-white p-5">
+    <section className="shadow-border rounded-10 bg-white p-5">
       <header className="mb-10 flex items-center justify-between">
         <button onClick={handleBack}>
           <img src="/icons/close-icon.svg" />
@@ -40,7 +40,7 @@ export default function LetterCard({ title }: { title: string }) {
           <Image
             src="/images/test-image.png"
             alt="사연 이미지"
-            className="aspect-square w-full rounded-10 object-cover"
+            className="shadow-border aspect-square w-full rounded-10 object-cover"
             width={255}
             height={255}
           />

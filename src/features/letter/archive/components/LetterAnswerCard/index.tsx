@@ -1,16 +1,12 @@
-import Image from 'next/image'
+import UserProfile from '@/shared/components/UserProfile'
 
 export default function LetterAnswerCard() {
   return (
     <section className="bg-secondary-brown-1 border-secondary-brown-2 mt-5 flex flex-col gap-4 rounded-10 border p-5">
       <div className="flex flex-col items-center">
-        <Image
-          src="/images/test-image.png"
-          alt="답변자 프로필 이미지"
-          width={38}
-          height={38}
-          className="mb-2 aspect-square h-10 w-10 rounded-full"
-        />
+        <div className="mb-2.5 ml-1 flex aspect-square h-10 w-10">
+          <UserProfile profile="/images/coffee-bean-image.png" />
+        </div>
         <span className="b7 mb-1">고양미</span>
         <div className="flex flex-wrap justify-center gap-1">
           {new Array(3).fill(0).map((x, index) => {
