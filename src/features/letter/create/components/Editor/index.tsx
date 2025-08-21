@@ -34,7 +34,7 @@ export default function Editor() {
         value={title}
         onChange={setTitle}
         placeholder="제목"
-        className="b2 w-full border-none px-5 pb-4 placeholder:text-gray-400 focus:outline-none"
+        className="b2 w-full overflow-hidden border-none px-5 pb-4 placeholder:text-gray-400 focus:outline-none"
         onKeyDown={handleTitleKeyDown}
         ref={titleRef}
       />
@@ -42,7 +42,7 @@ export default function Editor() {
         value={content}
         onChange={setContent}
         placeholder="내용"
-        className="b12 mb-20 border-none px-5 placeholder:text-gray-400 focus:outline-none"
+        className="b12 mb-20 overflow-hidden border-none px-5 placeholder:text-gray-400 focus:outline-none"
         onKeyDown={handleContentKeyDown}
         ref={contentRef}
       />

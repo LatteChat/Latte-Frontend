@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function UserProfile({ profile }: { profile: string }) {
   return (
-    <>
+    <div className="relative aspect-square shrink-0 bg-lime-500">
       <Image
         src={profile}
         alt="작성자 프로필 이미지"
@@ -11,6 +11,6 @@ export default function UserProfile({ profile }: { profile: string }) {
         height={38}
       />
       <span className="absolute right-0 top-0 inline-block aspect-square w-[35%] rounded-full bg-red-400"></span>
-    </>
+    </div>
   )
 }

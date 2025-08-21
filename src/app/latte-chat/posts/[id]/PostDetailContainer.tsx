@@ -49,7 +49,7 @@ export default function PostDetailContainer() {
         <Topbar icons={TOPBAR_ICONS} />
       </div>
 
-      <main className="min-h-main flex h-auto flex-col bg-gray-100 pb-5">
+      <main className="flex h-auto min-h-main flex-col bg-white">
         <section className="px-5 pb-5 pt-10">
           <PostHeader
             user={POST.user}
@@ -69,7 +69,7 @@ export default function PostDetailContainer() {
             content={POST.content}
           />
           <div className="mt-4 flex justify-center">
-            <button className="flex gap-1 rounded-[0.625rem] bg-gray-500 px-4 py-2 text-white">
+            <button className="bg-secondary-brown-4 text-secondary-brown-1 flex items-center gap-1 rounded-10 px-4 py-2">
               <img src="/icons/empty-heart-icon.svg" />
               <span className="b6">공감해요</span>
             </button>

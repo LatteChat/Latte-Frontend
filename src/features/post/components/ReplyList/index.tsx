@@ -33,7 +33,7 @@ export default function ReplyList({
             className="aspect-square h-4 w-4"
             alt="답글 접기 아이콘"
           />
-          <span className="b9 text-gray-500">접기</span>
+          <span className="b9 text-gray-4">접기</span>
         </button>
       )}
     </section>
