@@ -6,7 +6,7 @@ export default function LetterDetailContainer() {
     <div>
       <TitleHeader title="글 보관함" />
 
-      <div className="min-h-[calc(100svh-8rem)] bg-gray-100 px-5 pb-24 pt-5">
+      <div className="bg-secondary-brown-1 min-h-[calc(100svh-8rem)] px-5 pb-24 pt-5">
         <LetterCard title="사연글" />
       </div>
     </div>

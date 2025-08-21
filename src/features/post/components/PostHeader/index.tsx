@@ -18,7 +18,7 @@ export default function PostHeader({
 }: PostHeaderProps) {
   return (
     <header className="flex items-end gap-1">
-      <div className="relative aspect-square h-11 w-11">
+      <div className="relative flex aspect-square h-11 w-11">
         <UserProfile profile="/images/test-image.png" />
       </div>
 

@@ -34,16 +34,14 @@ export default function ChatItem({ chat }: ChatItemProps) {
       <div className="flex w-full items-center gap-5">
         <div className="flex w-full flex-1 flex-col gap-1">
           <div className="flex flex-wrap items-center gap-1">
-            <span className="b5 text-gray-700">{chat.user.nickname}</span>
-            <span className="b9 text-gray-500">{chat.lastChat.date}</span>
+            <span className="b5 text-gray-6">{chat.user.nickname}</span>
+            <span className="b9 text-gray-4">{chat.lastChat.date}</span>
           </div>
-          <p className="b6 line-clamp-2 text-gray-500">
-            {chat.lastChat.content}
-          </p>
+          <p className="b6 text-gray-6 line-clamp-2">{chat.lastChat.content}</p>
         </div>
 
         <div>
-          <span className="b7 flex aspect-square h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white">
+          <span className="b7 bg-secondary-chat flex aspect-square h-5 w-6 items-center justify-center rounded-full text-white">
             {chat.unreadMessageCount}
           </span>
         </div>

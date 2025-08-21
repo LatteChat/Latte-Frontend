@@ -48,7 +48,7 @@ export default function Comment({
     <div className={`${type === 'reply' ? 'ml-10' : 'ml-0'}`}>
       <div className="flex gap-2">
         <div
-          className={`relative aspect-square ${type === 'comment' ? 'h-10 w-10' : 'h-7 w-7'}`}
+          className={`relative flex aspect-square ${type === 'comment' ? 'h-9 w-9' : 'h-7 w-7'}`}
         >
           <UserProfile profile={comment.user.profile} />
         </div>
@@ -57,12 +57,14 @@ export default function Comment({
           {/* 댓글 본문 */}
           <div>
             <div className="flex items-end gap-1">
-              <span className="b6">{comment.user.nickname}</span>
-              <span className="b9">{comment.date}</span>
-              {comment.isEdit && <span className="b9">(수정 됨)</span>}
+              <span className="b6 text-gray-6">{comment.user.nickname}</span>
+              <span className="b9 text-gray-4">{comment.date}</span>
+              {comment.isEdit && (
+                <span className="b9 text-gray-4">(수정 됨)</span>
+              )}
             </div>
 
-            <p className="b10 mb-2 mt-1">{comment.content}</p>
+            <p className="b12 text-gray-6 mb-2 mt-1">{comment.content}</p>
 
             <CommentReactionContainer
               likeCount={comment.likeCount}

@@ -62,7 +62,7 @@ export default function JuniorLettersContainer() {
         <NavTabBar />
       </div>
 
-      <main className="flex h-auto min-h-[calc(100svh-11rem)] flex-col bg-gray-100 p-5">
+      <main className="bg-latte-gradient-1 flex h-auto min-h-[calc(100svh-11rem)] flex-col p-5">
         <GreetingTopBar />
 
         <section className="flex flex-col gap-8">

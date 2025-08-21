@@ -13,7 +13,7 @@ export default function UserOnBoardingExperiencePage() {
   }
 
   return (
-    <main className="min-h-main relative h-auto space-y-8 bg-gray-100 px-5 py-10 pb-32">
+    <main className="relative h-auto min-h-main space-y-8 bg-white px-5 py-10 pb-32">
       <StepTitle
         title={'실력자임을 인증해주세요!'}
         intro={'회사, 경력 인증을 간단히 진행할게요.'}
@@ -37,7 +37,7 @@ export default function UserOnBoardingExperiencePage() {
             <label className="b4">인증하기</label>
             <img src="/images/certification-image.svg" className="w-14" />
           </div>
-          <div className="flex justify-between rounded-[0.625rem] bg-white py-3 pl-4 pr-3">
+          <div className="flex justify-between rounded-[0.625rem] bg-white py-3 pl-4 pr-3 shadow">
             <p className="b4">경력 인증을 위해 정부24로 이동합니다.</p>
             <img
               src="/icons/right-arrow-icon.svg"

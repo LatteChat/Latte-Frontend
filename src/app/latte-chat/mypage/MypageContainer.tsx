@@ -1,5 +1,6 @@
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
+import UserProfile from '@/shared/components/UserProfile'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment } from 'react'
@@ -97,18 +98,11 @@ export default function MypageContainer() {
       <div className="h-auto min-h-main w-full bg-white">
         <div className="flex flex-col px-5 pb-5 pt-4">
           <section className="relative flex flex-col items-center pb-4 pt-2">
-            <button className="b6 absolute right-0 top-0 rounded-xl bg-gray-500 px-2 py-1 text-white">
+            <button className="b6 bg-secondary-red absolute right-0 top-0 rounded-xl px-2 py-1 text-white">
               인증
             </button>
-            <div className="relative">
-              <Image
-                src="/images/test-image.png"
-                className="aspect-square h-[5.4rem] w-[5.4rem] rounded-full"
-                alt="프로필 이미지"
-                width={91}
-                height={91}
-              />
-              <span className="absolute right-0 top-0 aspect-square h-6 w-6 rounded-full bg-red-400"></span>
+            <div className="flex aspect-square h-[5.4rem] w-[5.4rem] items-center">
+              <UserProfile profile="/images/coffee-bean-image.png" />
             </div>
             <span className="b1 mb-3 mt-2">디자인마스터</span>
             <div className="flex gap-2">
@@ -116,7 +110,7 @@ export default function MypageContainer() {
                 return (
                   <span
                     key={index}
-                    className="b6 rounded border border-black bg-white px-2 py-1"
+                    className="b6 border-secondary-brown-2 rounded border bg-white px-2 py-1 text-black"
                   >
                     #10년째 대리
                   </span>
@@ -132,16 +126,14 @@ export default function MypageContainer() {
                   <Link
                     href={menu.href}
                     key={menu.alt}
-                    className="flex flex-1 flex-col items-center justify-center gap-2 border-r border-gray-200 pb-3 pt-1 last:border-none"
+                    className="border-gray-2 flex flex-1 flex-col items-center justify-center gap-2 border-r pb-3 pt-1 last:border-none"
                   >
                     <img
                       src={menu.iconUrl}
                       alt={menu.alt}
                       className="aspect-square h-6 w-6"
                     />
-                    <span className="text-secondary-brown-4 b4">
-                      {menu.alt}
-                    </span>
+                    <span className="b4 text-black">{menu.alt}</span>
                   </Link>
                 )
               })}
@@ -153,7 +145,7 @@ export default function MypageContainer() {
                   <Link
                     href={menu.href}
                     key={menu.alt}
-                    className="flex flex-1 flex-col items-center justify-center gap-2 border-r border-gray-200 pb-1 pt-3 last:border-none"
+                    className="border-gray-2 flex flex-1 flex-col items-center justify-center gap-2 border-r pb-1 pt-3 last:border-none"
                   >
                     <img
                       src={menu.iconUrl}
@@ -169,19 +161,19 @@ export default function MypageContainer() {
             </div>
           </div>
 
-          <div className="flex w-full items-center justify-between rounded-10 border-2 border-black bg-gray-100 px-5 pb-4 pt-5">
+          <div className="bg-secondary-brown-1 flex w-full items-center justify-between rounded-10 border-2 border-black px-5 pb-4 pt-5">
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-1">
-                <span className="h4">라떼챗</span>
+                <span className="h4 text-secondary-brown-4">라떼챗</span>
                 <span className="b9 inline-block rounded-full bg-black px-1 py-[2px] text-white">
                   프리미엄
                 </span>
               </div>
-              <p className="b10 text-gray-400">
+              <p className="b10 text-gray-5">
                 다음 결제 예정일: 2025년 9월 16일
               </p>
             </div>
-            <button className="b10 flex items-center gap-1 rounded-10 bg-gray-200 px-2 py-1">
+            <button className="b10 bg-gray-2 flex items-center gap-1 rounded-10 px-2 py-1 text-black">
               변경하기
               <img
                 src="/icons/next-arrow-icon.svg"

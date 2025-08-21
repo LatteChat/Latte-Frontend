@@ -24,7 +24,7 @@ export default function FormInput({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          className={`b4 w-full rounded-[0.625rem] bg-gray-300 px-4 py-3 ${icon ? 'pr-10' : ''}`}
+          className={`outline-secondary-brown-2 focus:bg-secondary-brown-1 placeholder:text-gray-5 b4 bg-gray-1 w-full rounded-[0.625rem] px-4 py-3 ${icon ? 'pr-10' : ''}`}
         />
         {icon && (
           <div className="absolute right-3 top-1/2 aspect-square h-5 w-5 -translate-y-1/2 text-gray-500">

@@ -13,11 +13,11 @@ export default function LetterActionSection({
     <div className="mt-10 flex flex-col items-center gap-1">
       <Link
         href={href}
-        className="h4 flex w-full items-center justify-center rounded-2xl bg-gray-300 py-4"
+        className="h4 bg-secondary-brown-2 text-secondary-brown-1 flex w-full items-center justify-center rounded-2xl py-4"
       >
         {linkLabel}
       </Link>
-      <p className="b6">{description}</p>
+      <p className="b6 text-gray-5">{description}</p>
     </div>
   )
 }

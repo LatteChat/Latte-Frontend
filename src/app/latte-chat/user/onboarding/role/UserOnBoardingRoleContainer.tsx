@@ -12,20 +12,28 @@ export default function UserOnBoardingRoleContainer() {
   }
 
   return (
-    <div className="relative flex h-auto min-h-main flex-1 flex-col space-y-8 bg-gray-100 px-5 py-10 pb-32 pt-0">
-      <main className="flex flex-col items-center gap-9 pt-[13vh]">
+    <div className="relative flex h-auto min-h-main flex-1 flex-col space-y-8 bg-white px-5 py-10 pb-32 pt-0">
+      <main className="flex flex-col items-center gap-5 pt-[13vh]">
         <Image
           src={
             memberType === 'SENIOR'
               ? '/images/milk-image.png'
               : '/images/shot-image.png'
           }
-          width={158}
-          height={158}
-          className="aspect-square h-40 w-40"
+          width={180}
+          height={180}
+          className="aspect-square h-44"
           alt="역할 이미지"
         />
-        <h2 className="h2 whitespace-pre-line text-center">{`${memberType === 'SENIOR' ? '멘토' : '멘티'}로 설정되었어요!\n이제부터 ${memberType === 'SENIOR' ? '답변' : '사연'}을 작성할 수 있어요.`}</h2>
+        <h2 className="h2 text-center">
+          <span className="text-secondary-brown-4">
+            {memberType === 'SENIOR' ? '멘토' : '멘티'}
+          </span>
+          로 설정되었어요!
+          <br />
+          이제부터 {memberType === 'SENIOR' ? '답변' : '사연'}을 작성할 수
+          있어요.
+        </h2>
       </main>
 
       <footer className="absolute inset-x-0 bottom-0 w-full px-5 pb-11">

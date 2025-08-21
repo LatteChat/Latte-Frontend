@@ -30,7 +30,7 @@ export default function NavTabBar() {
   const path = usePathname()
 
   return (
-    <nav className="h-8 w-full px-5">
+    <nav className="shadow-bottom-line h-8 w-full px-5">
       <ul className="flex h-full w-full justify-center gap-8">
         {NAVIGATIONS.map((navigation) => {
           let hasPath = false
@@ -43,9 +43,14 @@ export default function NavTabBar() {
           return (
             <li
               key={navigation.name}
-              className={`b2 h-full flex-1 whitespace-nowrap text-center ${hasPath ? 'border-b-2' : 'border-none'} border-black`}
+              className={`b2 flex h-full flex-1 justify-center whitespace-nowrap border-black`}
             >
-              <Link href={navigation.url}>{navigation.name}</Link>
+              <Link
+                className={`${hasPath ? 'border-b-2' : 'border-none'} h-full border-black text-center`}
+                href={navigation.url}
+              >
+                {navigation.name}
+              </Link>
             </li>
           )
         })}

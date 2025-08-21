@@ -20,12 +20,12 @@ export default function CommentOptionButton() {
 
       {isOpen && (
         <div className="absolute right-0 top-3">
-          <ul className="flex w-[4.5rem] flex-col overflow-hidden rounded bg-gray-100 shadow-md">
+          <ul className="flex w-[4.5rem] flex-col overflow-hidden rounded bg-white shadow-md">
             {OPTIONS.map((option) => {
               return (
                 <li
                   key={option}
-                  className="b9 flex items-center justify-center border-b-[1px] border-gray-400 py-2 last:border-none"
+                  className="b9 border-gray-3 hover:bg-secondary-brown-4 hover:text-secondary-brown-1 flex cursor-pointer items-center justify-center border-b-[1px] py-2 text-black last:border-none"
                 >
                   {option}
                 </li>

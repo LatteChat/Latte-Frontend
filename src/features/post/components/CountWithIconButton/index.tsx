@@ -13,7 +13,7 @@ export default function CountWithIconButton({
 }) {
   return (
     <button
-      className="flex cursor-pointer items-center gap-[3px] text-gray-500"
+      className="flex cursor-pointer items-center gap-[3px]"
       onClick={onClick}
     >
       <img
@@ -22,7 +22,7 @@ export default function CountWithIconButton({
         style={size ? { height: `${size}rem`, width: `${size}rem` } : undefined}
         alt={`${iconName} 아이콘`}
       />
-      <span className="b9">{count}</span>
+      <span className="b9 text-gray-4">{count}</span>
     </button>
   )
 }

@@ -12,21 +12,21 @@ export default function UserOnBoardingStartPage() {
   }
 
   return (
-    <div className="relative h-full bg-gray-100 py-10">
-      <div className="relative left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-2/3 flex-col gap-10">
-        <div className="h2 flex flex-col items-center">
-          <p>준비 완료!</p>
-          <p>라떼챗을 시작해보아요.</p>
-        </div>
-        <div className="flex flex-col items-center gap-10">
-          <Image
-            src="/images/test-image.png"
-            width={149}
-            height={149}
-            alt="환영 이미지"
-            className="aspect-square rounded-full"
-          />
-        </div>
+    <div className="relative h-full bg-white py-10">
+      <div className="relative left-1/2 top-1/3 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center">
+        <Image
+          src="/images/latte-mugcup-image.svg"
+          width={227}
+          height={227}
+          alt="라떼챗 이미지"
+          className="ml-5 aspect-square h-56 rounded-full"
+        />
+        <h1 className="h2 absolute top-[calc(50%+6.5rem)] whitespace-pre-line text-center text-black">
+          준비완료!
+          <br />
+          <span className="text-secondary-brown-4">라떼챗</span>을 시작할 수
+          있어요.
+        </h1>
       </div>
 
       <div className="absolute bottom-11 w-full px-5">

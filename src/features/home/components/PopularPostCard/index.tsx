@@ -24,18 +24,10 @@ export default function PopularPostCard({
 
   return (
     <Link href={`/latte-chat/posts/${id}`}>
-      <div className="flex w-full flex-shrink-0 cursor-pointer gap-4 rounded-[0.625rem] bg-white px-5 py-5">
-        <Image
-          src={imageUrl}
-          alt="게시글 이미지"
-          width={150}
-          height={150}
-          className="h-[9.4rem] w-[9.4rem] rounded-lg object-cover"
-        />
-
-        <div className="flex flex-1 flex-col gap-3">
+      <div className="shadow-border flex w-full flex-shrink-0 items-center gap-4 rounded-10 bg-white px-5 py-5">
+        <div className="flex flex-1 flex-col gap-2">
           <div className="flex items-center justify-between">
-            <span className="b7 flex h-4 items-center justify-center whitespace-nowrap rounded-[1.25rem] bg-gray-200 px-[0.625rem]">
+            <span className="b7 bg-secondary-brown-4 flex h-4 items-center justify-center whitespace-nowrap rounded-[1.25rem] px-[0.625rem] text-white">
               {rank}위
             </span>
             <HeartIcon
@@ -46,14 +38,22 @@ export default function PopularPostCard({
           </div>
 
           <div className="flex flex-col gap-1">
-            <h2 className="h4 line-clamp-1 w-full">{title}</h2>
-            <p className="b4 line-clamp-3">{content}</p>
+            <h2 className="h4 line-clamp-1 w-full text-black">{title}</h2>
+            <p className="b6 text-gray-5 line-clamp-3 break-all">{content}</p>
           </div>
 
-          <div>
-            <span className="b9 text-gray-400">{writer}</span>
+          <div className="flex justify-start">
+            <span className="b9 text-gray-5">{writer}</span>
           </div>
         </div>
+
+        <Image
+          src={imageUrl}
+          alt="게시글 이미지"
+          width={115}
+          height={115}
+          className="shadow-border aspect-square h-[7.2rem] w-[7.2rem] object-cover"
+        />
       </div>
     </Link>
   )
