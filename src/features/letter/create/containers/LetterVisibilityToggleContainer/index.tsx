@@ -11,11 +11,13 @@ export default function LetterVisibilityToggleContainer() {
 
   return (
     <Toggle
-      offLabel="게시글 비공개"
+      offLabel="게시글 공개"
       onLabel="게시글 공개"
-      width={'6.5rem'}
+      width={'6rem'}
       onClick={handleToggle}
       isChecked={isOpen}
+      offColor="bg-gray-4 text-black"
+      onColor="bg-secondary-brown-4 text-white"
     />
   )
 }
