@@ -13,18 +13,29 @@ export default function JuniorRecentLetterListContainer({
   selectedLetter: Letter
   setSelectedLetter: React.Dispatch<React.SetStateAction<Letter | null>>
 }) {
+  const selectedIndex = letters.findIndex((l) => l.id === selectedLetter?.id)
+
   return (
-    <div className="flex w-full gap-1 overflow-hidden rounded-10 bg-gray-200 px-5 pb-4 pt-2">
+    <div className="shadow-border relative flex w-full gap-1 rounded-10 bg-[rgba(255,255,255,0.8)] px-5">
+      {selectedIndex !== -1 && (
+        <div
+          className="border-secondary-brown-2 absolute top-0 h-full w-[calc((100%-56px)/5)] rounded-10 border-[3px] shadow-[0_1px_3px_#C9A070] transition-transform duration-700 ease-in-out"
+          style={{
+            transform: `translateX(calc(${selectedIndex * 100}% + ${selectedIndex * 4}px))`,
+          }}
+        />
+      )}
+
       {letters.map((letter) => {
         return (
           <div
             key={letter.id}
-            className="flex flex-1 shrink-0 flex-col items-center justify-end"
+            className="relative flex h-full flex-1 shrink-0 flex-col items-center justify-end py-4"
           >
             {letter?.id === selectedLetter?.id && (
               <img
                 src="/icons/select-icon.svg"
-                className="aspect-square h-[0.625rem] w-[0.625rem] translate-y-1"
+                className="absolute top-0 aspect-square h-[0.625rem] w-[0.625rem] translate-y-1"
                 alt="선택 아이콘"
               />
             )}
@@ -35,7 +46,11 @@ export default function JuniorRecentLetterListContainer({
                 alt="사연 아이콘"
               />
             </button>
-            <span className="b6">
+            <span
+              className={`b6 ${
+                letter.status === 'DRAFT' ? 'text-gray-5' : 'text-black'
+              }`}
+            >
               {LETTER_STATUS_LABEL[letter.status].label}
             </span>
           </div>

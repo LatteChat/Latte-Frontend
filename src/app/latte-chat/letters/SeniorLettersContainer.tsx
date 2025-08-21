@@ -62,7 +62,7 @@ export default function SeniorLettersContainer() {
         <NavTabBar />
       </div>
 
-      <main className="flex h-auto min-h-[calc(100svh-11rem)] flex-col bg-gray-100 p-5">
+      <main className="bg-latte-gradient-1 flex h-auto min-h-[calc(100svh-11rem)] flex-col p-5">
         <GreetingTopBar />
 
         <section className="flex flex-col gap-[0.875rem]">
@@ -81,7 +81,7 @@ export default function SeniorLettersContainer() {
         <LetterActionSection
           href="/latte-chat/letters/1/answer/new"
           linkLabel="답변 쓰기"
-          description="샷을 눌러 사연을 확인해보세요."
+          description="버튼을 눌러 사연을 받아보세요."
         />
       </main>
     </div>

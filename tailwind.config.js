@@ -34,14 +34,12 @@ module.exports = {
           error: '#DF1D1D',
           success: '#0073CB',
         },
-        backgroundImage: {
-          'latte-gradient-1':
-            'linear-gradient(180deg, #FFFFFF 0%, #E5CBA5 100%)',
-          'latte-gradient-2':
-            'linear-gradient(90deg, #FFFFFF 0%, #E5CBA5 100%)',
-          'latte-gradient-3':
-            'linear-gradient(180deg, #C494A1 0%, #D4CD48 50%, #D4CD48 100%)',
-        },
+      },
+      backgroundImage: {
+        'latte-gradient-1': 'linear-gradient(180deg, #E5CBA5  0%, #FFFFFF 68%)',
+        'latte-gradient-2': 'linear-gradient(90deg, #FFFFFF 0%, #E5CBA5 100%)',
+        'latte-gradient-3':
+          'linear-gradient(180deg, #C494A1 0%, #D4CD48 50%, #D4CD48 100%)',
       },
       minHeight: {
         main: 'calc(100svh - 5rem)',
