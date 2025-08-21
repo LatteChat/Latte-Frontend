@@ -28,10 +28,12 @@ export default function LetterCard({ title }: { title: string }) {
 
       <article>
         <header className="flex flex-col items-start gap-2">
-          <span className="b9 inline-block rounded bg-gray-200 px-2 py-0.5 text-gray-400">
+          <span className="b9 bg-secondary-brown-2 inline-block rounded px-2 py-0.5 text-white">
             취업 및 회사
           </span>
-          <h2 className="b2">IT 디자이너 취업 시장, 요즘 어떤가요?</h2>
+          <h2 className="h3 text-black">
+            IT 디자이너 취업 시장, 요즘 어떤가요?
+          </h2>
         </header>
 
         <figure className="p-5">
@@ -40,16 +42,17 @@ export default function LetterCard({ title }: { title: string }) {
             alt="사연 이미지"
             className="aspect-square w-full rounded-10 object-cover"
             width={255}
-            height={244}
+            height={255}
           />
         </figure>
 
-        <p className="b12">
+        <p className="b1 text-gray-7">
           자취방에 처음 이사 온 날, 밤새 누가 한말은 열다 닫는 소리가 들렸다.
           "위층 소리인가 보다" 하고 넘겼지만, 다음 날 아침 우편함에 쪽지가 하나
           꽂혀 있었다. "밤에는 그 문 열지 마세요. 저 혼자 살 땐 괜찮았는데, 이제
           돌아가세요?" 쪽지에는 그 쪽지에 적힌 이름이, 이 집 전 세입자
           이름이었다는 거다.
+          <span className="text-black">&nbsp;&nbsp;...더보기</span>
         </p>
 
         <LetterAnswerCard />

@@ -7,8 +7,8 @@ export default function LetterActionBox({
 }) {
   return (
     <div className="mt-8 flex flex-col items-center gap-5">
-      <p className="b6">{description}</p>
-      <button className="b4 w-full rounded-10 bg-gray-400 py-3.5 text-white">
+      <p className="b6 text-black">{description}</p>
+      <button className="h4 bg-secondary-brown-2 text-secondary-brown-1 w-full rounded-10 py-3.5">
         {buttonText}
       </button>
     </div>
