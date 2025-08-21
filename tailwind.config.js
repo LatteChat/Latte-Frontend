@@ -53,6 +53,7 @@ module.exports = {
       boxShadow: {
         'border': '0 0 4px 0 rgba(0, 0, 0, 0.20)',
         'bottom-line': '0 1px 0 0 #F3F3F3',
+        'top-line': '0 -1px 0 0 #F3F3F3',
       },
     },
   },
