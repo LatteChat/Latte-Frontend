@@ -1,6 +1,10 @@
 import Image from 'next/image'
 
-export default function UserProfile({ profile }: { profile: string }) {
+export default function UserProfile({
+  profile = '/images/coffee-bean-image.png',
+}: {
+  profile: string
+}) {
   return (
     <div className="relative aspect-square h-full w-full shrink-0 rounded-full">
       <Image
