@@ -1,6 +1,9 @@
+import { useGetPostListByCategoryQuery } from '@/features/home/hooks/useGetPostListByCategoryQuery'
+import { useGetPostListQuery } from '@/features/home/hooks/useGetPostListQuery'
 import PostCard from '@/shared/components/PostCard'
 import PostFilterContainer from '@/shared/containers/PostFilterContainer'
-import Link from 'next/link'
+import { Category } from '@/shared/types/Type'
+import { useState } from 'react'
 
 const POSTS = [
   {
@@ -55,21 +58,22 @@ const POSTS = [
 ]
 
 export default function PostListContainer() {
+  const [selected, setSelected] = useState<Category | null>(null)
+  const { data: postListByCategory } = useGetPostListByCategoryQuery({
+    page: 0,
+    category: selected,
+  })
+  const { data: allPostList } = useGetPostListQuery({
+    page: 0,
+    filter: 'all',
+    category: selected,
+  })
+
+  console.log(allPostList, postListByCategory)
+
   return (
     <section className="flex flex-col">
-      <header className="flex justify-between px-5">
-        <h1 className="h3">게시물</h1>
-        <Link href={'/latte-chat/posts'} className="flex items-center gap-2">
-          <span className="b6">필터링</span>
-          <img
-            src="/icons/filter-icon.svg"
-            alt="필터링 아이콘"
-            className="aspect-square h-4 w-4"
-          />
-        </Link>
-      </header>
-
-      <PostFilterContainer />
+      <PostFilterContainer selected={selected} setSelected={setSelected} />
 
       <main className="flex flex-col gap-3.5 px-5">
         {POSTS.map((post, index) => {

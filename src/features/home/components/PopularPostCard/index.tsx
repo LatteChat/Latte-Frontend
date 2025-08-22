@@ -1,29 +1,25 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import HeartIcon from '@/shared/assets/icons/heart-icon.svg'
-
-type PopularPostCardProps = {
-  post: {
-    id: number
-    rank: number
-    title: string
-    content: string
-    isLike: boolean
-    writer: string
-    imageUrl: string
-  }
-}
+import { Letter } from '../../services/homeService.client'
 
 export default function PopularPostCard({
-  post: { id, rank, title, content, isLike, writer, imageUrl },
-}: PopularPostCardProps) {
+  post: { letterId, title, content, image },
+  rank,
+}: {
+  post: Letter
+  rank: number
+}) {
+  const isLike = true
+  const writer = '김유경'
+
   const handleClickLikeButton = (e: React.MouseEvent<SVGSVGElement>) => {
     e.stopPropagation()
     e.preventDefault()
   }
 
   return (
-    <Link href={`/latte-chat/posts/${id}`}>
+    <Link href={`/latte-chat/posts/${letterId}`}>
       <div className="shadow-border flex w-full flex-shrink-0 items-center gap-4 rounded-10 bg-white px-5 py-5">
         <div className="flex flex-1 flex-col gap-2">
           <div className="flex items-center justify-between">
@@ -48,7 +44,7 @@ export default function PopularPostCard({
         </div>
 
         <Image
-          src={imageUrl}
+          src={image}
           alt="게시글 이미지"
           width={115}
           height={115}

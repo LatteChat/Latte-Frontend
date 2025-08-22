@@ -6,6 +6,7 @@ import 'swiper/css/pagination'
 import './customSwiperStyles.css'
 import PopularPostCard from '../../components/PopularPostCard'
 import Link from 'next/link'
+import { useGetPostListQuery } from '../../hooks/useGetPostListQuery'
 
 const POPULAR_POSTS = [
   {
@@ -41,11 +42,21 @@ const POPULAR_POSTS = [
 ]
 
 export default function PopularPostListContainer() {
+  const { data: popularPostList, isLoading } = useGetPostListQuery({
+    page: 0,
+    filter: 'view',
+  })
+
+  console.log(isLoading)
+
   return (
     <section className="w-full space-y-4">
       <header className="flex justify-between px-5">
         <h1 className="h3">인기 게시글</h1>
-        <Link href={`/`} className="flex cursor-pointer items-center gap-1">
+        <Link
+          href={`/latte-chat/posts`}
+          className="flex cursor-pointer items-center gap-1"
+        >
           <span className="b6">더보기</span>
           <img
             src="/icons/right-arrow-icon.svg"
@@ -67,9 +78,9 @@ export default function PopularPostListContainer() {
             disableOnInteraction: false,
           }}
         >
-          {POPULAR_POSTS.map((post) => (
-            <SwiperSlide key={post.id}>
-              <PopularPostCard post={post} />
+          {popularPostList?.content.slice(0, 3).map((post, index) => (
+            <SwiperSlide key={post.letterId}>
+              <PopularPostCard post={post} rank={index + 1} />
             </SwiperSlide>
           ))}
         </Swiper>
