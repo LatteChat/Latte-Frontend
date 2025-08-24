@@ -1,3 +1,5 @@
+'use client'
+
 import MypageContainer from './MypageContainer'
 
 export default function MypagePage() {
