@@ -1,23 +1,28 @@
 import Image from 'next/image'
 import PostTag from '../PostTag'
+import { Category } from '@/shared/types/Category'
+import { AnswerStatus } from '@/shared/types/AnswerStatus'
 
-type LetterStatus = 'ANSWERED' | 'ACCEPTED' | 'SAVED' | 'PENDING'
-
-const LETTER_STATUS_LABEL: Record<LetterStatus, string> = {
-  ANSWERED: '답변 완료',
-  ACCEPTED: '채택 완료',
+const LETTER_STATUS_LABEL: Record<AnswerStatus, string> = {
+  WRITING: '저장됨',
+  SEND: '답변 대기 중',
+  WAITING: '답변 대기 중',
   SAVED: '저장됨',
-  PENDING: '답변 대기 중',
+  ANSWERED: '답변 완료',
+  ADOPTED: '채택 완료',
+  MATCHED: '답변 완료',
+  EMPTY: '대기 중',
 }
 
 type Post = {
-  tag: string
+  tag: Category
   title: string
   content: string
+  image: string | null
   date: string
   likeCount: number
   commentCount: number
-  status?: LetterStatus
+  status?: AnswerStatus
 }
 
 type PostCardProps = {
@@ -28,7 +33,7 @@ type PostCardProps = {
 }
 
 export default function PostCard({
-  post: { tag, title, content, date, likeCount, commentCount, status },
+  post: { tag, title, content, date, likeCount, image, commentCount, status },
   showStatus,
   showShadow,
   showMeta,
@@ -58,7 +63,7 @@ export default function PostCard({
         </div>
 
         <Image
-          src="/images/test-image.png"
+          src={image ?? '/images/test-image.png'}
           className="shadow-border h-24 w-24 flex-shrink-0 rounded-10 bg-gray-300"
           width={95}
           height={95}
