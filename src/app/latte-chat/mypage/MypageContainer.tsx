@@ -1,7 +1,7 @@
+import { useGetMyInfoQuery } from '@/features/user/hooks/useGetMyInfoQuery'
+import UserInfoBox from '@/features/user/mypage/components/UserInfoBox'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
-import UserProfile from '@/shared/components/UserProfile'
-import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment } from 'react'
 
@@ -88,6 +88,8 @@ const FOOTER_CONTENT2 = [
 ]
 
 export default function MypageContainer() {
+  const { data: userInfo } = useGetMyInfoQuery()
+
   return (
     <div>
       <div className="sticky top-0 z-10 flex flex-col gap-4 bg-white">
@@ -97,27 +99,12 @@ export default function MypageContainer() {
 
       <div className="h-auto min-h-main w-full bg-white">
         <div className="flex flex-col px-5 pb-5 pt-4">
-          <section className="relative flex flex-col items-center pb-4 pt-2">
-            <button className="b6 bg-secondary-red absolute right-0 top-0 rounded-xl px-2 py-1 text-white">
-              인증
-            </button>
-            <div className="flex aspect-square h-[5.4rem] w-[5.4rem] items-center">
-              <UserProfile profile="/images/coffee-bean-image.png" />
-            </div>
-            <span className="b1 mb-3 mt-2">디자인마스터</span>
-            <div className="flex gap-2">
-              {new Array(3).fill(0).map((_, index) => {
-                return (
-                  <span
-                    key={index}
-                    className="b6 border-secondary-brown-2 rounded border bg-white px-2 py-1 text-black"
-                  >
-                    #10년째 대리
-                  </span>
-                )
-              })}
-            </div>
-          </section>
+          <UserInfoBox
+            name={userInfo?.name}
+            image={userInfo?.image}
+            tags={userInfo?.tag}
+            age={userInfo?.age}
+          />
 
           <div className="mb-5 flex w-full flex-col rounded-10 border bg-white p-4 shadow">
             <div className="flex">
