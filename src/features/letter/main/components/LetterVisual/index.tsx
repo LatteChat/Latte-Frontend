@@ -1,5 +1,20 @@
-import { Letter, LETTER_STATUS_LABEL } from '@/features/letter/types/Letter'
+import { LETTER_STATUS_JUNIOR_LABEL } from '@/features/letter/types/Letter'
+import { AnswerStatus } from '@/shared/types/AnswerStatus'
+import { Category } from '@/shared/types/Category'
 import Image from 'next/image'
+
+type Letter = {
+  letterId: number
+  juniorId: number
+  answerStatus: AnswerStatus
+  title: string
+  content: string
+  image: string | null
+  category: Category
+  view: number
+  heart: number
+  createAt: string
+}
 
 export default function LetterVisual({
   selectedLetter,
@@ -10,13 +25,16 @@ export default function LetterVisual({
     <div className="flex flex-col items-center">
       <div className="relative flex items-start justify-center">
         <Image
-          src={LETTER_STATUS_LABEL[selectedLetter?.status ?? 'DRAFT'].image}
+          src={
+            LETTER_STATUS_JUNIOR_LABEL[selectedLetter?.answerStatus ?? 'EMPTY']
+              .image
+          }
           width={187}
           height={187}
           alt="사연 상태 이미지"
-          className={`aspect-square h-[11.6rem] ${selectedLetter?.status === 'DRAFT' ? 'opacity-50' : 'opacity-100'}`}
+          className={`aspect-square h-[11.6rem] ${selectedLetter?.answerStatus === 'EMPTY' ? 'opacity-50' : 'opacity-100'}`}
         />
-        {selectedLetter?.status === 'SAVED' && (
+        {selectedLetter?.answerStatus !== 'EMPTY' && (
           <Image
             src={'/images/roasted-image.svg'}
             width={91}
@@ -27,7 +45,9 @@ export default function LetterVisual({
         )}
       </div>
       <h1 className="h3">
-        {selectedLetter ? selectedLetter.title : '오늘의 고민은 무엇인가요?'}
+        {selectedLetter?.title && selectedLetter?.title.length
+          ? selectedLetter.title
+          : '오늘의 고민은 무엇인가요?'}
       </h1>
     </div>
   )
