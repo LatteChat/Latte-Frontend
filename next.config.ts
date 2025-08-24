@@ -1,6 +1,9 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  images: {
+    domains: ['d2e9ojs4st7ryw.cloudfront.net'],
+  },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find(
       (rule: { test?: RegExp | ((str: string) => boolean) }) =>
