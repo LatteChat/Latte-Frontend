@@ -1,5 +1,6 @@
 'use client'
 
+import { AgeType } from '@/features/user/types/User'
 import { httpCSR } from '@/shared/apis/http'
 import { Category } from '@/shared/types/Type'
 
@@ -74,7 +75,8 @@ export const fetchPostList = async ({
 type Barista = {
   image: string
   seniorId: number
-  adopt: number
+  name: string
+  age: AgeType
 }
 
 type BaristaListResponse = Barista[]
