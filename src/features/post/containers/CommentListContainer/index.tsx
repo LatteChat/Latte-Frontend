@@ -67,12 +67,44 @@ const COMMENTS = [
   },
 ]
 
-export default function CommentListContainer() {
+type AgeType =
+  | 'UNDER_10'
+  | 'TEENAGER'
+  | 'TWENTIES'
+  | 'THIRTIES'
+  | 'FORTIES'
+  | 'FIFTIES'
+  | 'SIXTIES_AND_ABOVE'
+
+interface MemberDetailDto {
+  name: string
+  image: string
+  tag: string[]
+  age: AgeType
+}
+
+interface CommentResponseDto {
+  commentId: number
+  juniorDetailDto: MemberDetailDto
+  seniorDetailDto: MemberDetailDto
+  comment: string
+  heart: number
+  replyCount: number
+  createdAt: string
+  isEdit: boolean
+  replies: any[]
+}
+
+export default function CommentListContainer({
+  comments,
+}: {
+  comments: CommentResponseDto[]
+}) {
   return (
     <section className="flex flex-col items-start pt-5">
-      <div className="px-5 pb-5">
+      <div className="w-full px-5 pb-5">
         <h3 className="h4 mb-4">
-          댓글 <span className="text-gray-500">{COMMENTS.length}</span>
+          댓글 <span className="text-gray-500">{comments.length}</span>
         </h3>
 
         <div className="mb-4 flex items-center justify-start space-x-2">
@@ -81,10 +113,40 @@ export default function CommentListContainer() {
           <button className="b6 text-gray-6">인기순</button>
         </div>
 
-        <div className="flex flex-col gap-5">
-          {COMMENTS.map((comment) => (
-            <Comment key={comment.id} comment={comment} type="comment" />
-          ))}
+        <div className="flex w-full flex-col gap-5">
+          {comments.map((comment) => {
+            const nickname = comment.juniorDetailDto
+              ? comment.juniorDetailDto.name
+              : comment.seniorDetailDto.name
+            const profile = comment.juniorDetailDto
+              ? comment.juniorDetailDto.image
+              : comment.seniorDetailDto.image
+            const age = comment.juniorDetailDto
+              ? comment.juniorDetailDto.age
+              : comment.seniorDetailDto.age
+
+            console.log(comment)
+
+            return (
+              <Comment
+                key={comment.commentId}
+                user={{
+                  nickname,
+                  profile,
+                  age,
+                }}
+                comment={{
+                  createdAt: comment.createdAt,
+                  content: comment.comment,
+                  likeCount: comment.heart,
+                  commentCount: comment.replyCount,
+                  isEdit: comment.isEdit,
+                  replies: comment.replies,
+                }}
+                type="comment"
+              />
+            )
+          })}
         </div>
       </div>
 
