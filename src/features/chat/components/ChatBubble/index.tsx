@@ -5,6 +5,7 @@ import VoiceCallEndBubble from '../VoiceCallEndBubble'
 import VoiceCallStartBubble from '../VoiceCallStartBubble'
 import { formatTime } from '../../utils/formatDateTime'
 import { Message } from '../../types/Chat'
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
 
 export default function ChatBubble({
   message,
@@ -17,27 +18,24 @@ export default function ChatBubble({
   isShowTime: boolean
   type: 'message' | 'videoCallRequest' | 'videoCallStart' | 'videoCallEnd'
 }) {
-  const d = new Date(message.sentAt)
-  const isMe = message.sender === 'me'
+  const { data: userInfo } = useUserInfo()
+  const d = new Date(message.createdAt)
+  const isMe = message.senderType === userInfo?.memberType
 
   const renderBubble = () => {
-    switch (type) {
-      case 'message':
-        return (
-          <MessageBubble
-            isMe={message.sender === 'me'}
-            message={message.text}
-          />
-        )
-      case 'videoCallRequest':
-        return <VoiceCallRequestBubble />
-      case 'videoCallStart':
-        return <VoiceCallStartBubble isMe={isMe} />
-      case 'videoCallEnd':
-        return <VoiceCallEndBubble isMe={isMe} /> // duration
-      default:
-        return null
-    }
+    return <MessageBubble isMe={isMe} message={message.content} />
+    // switch (type) {
+    //   case 'message':
+    //     return <MessageBubble isMe={isMe} message={message.content} />
+    //   case 'videoCallRequest':
+    //     return <VoiceCallRequestBubble />
+    //   case 'videoCallStart':
+    //     return <VoiceCallStartBubble isMe={isMe} />
+    //   case 'videoCallEnd':
+    //     return <VoiceCallEndBubble isMe={isMe} /> // duration
+    //   default:
+    //     return null
+    // }
   }
 
   return (
