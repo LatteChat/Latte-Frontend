@@ -14,16 +14,19 @@ type AnswerStatus =
   | 'MATCHED'
 
 export type Letter = {
-  letterId: number
-  juniorId: number
-  answerStatus: AnswerStatus
-  title: string
-  content: string
-  image: string
   category: Category
-  view: number
-  heart: number
+  content: string
+  countComments: number
   createAt: string
+  heart: number
+  image: string
+  juniorId: number
+  juniorName: string
+  letterId: number
+  // answerStatus: AnswerStatus
+  liked: boolean
+  title: string
+  view: number
 }
 
 export type Sort = {
@@ -63,12 +66,32 @@ type PostListResponse = PageResponse<Letter>
 export const fetchPostList = async ({
   page,
   filter,
+  category,
+  userId,
+  memberType,
 }: {
   page: number
   filter: 'all' | 'view' // all(최신순) , view(조회순)
+  category: string | null
+  userId: number
+  memberType: string
 }): Promise<PostListResponse> => {
-  return await httpCSR(`/main/all?page=${page}&filter=${filter}`, {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  const query = new URLSearchParams({
+    ...(category ? { category } : {}),
+    page: String(page),
+    filter: String(filter),
+    userId: String(userId),
+    memberType: String(memberType),
+  })
+
+  return await httpCSR(`/main/list?${query.toString()}`, {
     method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   })
 }
 
@@ -83,22 +106,12 @@ type BaristaListResponse = Barista[]
 
 // 이달의 바리스타 조회
 export const fetchBaristaList = async (): Promise<BaristaListResponse> => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
   return await httpCSR(`/main/best/senior`, {
     method: 'GET',
-  })
-}
-
-type PostListByCategoryResponse = PageResponse<Letter>
-
-// 카테고리 별 게시물 조회
-export const fetchPostListByCategory = async ({
-  page,
-  category,
-}: {
-  page: number
-  category: string
-}): Promise<PostListByCategoryResponse> => {
-  return await httpCSR(`/main/category?page=${page}&category=${category}`, {
-    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   })
 }

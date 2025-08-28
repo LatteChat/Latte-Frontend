@@ -7,47 +7,24 @@ import './customSwiperStyles.css'
 import PopularPostCard from '../../components/PopularPostCard'
 import Link from 'next/link'
 import { useGetPostListQuery } from '../../hooks/useGetPostListQuery'
-
-const POPULAR_POSTS = [
-  {
-    id: 1,
-    rank: 1,
-    title: 'N기업 관련 취업 질문',
-    content:
-      '최근 모기업 면접을 보고 왔는데, 아주아주 어려웠습니다. 도대체 취업은 어떻게 하는 것인가요!!!최근 모기업 면접을 보고 왔는데, 아주아주 어려웠습니다. 도대체 취업은 어떻게 하는 것인가요!!!',
-    isLike: true,
-    writer: '김유경',
-    imageUrl: '/images/test-image.png',
-  },
-  {
-    id: 2,
-    rank: 2,
-    title: 'N기업 관련 취업 질문',
-    content:
-      '최근 모기업 면접을 보고 왔는데, 아주아주 어려웠습니다. 도대체 취업은 어떻게 하는 것인가요!!!',
-    isLike: false,
-    writer: '김유경',
-    imageUrl: '/images/test-image.png',
-  },
-  {
-    id: 3,
-    rank: 3,
-    title: 'N기업 관련 취업 질문',
-    content:
-      '최근 모기업 면접을 보고 왔는데, 아주아주 어려웠습니다. 도대체 취업은 어떻게 하는 것인가요!!!',
-    isLike: false,
-    writer: '김유경',
-    imageUrl: '/images/test-image.png',
-  },
-]
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
 
 export default function PopularPostListContainer() {
-  const { data: popularPostList, isLoading } = useGetPostListQuery({
-    page: 0,
-    filter: 'view',
-  })
-
-  console.log(isLoading)
+  const { data: userInfo } = useUserInfo()
+  const { data: popularPostList } = useGetPostListQuery(
+    userInfo
+      ? {
+          page: 0,
+          filter: 'view',
+          category: null,
+          userId:
+            userInfo.memberType === 'JUNIOR'
+              ? userInfo.juniorId
+              : userInfo.seniorId,
+          memberType: userInfo.memberType,
+        }
+      : undefined
+  )
 
   return (
     <section className="w-full space-y-4">
@@ -80,7 +57,17 @@ export default function PopularPostListContainer() {
         >
           {popularPostList?.content.slice(0, 3).map((post, index) => (
             <SwiperSlide key={post.letterId}>
-              <PopularPostCard post={post} rank={index + 1} />
+              <PopularPostCard
+                post={{
+                  letterId: post.letterId,
+                  title: post.title,
+                  content: post.content,
+                  imageUrl: post.image,
+                  isLike: post.liked,
+                }}
+                user={{ name: post.juniorName }}
+                rank={index + 1}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
