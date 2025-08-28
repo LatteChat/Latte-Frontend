@@ -6,6 +6,7 @@ import CommentListContainer from '@/features/post/containers/CommentListContaine
 import useGetPostDetailQuery from '@/features/post/hooks/useGetPostDetailQuery'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useParams } from 'next/navigation'
+import useLikePostQuery from '@/features/post/hooks/useLikePostQuery'
 
 const TOPBAR_ICONS = [
   {
@@ -39,6 +40,28 @@ export default function PostDetailContainer() {
         }
       : undefined
   )
+  const { mutate: likePostMutate } = useLikePostQuery()
+
+  const handleClickLikeButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    e.preventDefault()
+
+    if (!userInfo) {
+      console.warn('로그인이 필요합니다')
+      return
+    }
+
+    const userId =
+      userInfo.memberType === 'JUNIOR' ? userInfo.juniorId : userInfo.seniorId
+
+    if (userId == null) return
+
+    likePostMutate({
+      letterId,
+      userId,
+      memberType: userInfo.memberType,
+    })
+  }
 
   console.log('게시글 상세 내용:', postDetail)
 
@@ -76,8 +99,13 @@ export default function PostDetailContainer() {
             />
           )}
           <div className="mt-4 flex justify-center">
-            <button className="flex items-center gap-1 rounded-10 bg-secondary-brown-4 px-4 py-2 text-secondary-brown-1">
-              <img src="/icons/empty-heart-icon.svg" />
+            <button
+              onClick={handleClickLikeButton}
+              className="flex items-center gap-1 rounded-10 bg-secondary-brown-4 px-4 py-2 text-secondary-brown-1"
+            >
+              <img
+                src={`${postDetail?.liked ? '/icons/fill-heart-icon.svg' : '/icons/empty-heart-icon.svg'}`}
+              />
               <span className="b6">공감해요</span>
             </button>
           </div>
