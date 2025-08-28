@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import useGetCommentListQuery from '../../comment/hooks/useGetCommentListQuery'
 import Comment from '../../components/Comment'
 import CommentInput from '../CommentInput'
@@ -9,8 +10,11 @@ export default function CommentListContainer({
 }: {
   letterId: number
 }) {
+  const [sort, setSort] = useState<'createdAt' | 'heart'>('createdAt')
   const { data: comments } = useGetCommentListQuery({
     letterId,
+    page: 0,
+    sort,
   })
 
   console.log('댓글 리스트:', comments)
@@ -23,9 +27,16 @@ export default function CommentListContainer({
         </h3>
 
         <div className="mb-4 flex items-center justify-start space-x-2">
-          <button className="b6 text-black">등록순</button>
+          <button
+            onClick={() => setSort('createdAt')}
+            className="b6 text-black"
+          >
+            등록순
+          </button>
           <hr className="h-3 w-[1px] bg-gray-500" />
-          <button className="b6 text-gray-6">인기순</button>
+          <button onClick={() => setSort('heart')} className="b6 text-gray-6">
+            인기순
+          </button>
         </div>
 
         <div className="flex w-full flex-col gap-5">
@@ -39,8 +50,6 @@ export default function CommentListContainer({
             const age = comment.juniorDetailDto
               ? comment.juniorDetailDto.age
               : comment.seniorDetailDto.age
-
-            console.log(comment)
 
             return (
               <Comment

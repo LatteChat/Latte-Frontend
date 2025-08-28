@@ -64,13 +64,17 @@ interface CommentListResponse {
 // 사연 댓글 조회
 export const fetchCommentList = async ({
   letterId,
+  page,
+  sort,
 }: {
   letterId: number
+  page: number
+  sort: string // createdAt | heart
 }): Promise<CommentListResponse> => {
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
 
-  return await httpCSR(`/main/${letterId}/comments`, {
+  return await httpCSR(`/main/${letterId}/comments?page=${page}&sort=${sort}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
