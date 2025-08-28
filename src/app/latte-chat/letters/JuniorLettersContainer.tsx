@@ -1,8 +1,9 @@
+import { useGetRecentJuniorLetterListQuery } from '@/features/letter/hooks/useGetRecentJuniorLetterListQuery'
 import GreetingTopBar from '@/features/letter/main/components/GreetingTopBar'
 import LetterActionSection from '@/features/letter/main/components/LetterActionSection'
 import LetterVisual from '@/features/letter/main/components/LetterVisual'
 import JuniorRecentLetterListContainer from '@/features/letter/main/containers/JuniorRecentLetterListContainer'
-import { Letter, Letters } from '@/features/letter/types/Letter'
+import { Letter } from '@/features/letter/services/letterService.client'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
 import { useEffect, useState } from 'react'
@@ -20,40 +21,21 @@ const TOPBAR_ICONS = [
   },
 ]
 
-const LETTERS: Letters = [
-  {
-    id: 1,
-    status: 'SENT', // SENT   SAVED   DRAFT
-    title: 'IT 디자이너 취업 시장, 요즘 어떤가요?',
-  },
-  {
-    id: 2,
-    status: 'SAVED', // SENT   SAVED   DRAFT
-    title: 'IT 디자이너 취업 시장, 요즘 어떤가요?2',
-  },
-  {
-    id: 3,
-    status: 'SAVED', // SENT   SAVED   DRAFT
-    title: 'IT 디자이너 취업 시장, 요즘 어떤가요?3',
-  },
-  {
-    id: 4,
-    status: 'DRAFT', // SENT   SAVED   DRAFT
-    title: 'IT 디자이너 취업 시장, 요즘 어떤가요?4',
-  },
-  {
-    id: 5,
-    status: 'DRAFT', // SENT   SAVED   DRAFT
-    title: 'IT 디자이너 취업 시장, 요즘 어떤가요?5',
-  },
-]
-
 export default function JuniorLettersContainer() {
   const [selectedLetter, setSelectedLetter] = useState<Letter | null>(null)
 
+  const { data: recentLetters, isFetched } = useGetRecentJuniorLetterListQuery({
+    juniorId: 7,
+  })
+
+  console.log(recentLetters)
+
   useEffect(() => {
-    setSelectedLetter(LETTERS[0])
-  }, [])
+    if (recentLetters && recentLetters.length > 0) {
+      console.log(recentLetters)
+      setSelectedLetter(recentLetters[0])
+    }
+  }, [isFetched])
 
   return (
     <div>
@@ -66,10 +48,10 @@ export default function JuniorLettersContainer() {
         <GreetingTopBar />
 
         <section className="flex flex-col gap-8">
-          {selectedLetter && (
+          {recentLetters && selectedLetter && (
             <>
               <JuniorRecentLetterListContainer
-                letters={LETTERS}
+                letters={recentLetters}
                 selectedLetter={selectedLetter}
                 setSelectedLetter={setSelectedLetter}
               />
@@ -77,12 +59,12 @@ export default function JuniorLettersContainer() {
             </>
           )}
         </section>
-
-        <LetterActionSection
-          href="/latte-chat/letters/new"
-          linkLabel="사연 쓰기"
-          description="커피콩을 눌러 사연을 작성해보세요."
-        />
+        {selectedLetter && (
+          <LetterActionSection
+            type={selectedLetter?.answerStatus}
+            href="/latte-chat/letters/new"
+          />
+        )}
       </main>
     </div>
   )

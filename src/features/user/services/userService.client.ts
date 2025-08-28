@@ -1,7 +1,7 @@
 'use client'
 
 import { httpCSR } from '@/shared/apis/http'
-import { UserInfo } from '../types/User'
+import { JuniorInfo, UserInfo } from '../types/User'
 
 // 청년층 정보 등록
 export const saveJuniorUser = async (
@@ -43,6 +43,23 @@ export const getUser = async (): Promise<UserInfo> => {
   if (!token) throw new Error('토큰이 없습니다.')
 
   return await httpCSR<UserInfo>(`/me`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
+
+// 청년 상세 조회
+export const fetchJuniorUser = async ({
+  juniorId,
+}: {
+  juniorId: number
+}): Promise<JuniorInfo> => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/junior/${juniorId}/detail`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,

@@ -1,69 +1,52 @@
-import Link from 'next/link'
 import PostCard from '@/shared/components/PostCard'
 import LetterStatusFilter from '@/features/letter/archive/components/LetterStatusFilter'
+import { useGetFilteredJuniorLetterListQuery } from '@/features/letter/hooks/useGetFilteredJuniorLetterListQuery'
+import { useParams, useRouter } from 'next/navigation'
+import { useLetterFilterStore } from '@/features/letter/stores/letterFilterStore'
+import Link from 'next/link'
+import { Category } from '@/shared/types/Category'
 
-type LetterStatus = 'ANSWERED' | 'ACCEPTED' | 'SAVED' | 'PENDING'
-
-type Post = {
-  tag: string
-  title: string
-  content: string
-  date: string
-  likeCount: number
-  commentCount: number
-  status?: LetterStatus
-}
-
-const LETTERS: Post[] = [
-  {
-    tag: '여행',
-    title: '첫 번째 여행 이야기',
-    content: '지난 주에 제주도에 다녀왔어요. 너무 좋았답니다!',
-    date: '2025-08-11',
-    likeCount: 23,
-    commentCount: 5,
-    status: 'ANSWERED',
-  },
-  {
-    tag: '여행',
-    title: '서울 맛집 탐방기',
-    content: '서울에서 꼭 가봐야 할 맛집을 소개합니다.',
-    date: '2025-08-10',
-    likeCount: 40,
-    commentCount: 8,
-    status: 'ACCEPTED',
-  },
-  {
-    tag: '일상',
-    title: '오늘 하루 기록',
-    content:
-      '오늘은 날씨가 좋아서 기분도 좋았어요. 오늘은 날씨가 좋아서 기분도 좋았어요. 오늘은 날씨가 좋아서 기분도 좋았어요.',
-    date: '2025-08-09',
-    likeCount: 15,
-    commentCount: 2,
-    status: 'SAVED',
-  },
-  {
-    tag: '여행',
-    title: '강릉 바다 사진',
-    content: '강릉 바다에서 찍은 멋진 사진들을 공유해요.',
-    date: '2025-08-08',
-    likeCount: 30,
-    commentCount: 7,
-    status: 'PENDING',
-  },
-  {
-    tag: '취미',
-    title: '요즘 빠진 취미',
-    content: '요즘 그림 그리기에 푹 빠졌어요.',
-    date: '2025-08-07',
-    likeCount: 12,
-    commentCount: 3,
-    status: 'PENDING',
-  },
+const CATEGORIES: { label: string; value: Category }[] = [
+  { label: '취업 및 회사', value: 'CAREER' },
+  { label: '진로', value: 'EDUCATION' },
+  { label: '뉴스', value: 'NEWS' },
+  { label: '쇼핑', value: 'SHOPPING' },
+  { label: '반려동물', value: 'PETS' },
+  { label: '연예', value: 'ENTERTAINMENT' },
+  { label: '증권 및 금융', value: 'FINANCE' },
+  { label: '스포츠', value: 'SPORTS' },
+  { label: '게임', value: 'GAME' },
+  { label: '뷰티 및 패션', value: 'BEAUTY_FASHION' },
+  { label: '독서', value: 'BOOKS' },
+  { label: '여행', value: 'TRAVEL' },
+  { label: '영화', value: 'MOVIE' },
+  { label: '애니메이션', value: 'ANIMATION' },
+  { label: '음식 및 요리', value: 'FOOD' },
+  { label: '음악 및 악기', value: 'MUSIC' },
 ]
 
 export default function LettersArchiveCategoryContainer() {
+  const router = useRouter()
+  const params = useParams()
+  const selectedCategory = params.category?.[0] ?? null
+  const statusFilter = useLetterFilterStore((state) => state.statusFilter)
+
+  const { data: filteredLetterList } = useGetFilteredJuniorLetterListQuery({
+    juniorId: 7,
+    answer: statusFilter,
+    category: selectedCategory,
+    page: 0,
+  })
+  console.log(filteredLetterList)
+
+  const handleSelectCategory = (category: Category) => {
+    if (selectedCategory === category) {
+      router.replace('/latte-chat/letters/archive')
+    } else {
+      router.replace(`/latte-chat/letters/archive/${category}`)
+    }
+  }
+
   return (
     <div>
       <header className="b2 sticky top-0 z-10">
@@ -72,15 +55,15 @@ export default function LettersArchiveCategoryContainer() {
         </div>
         <nav aria-label="카테고리 탐색" className="bg-gray-1 py-[0.875rem]">
           <ul className="scrollbar-hide flex gap-2 overflow-auto px-5">
-            {new Array(5).fill(0).map((_, index) => {
+            {CATEGORIES.map((category, index) => {
               return (
                 <li key={index}>
-                  <Link
-                    href="/latte-chat/letters/archive/travel"
-                    className="b4 text-secondary-brown-5 flex h-full w-full flex-1 whitespace-nowrap rounded-10 border-2 border-transparent bg-white px-4 py-2"
+                  <button
+                    onClick={() => handleSelectCategory(category.value)}
+                    className={`${selectedCategory === category.value ? 'border-secondary-brown-2 bg-secondary-brown-1' : 'border-transparent bg-white'} b4 text-secondary-brown-5 flex h-full w-full flex-1 whitespace-nowrap rounded-10 border-2 px-4 py-2`}
                   >
-                    취업 및 회사
-                  </Link>
+                    {category.label}
+                  </button>
                 </li>
               )
             })}
@@ -93,8 +76,25 @@ export default function LettersArchiveCategoryContainer() {
           <LetterStatusFilter />
         </div>
         <div className="flex flex-col gap-[1.875rem]">
-          {LETTERS.map((letter, index) => {
-            return <PostCard post={letter} key={index} showStatus showShadow />
+          {filteredLetterList?.content?.map((letter, index) => {
+            return (
+              <Link key={index} href={`/latte-chat/letters/${letter.letterId}`}>
+                <PostCard
+                  post={{
+                    tag: letter.category,
+                    title: letter.title,
+                    content: letter.content,
+                    image: letter.image,
+                    date: letter.createAt,
+                    likeCount: letter.heart,
+                    commentCount: letter.view,
+                    status: letter.answerStatus,
+                  }}
+                  showStatus
+                  showShadow
+                />
+              </Link>
+            )
           })}
         </div>
       </div>
