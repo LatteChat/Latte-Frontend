@@ -1,20 +1,24 @@
 import { useQuery } from '@tanstack/react-query'
 import { fetchPostList } from '../services/homeService.client'
-import { Category } from '@/shared/types/Type'
 
-export const useGetPostListQuery = ({
-  page,
-  filter,
-  category,
-}: {
+export const useGetPostListQuery = (payload?: {
   page: number
   filter: 'all' | 'view'
-  category: Category | null
+  category: string | null
+  userId: number | null
+  memberType: string
 }) => {
   return useQuery({
-    queryKey: ['/main/all', { page, filter }],
-    queryFn: () => fetchPostList({ page, filter }),
+    queryKey: ['/main/list', payload?.page, payload?.filter, payload?.category],
+    queryFn: () =>
+      fetchPostList({
+        page: payload!.page,
+        filter: payload!.filter,
+        category: payload!.category!,
+        userId: payload!.userId!,
+        memberType: payload!.memberType,
+      }),
     retry: 2,
-    enabled: !!!category,
+    enabled: !!payload && !!payload.userId && !!payload.memberType,
   })
 }
