@@ -2,6 +2,7 @@ import Image from 'next/image'
 import PostTag from '../PostTag'
 import { Category } from '@/shared/types/Category'
 import { AnswerStatus } from '@/shared/types/AnswerStatus'
+import { formatDate } from '@/shared/utils/formatDate'
 
 const LETTER_STATUS_LABEL: Record<AnswerStatus, string> = {
   WRITING: '저장됨',
@@ -40,10 +41,10 @@ export default function PostCard({
 }: PostCardProps) {
   return (
     <article
-      className={`${showShadow ? 'shadow' : ''} shadow-border relative flex w-full cursor-pointer flex-col items-center gap-4 rounded-10 bg-white p-5`}
+      className={`${showShadow ? 'shadow' : ''} relative flex w-full cursor-pointer flex-col items-center gap-4 rounded-10 bg-white p-5 shadow-border`}
     >
       {status && showStatus && (
-        <span className="b6 bg-gray-3 absolute -top-4 left-4 rounded-full px-2 py-1 text-black">
+        <span className="b6 absolute -top-4 left-4 rounded-full bg-gray-3 px-2 py-1 text-black">
           {LETTER_STATUS_LABEL[status]}
         </span>
       )}
@@ -64,15 +65,15 @@ export default function PostCard({
 
         <Image
           src={image ?? '/images/test-image.png'}
-          className="shadow-border h-24 w-24 flex-shrink-0 rounded-10 bg-gray-300"
+          className="h-24 w-24 flex-shrink-0 rounded-10 bg-gray-300 shadow-border"
           width={95}
           height={95}
           alt="게시글 이미지"
         />
       </div>
 
-      <div className="text-gray-5 flex w-full items-center justify-between gap-2">
-        <span className="b9">{date}</span>
+      <div className="flex w-full items-center justify-between gap-2 text-gray-5">
+        <span className="b9">{formatDate(date)}</span>
         {showMeta && (
           <div className="flex gap-2">
             <div className="flex items-center gap-[1px]">
