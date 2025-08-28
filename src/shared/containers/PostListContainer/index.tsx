@@ -3,6 +3,7 @@ import PostCard from '@/shared/components/PostCard'
 import PostFilterContainer from '@/shared/containers/PostFilterContainer'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { Category } from '@/shared/types/Type'
+import Link from 'next/link'
 import { useState } from 'react'
 
 export default function PostListContainer() {
@@ -33,19 +34,23 @@ export default function PostListContainer() {
       <main className="flex flex-col gap-3.5 px-5">
         {postListByCategory?.content.map((post, index) => {
           return (
-            <PostCard
-              key={index}
-              post={{
-                title: post.title,
-                content: post.content,
-                commentCount: post.countComments,
-                likeCount: post.heart,
-                date: post.createAt,
-                tag: post.category,
-                status: post.answerStatus,
-              }}
-              showMeta
-            />
+            <Link
+              key={post.letterId}
+              href={`/latte-chat/posts/${post.letterId}`}
+            >
+              <PostCard
+                post={{
+                  title: post.title,
+                  content: post.content,
+                  commentCount: post.countComments,
+                  likeCount: post.heart,
+                  date: post.createAt,
+                  tag: post.category,
+                  status: post.answerStatus,
+                }}
+                showMeta
+              />
+            </Link>
           )
         })}
       </main>

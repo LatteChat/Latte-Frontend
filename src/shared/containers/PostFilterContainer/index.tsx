@@ -17,7 +17,15 @@ export default function PostFilterContainer({
             label={filter.label}
             value={filter.value}
             selected={selected}
-            onClick={() => setSelected(filter.value)}
+            onClick={() => {
+              if (filter.value) {
+                if (filter.value === selected) {
+                  setSelected(null)
+                } else {
+                  setSelected(filter.value)
+                }
+              }
+            }}
           />
         )
       })}
