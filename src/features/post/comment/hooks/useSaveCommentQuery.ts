@@ -18,7 +18,7 @@ export default function useSaveCommentQuery(letterId: number) {
     onSuccess: (data) => {
       console.log('댓글 작성 완료:', data)
       queryClient.invalidateQueries({
-        queryKey: ['/main/detail/all', letterId],
+        queryKey: ['/comments', letterId],
       })
     },
     onError: (error) => {

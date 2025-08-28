@@ -113,7 +113,7 @@ export default function PostDetailContainer() {
 
         <hr className="h-[0.3rem] w-full border-0 bg-gray-300" />
 
-        <CommentListContainer comments={postDetail?.commentResponseDto ?? []} />
+        <CommentListContainer letterId={letterId} />
       </main>
     </div>
   )
