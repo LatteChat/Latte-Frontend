@@ -27,6 +27,30 @@ export const saveLetter = async (
   })
 }
 
+// 사연 좋아요
+export const savePostLike = async ({
+  letterId,
+  userId,
+  memberType,
+}: {
+  letterId: number
+  userId: number
+  memberType: string // SENIOR, JUNIOR
+}) => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(
+    `/letter/${letterId}/${userId}/heart?memberType=${memberType}`,
+    {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+}
+
 export type Letter = {
   letterId: number
   juniorId: number
@@ -38,42 +62,6 @@ export type Letter = {
   view: number
   heart: number
   createAt: string
-}
-
-export type FilterdLetter = Letter & {
-  juniorName: string
-  liked: boolean
-}
-
-export type FilteredJuniorLetterListResponse = PageResponse<FilterdLetter>
-
-// 청년층 필터링 별 사연 조회 (카테고리, 사연 상태)
-export const fetchFilteredJuniorLetterList = async ({
-  juniorId,
-  category,
-  answer,
-  page,
-}: {
-  juniorId: number
-  category: string | null
-  answer: 0 | 1 | 2 | 3 | 4 // (0: 전체, 1: 답변 대기중, 2: 사연 저장, 3: 채택 완료, 4: 답변 완료)
-  page: number
-}): Promise<FilteredJuniorLetterListResponse> => {
-  const token = localStorage.getItem('accessToken')
-  if (!token) throw new Error('토큰이 없습니다.')
-
-  const query = new URLSearchParams({
-    ...(category ? { category } : {}),
-    answer: String(answer),
-    page: String(page),
-  })
-
-  return await httpCSR(`/junior/${juniorId}/category?${query.toString()}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
 }
 
 // 청년층 작성한 최신 사연 목록 조회 (원두 형태 5개)

@@ -23,7 +23,7 @@ export default function UserProfile({
       <Image
         src={profile}
         alt="작성자 프로필 이미지"
-        className="bg-primary absolute bottom-0 left-0 aspect-square w-[93%] rounded-full object-cover"
+        className="absolute bottom-0 left-0 aspect-square w-[93%] rounded-full bg-primary object-cover"
         width={50}
         height={50}
       />

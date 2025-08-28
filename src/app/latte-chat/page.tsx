@@ -6,6 +6,7 @@ import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
 import PostListContainer from '@/shared/containers/PostListContainer'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const TOPBAR_ICONS = [
   {
@@ -46,7 +47,25 @@ export default function LatteChatHomePage() {
         <div className="mb-10">
           <BaristaRankContainer />
         </div>
-        <PostListContainer />
+
+        <section>
+          <header className="flex justify-between px-5">
+            <h1 className="h3">게시물</h1>
+            <Link
+              href={'/latte-chat/posts'}
+              className="flex items-center gap-2"
+            >
+              <span className="b6">더보기</span>
+              <img
+                src="/icons/next-arrow-icon.svg"
+                alt="더보기 아이콘"
+                className="aspect-square h-4 w-4"
+              />
+            </Link>
+          </header>
+
+          <PostListContainer />
+        </section>
       </main>
     </div>
   )
