@@ -1,0 +1,75 @@
+import Image from 'next/image'
+import MessageBubble from '../MessageBubble'
+import VoiceCallRequestBubble from '../VoiceCallRequestBubble'
+import VoiceCallEndBubble from '../VoiceCallEndBubble'
+import VoiceCallStartBubble from '../VoiceCallStartBubble'
+import { formatTime } from '../../utils/formatDateTime'
+import { Message } from '../../types/Chat'
+
+export default function ChatBubble({
+  message,
+  isProfile,
+  isShowTime,
+  type,
+}: {
+  message: Message
+  isProfile: boolean
+  isShowTime: boolean
+  type: 'message' | 'videoCallRequest' | 'videoCallStart' | 'videoCallEnd'
+}) {
+  const d = new Date(message.sentAt)
+  const isMe = message.sender === 'me'
+
+  const renderBubble = () => {
+    switch (type) {
+      case 'message':
+        return (
+          <MessageBubble
+            isMe={message.sender === 'me'}
+            message={message.text}
+          />
+        )
+      case 'videoCallRequest':
+        return <VoiceCallRequestBubble />
+      case 'videoCallStart':
+        return <VoiceCallStartBubble isMe={isMe} />
+      case 'videoCallEnd':
+        return <VoiceCallEndBubble isMe={isMe} /> // duration
+      default:
+        return null
+    }
+  }
+
+  return (
+    <div className={`mb-2 flex px-5 ${isMe ? 'justify-end' : 'justify-start'}`}>
+      <div
+        className={`flex w-auto items-start gap-2 ${isMe ? 'max-w-[88%] flex-row-reverse' : 'max-w-[92%]'}`}
+      >
+        {!isMe && (
+          <div className="aspect-square h-[1.875rem] w-[1.875rem] shrink-0">
+            {isProfile && (
+              <Image
+                src="/images/test-image.png"
+                alt="상대 유저 프로필"
+                width={30}
+                height={30}
+                className="h-full w-full rounded-full"
+              />
+            )}
+          </div>
+        )}
+
+        <div
+          className={`flex items-end gap-2 ${isMe ? 'flex-row-reverse' : ''}`}
+        >
+          {renderBubble()}
+          {isShowTime && (
+            <span className="select-none whitespace-nowrap text-[11px] text-neutral-500">
+              {formatTime(d)}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
