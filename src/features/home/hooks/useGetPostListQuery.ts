@@ -5,7 +5,7 @@ export const useGetPostListQuery = (payload?: {
   page: number
   filter: 'all' | 'view'
   category: string | null
-  userId: number | null
+  userId?: number | null
   memberType: string
 }) => {
   return useQuery({
