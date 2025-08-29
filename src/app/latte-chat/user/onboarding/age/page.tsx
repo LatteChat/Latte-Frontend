@@ -25,7 +25,7 @@ export default function UserOnBoardingAgePage() {
 
   const handleClickNextButton = () => {
     if (!memberType) return
-    router.push(`/latte-chat/user/onboarding/role`)
+    router.push(`/latte-chat/user/onboarding/certification`)
   }
 
   return (
