@@ -1,10 +1,20 @@
 import UserProfile from '@/shared/components/UserProfile'
 
+type AgeType =
+  | 'UNDER_10'
+  | 'TEENAGER'
+  | 'TWENTIES'
+  | 'THIRTIES'
+  | 'FORTIES'
+  | 'FIFTIES'
+  | 'SIXTIES_AND_ABOVE'
+
 type PostAnswerProps = {
-  user: {
-    nickname: string
-    profile: string
-    tags: string[]
+  user?: {
+    name: string
+    image: string | null
+    tag: string[] | null
+    age: AgeType
   }
   date: string
   content: string
@@ -12,7 +22,7 @@ type PostAnswerProps = {
 
 export default function PostAnswer({ user, date, content }: PostAnswerProps) {
   return (
-    <section className="bg-secondary-brown-1 border-primary shadow-border flex w-full flex-col gap-4 rounded-10 border p-5">
+    <section className="flex w-full flex-col gap-4 rounded-10 border border-primary bg-secondary-brown-1 p-5 shadow-border">
       <h5 className="b6">답변</h5>
 
       <div className="flex flex-col gap-2">
@@ -24,15 +34,15 @@ export default function PostAnswer({ user, date, content }: PostAnswerProps) {
 
             <div className="flex w-full flex-col gap-1">
               <div className="flex flex-wrap justify-between">
-                <span className="b7 text-black">{user?.nickname}</span>
+                <span className="b7 text-black">{user?.name}</span>
                 <span className="b9 text-gray-4">{date}</span>
               </div>
               <div className="flex flex-wrap gap-1">
-                {user.tags.map((tag, index) => {
+                {user?.tag?.map((tag, index) => {
                   return (
                     <span
                       key={index}
-                      className="b9 border-secondary-brown-2 flex items-center justify-center whitespace-nowrap rounded border bg-white px-2 text-black"
+                      className="b9 flex items-center justify-center whitespace-nowrap rounded border border-secondary-brown-2 bg-white px-2 text-black"
                     >
                       {`#${tag}`}
                     </span>
