@@ -10,7 +10,7 @@ export default function StepTitle({
   return (
     <div className="flex flex-col items-start gap-8">
       <div className="flex w-full gap-3">
-        {new Array(5).fill(0).map((_, index) => {
+        {new Array(7).fill(0).map((_, index) => {
           const isActive = index === activeIndex
           return (
             <span
@@ -22,7 +22,9 @@ export default function StepTitle({
       </div>
       <div className="flex flex-col gap-2">
         <h1 className="h1 whitespace-pre-line text-black">{title}</h1>
-        {intro && <p className="b4 text-gray-400">{intro}</p>}
+        {intro && (
+          <p className="b4 whitespace-pre-line text-gray-400">{intro}</p>
+        )}
       </div>
     </div>
   )
