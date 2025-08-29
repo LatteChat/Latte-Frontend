@@ -1,51 +1,26 @@
 'use client'
 
 import { useState } from 'react'
-import useSaveJuniorUser from '@/features/user/hooks/useSaveJuniorUser'
-import useSaveSeniorUser from '@/features/user/hooks/useSaveSeniorUser'
 import Checkbox from '@/features/user/onboarding/components/Checkbox'
 import StepButton from '@/features/user/onboarding/components/StepButton'
 import StepTitle from '@/features/user/onboarding/components/StepTitle'
-import {
-  useSignupState,
-  useSignupStore,
-} from '@/features/user/stores/signupStore'
+import { useSignupStore } from '@/features/user/stores/signupStore'
 
 export default function UserOnBoardingAgreementsPage() {
   const [agreeList, setAgreeList] = useState([false, false, false])
   const pushAllowed = useSignupStore((state) => state.pushAllowed)
   const setPushAllowed = useSignupStore((state) => state.setPushAllowed)
-  const memberType = useSignupStore((state) => state.memberType)
   const signupInfoReset = useSignupStore((state) => state.reset)
-  const signupState = useSignupState()
-  const { mutate: saveJuniorUserMutate } = useSaveJuniorUser()
-  const { mutate: saveSeniorUserMutate } = useSaveSeniorUser()
+
+  const [isAvailable, setIsAvailable] = useState(true)
 
   const handleClickNextButton = async () => {
     if (typeof window === 'undefined') return
 
     const memberId = localStorage.getItem('memberId')
-    if (!memberId) return
     if (agreeList.some((agree) => agree == false)) {
-      alert('필수 동의를 모두 체크했는지 확인해주세요')
+      setIsAvailable(false)
       return
-    }
-
-    if (memberType === 'JUNIOR') {
-      saveJuniorUserMutate({
-        memberId: Number(memberId),
-        body: signupState,
-      })
-    } else {
-      saveSeniorUserMutate({
-        memberId: Number(memberId),
-        body: {
-          ...signupState,
-          categoryList: signupState.categoryList.map((category) => ({
-            category,
-          })),
-        },
-      })
     }
 
     signupInfoReset()
@@ -53,15 +28,15 @@ export default function UserOnBoardingAgreementsPage() {
 
   return (
     <main className="relative flex h-auto min-h-main flex-1 flex-col space-y-8 bg-white px-5 py-10 pb-32">
-      <StepTitle title="필요한 항목에 동의해주세요." activeIndex={4} />
+      <StepTitle title="필요한 항목에 동의해주세요" activeIndex={5} />
 
       <fieldset className="flex flex-col gap-4">
         <label
-          className={`${agreeList[0] ? 'bg-secondary-brown-1 border-secondary-brown-2' : 'bg-gray-1 border-transparent'} flex w-full cursor-pointer items-center gap-2 rounded-10 border px-5 py-4`}
+          className={`${agreeList[0] ? 'border-secondary-brown-2 bg-secondary-brown-1' : 'border-transparent bg-gray-1'} flex w-full cursor-pointer items-center gap-2 rounded-10 border px-5 py-4`}
         >
           <input
             type="checkbox"
-            className="accent-secondary-brown-4 peer aspect-square h-5 w-5 rounded-sm border-[1.5px] bg-white"
+            className="peer aspect-square h-5 w-5 rounded-sm border-[1.5px] bg-white accent-secondary-brown-4"
             onChange={(e) => {
               if (e.target.checked) {
                 setAgreeList([true, true, true])
@@ -140,10 +115,15 @@ export default function UserOnBoardingAgreementsPage() {
             </ul>
           </Checkbox>
         </div>
+        {!isAvailable && (
+          <span className="b9 text-secondary-red">
+            * 필수 항목에 동의해주세요
+          </span>
+        )}
       </fieldset>
 
       <footer className="absolute inset-x-0 bottom-0 w-full px-5 pb-11">
-        <StepButton value="완료" onClick={handleClickNextButton} />
+        <StepButton value="다음" onClick={handleClickNextButton} />
       </footer>
     </main>
   )
