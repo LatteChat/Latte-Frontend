@@ -29,7 +29,7 @@ const CERTIFICATION_BUTTONS: {
     id: 'ipin',
     iconUrl: '/icons/lock-icon.svg',
     title: '아이핀(I-PIN) 인증',
-    description: '아이핀으로 인증을 진행해요',
+    description: '아이핀으로 인증을 진행해요.',
   },
 ]
 

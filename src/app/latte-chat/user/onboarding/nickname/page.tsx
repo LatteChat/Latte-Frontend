@@ -22,7 +22,7 @@ export default function UserOnBoardingNicknamePage() {
 
   return (
     <div className="relative h-auto min-h-main space-y-8 bg-white px-5 py-10 pb-32">
-      <StepTitle title={'닉네임을 입력해주세요.'} activeIndex={0} />
+      <StepTitle title={'닉네임을 입력해주세요'} activeIndex={0} />
 
       <div className="flex w-full flex-col gap-1">
         <div className="flex w-full items-center justify-between gap-3 overflow-hidden rounded-xl bg-gray-1 pr-5">
