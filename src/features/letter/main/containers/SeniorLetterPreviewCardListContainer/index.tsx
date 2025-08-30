@@ -7,8 +7,11 @@ import SeniorLetterPreviewCardCarousel from '../SeniorLetterPreviewCardCarousel'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useGetLetterListQuery } from '@/features/letter/hooks/useGetLetterListQuery'
 import useGetSeniorSelectedLetterCountQuery from '@/features/letter/hooks/useGetSeniorSelectedLetterCountQuery'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export default function SeniorLetterPreviewCardListContainer() {
+  const pathname = usePathname()
   const { data: userInfo } = useUserInfo()
   const { data: letters } = useGetLetterListQuery(
     userInfo?.memberType === 'SENIOR'
@@ -109,9 +112,12 @@ export default function SeniorLetterPreviewCardListContainer() {
 
       <div className="mt-8 flex flex-col items-center gap-2">
         <div className="flex w-full gap-4">
-          <button className="flex-1 rounded-10 bg-gray-3 py-3 text-black">
+          <Link
+            href={`${pathname}/1`}
+            className="flex-1 rounded-10 bg-gray-3 py-3 text-center text-black"
+          >
             사연 보기
-          </button>
+          </Link>
           <button className="flex-1 rounded-10 bg-secondary-brown-2 py-3 text-white">
             {`선택하기 (${selectedLetterCount}/5)`}
           </button>
