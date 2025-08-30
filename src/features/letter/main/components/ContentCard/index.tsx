@@ -1,6 +1,9 @@
 import useGetSeniorSelectedLetterCountQuery from '@/features/letter/hooks/useGetSeniorSelectedLetterCountQuery'
+import useSelectLetterQuery from '@/features/letter/hooks/useSelectLetterQuery'
 import CoffeeBeanIcon from '@/shared/assets/icons/coffee-bean-icon.svg'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export default function ContentCard({
   letter: { category, writeStyle, title, content, letterType },
@@ -17,6 +20,7 @@ export default function ContentCard({
     nickname: string
   }
 }) {
+  const pathname = usePathname()
   const { data: userInfo } = useUserInfo()
   const { data: selectedLetterCount } = useGetSeniorSelectedLetterCountQuery(
     userInfo
@@ -25,6 +29,14 @@ export default function ContentCard({
         }
       : undefined
   )
+  const { mutate: selectLetterMutate } = useSelectLetterQuery()
+
+  const handleSelectLetter = () => {
+    selectLetterMutate({
+      letterId: 5,
+      seniorId: userInfo?.seniorId!,
+    })
+  }
 
   return (
     <section
@@ -57,10 +69,16 @@ export default function ContentCard({
           <span className="b9 text-gray-5">{nickname}</span>
         </div>
         <div className="flex w-full gap-4">
-          <button className="b4 flex-1 rounded-10 bg-gray-3 py-2 text-black">
+          <Link
+            href={`${pathname}/1`}
+            className="b4 flex-1 rounded-10 bg-gray-3 py-2 text-center text-black"
+          >
             사연 보기
-          </button>
-          <button className="b4 flex-1 rounded-10 bg-secondary-brown-2 py-2 text-white">
+          </Link>
+          <button
+            onClick={handleSelectLetter}
+            className="b4 flex-1 rounded-10 bg-secondary-brown-2 py-2 text-white"
+          >
             {`선택하기 (${selectedLetterCount}/5)`}
           </button>
         </div>
