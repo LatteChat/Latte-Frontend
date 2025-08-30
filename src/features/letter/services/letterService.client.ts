@@ -80,3 +80,20 @@ export const fetchRecentJuniorLetterList = async ({
     },
   })
 }
+
+// 특정 사연 상세 조회
+export const fetchLetterDetail = async ({
+  letterId,
+}: {
+  letterId: number
+}): Promise<any> => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/letter/${letterId}/detail`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
