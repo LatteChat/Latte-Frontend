@@ -50,16 +50,16 @@ export default function LetterWriteContainer() {
       <div>
         <TitleHeader title="사연 작성하기" />
 
-        <div className="bg-secondary-brown-1 flex h-auto min-h-[calc(100svh-8rem)] flex-col items-center px-5 pt-10">
+        <div className="flex h-auto min-h-[calc(100svh-8rem)] flex-col items-center bg-secondary-brown-1 px-5 pt-10">
           <div className="mb-4 flex w-full justify-center">
             <button
               onClick={handleOpenModal}
               type="button"
-              className="h4 shadow-border flex items-center gap-3 rounded-10 bg-white px-3 py-2 text-black"
+              className="h4 flex items-center gap-3 rounded-10 bg-white px-3 py-2 text-black shadow-border"
             >
               오늘의 주제는
               {category && (
-                <span className="b4 bg-secondary-brown-2 text-secondary-brown-1 inline-block rounded-10 px-4 py-[0.375rem]">
+                <span className="b4 inline-block rounded-10 bg-secondary-brown-2 px-4 py-[0.375rem] text-secondary-brown-1">
                   {category}
                 </span>
               )}
@@ -83,7 +83,7 @@ export default function LetterWriteContainer() {
           <div className="mb-2 flex w-full items-end justify-between gap-3 pr-3">
             <LetterVisibilityToggleContainer />
 
-            <span className="b10 text-gray-5 flex items-center gap-1">
+            <span className="b10 flex items-center gap-1 text-gray-5">
               임시 저장 중...
               <img src="/icons/refresh-icon.svg" />
             </span>
@@ -95,16 +95,21 @@ export default function LetterWriteContainer() {
             {isEditorFocus ? (
               <div className="h-full w-full flex-1 pt-5">
                 {category && (
-                  <span className="b9 bg-secondary-brown-2 text-secondary-brown-1 mb-4 ml-5 inline-block rounded-md px-2 py-[1px]">
+                  <span className="b9 mb-4 ml-5 inline-block rounded-md bg-secondary-brown-2 px-2 py-[1px] text-secondary-brown-1">
                     취업 및 회사
                   </span>
                 )}
                 <Editor />
                 <button
-                  className="b3 bg-secondary-brown-2 text-secondary-brown-1 absolute bottom-5 left-1/2 -translate-x-1/2 rounded-10 px-7 py-2"
-                  onClick={() =>
-                    saveLetterMutate({ juniorId: 7, body: letterCreateState })
-                  }
+                  className="b3 absolute bottom-5 left-1/2 -translate-x-1/2 rounded-10 bg-secondary-brown-2 px-7 py-2 text-secondary-brown-1"
+                  onClick={() => {
+                    if (!userInfo?.juniorId) return
+                    console.log(letterCreateState)
+                    saveLetterMutate({
+                      juniorId: userInfo?.juniorId,
+                      body: letterCreateState,
+                    })
+                  }}
                 >
                   저장하기
                 </button>
@@ -118,7 +123,7 @@ export default function LetterWriteContainer() {
                   카테고리 선택 후, 사연을 작성해보세요
                 </p>
                 <button
-                  className="b3 shadow-border bg-secondary-brown-2 text-secondary-brown-1 absolute bottom-5 rounded-10 px-7 py-2"
+                  className="b3 absolute bottom-5 rounded-10 bg-secondary-brown-2 px-7 py-2 text-secondary-brown-1 shadow-border"
                   onClick={() =>
                     saveLetterMutate({ juniorId: 7, body: letterCreateState })
                   }

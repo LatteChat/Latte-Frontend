@@ -8,6 +8,13 @@ type Letter = {
   letterId: number
   juniorId: number
   answerStatus: AnswerStatus
+  letterStatus:
+    | 'WRITING'
+    | 'SENT'
+    | 'ANSWERED'
+    | 'ADOPTED'
+    | 'MATCHED'
+    | 'EMPTY'
   title: string
   content: string
   image: string | null
@@ -34,15 +41,15 @@ export default function LetterVisual({
       <div className="relative flex items-start justify-center">
         <Image
           src={
-            LETTER_STATUS_JUNIOR_LABEL[selectedLetter?.answerStatus ?? 'EMPTY']
+            LETTER_STATUS_JUNIOR_LABEL[selectedLetter?.letterStatus ?? 'EMPTY']
               .image
           }
           width={187}
           height={187}
           alt="사연 상태 이미지"
-          className={`aspect-square h-[11.6rem] ${selectedLetter?.answerStatus === 'EMPTY' ? 'opacity-50' : 'opacity-100'}`}
+          className={`aspect-square h-[11.6rem] ${selectedLetter?.letterStatus === 'EMPTY' ? 'opacity-50' : 'opacity-100'}`}
         />
-        {selectedLetter?.answerStatus !== 'EMPTY' && (
+        {selectedLetter?.letterStatus !== 'EMPTY' && (
           <Image
             src={'/images/roasted-image.svg'}
             width={91}

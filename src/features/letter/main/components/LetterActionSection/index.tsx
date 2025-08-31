@@ -54,9 +54,9 @@ export default function LetterActionSection({
         // 전송됨을 나타내는 버튼은 딱히 버튼으로 만들 필요가 없음.
         return (
           <>
-            <button className="h4 flex w-full items-center justify-center rounded-2xl bg-secondary-brown-2 py-4 text-secondary-brown-1">
+            <div className="h4 flex w-full items-center justify-center rounded-2xl bg-secondary-brown-4 py-4 text-white">
               전송됨
-            </button>
+            </div>
             <p className="b6 text-gray-5">사연이 보내졌어요</p>
           </>
         )
