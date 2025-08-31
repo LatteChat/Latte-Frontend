@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useModal } from '@/shared/contexts/ModalContext'
 import DeleteCommentConfirmModal from '@/features/modal/components/DeleteCommentConfirmModal'
 import { useCommentActionActions } from '../../comment/stores/commentActionStore'
+import { useGetMyInfoQuery } from '@/features/user/hooks/useGetMyInfoQuery'
 
 export default function CommentOptionButton({
   commentId,
@@ -12,11 +13,14 @@ export default function CommentOptionButton({
   content: string
   nickname: string
 }) {
+  const { data: userInfo } = useGetMyInfoQuery()
   const [isShow, setIsShow] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const { openModal } = useModal()
   const { setType, setSelectedComment } = useCommentActionActions()
   const { cancelSelectedComment } = useCommentActionActions()
+
+  console.log('??:', userInfo)
 
   const OPTIONS = [
     {
@@ -73,12 +77,14 @@ export default function CommentOptionButton({
 
   return (
     <div ref={ref} className="relative shrink-0">
-      <button
-        className="text-gray-400 hover:text-gray-600"
-        onClick={handleClickOptionButton}
-      >
-        <img src="/icons/comment-more-icon.svg" alt="옵션 아이콘" />
-      </button>
+      {userInfo?.name === nickname && (
+        <button
+          className="text-gray-400 hover:text-gray-600"
+          onClick={handleClickOptionButton}
+        >
+          <img src="/icons/comment-more-icon.svg" alt="옵션 아이콘" />
+        </button>
+      )}
 
       {isShow && (
         <div className="absolute right-0 top-3 z-10">
