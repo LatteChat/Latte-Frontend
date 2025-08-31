@@ -4,14 +4,10 @@ export default function CommentReactionContainer({
   likeCount,
   commentCount,
   type,
-  commentAction: { setIsOpen },
 }: {
   likeCount: number
   commentCount: number
   type?: string
-  commentAction: {
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-  }
 }) {
   return (
     <div className="flex gap-2">
@@ -26,9 +22,6 @@ export default function CommentReactionContainer({
           iconUrl="/icons/comment-icon.svg"
           iconName="댓글"
           count={commentCount}
-          onClick={() => {
-            setIsOpen(true)
-          }}
         />
       )}
     </div>
