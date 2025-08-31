@@ -47,7 +47,7 @@ export default function JuniorLettersContainer() {
       <main className="flex h-auto min-h-[calc(100svh-11rem)] flex-col bg-latte-gradient-1 p-5">
         <GreetingTopBar title={'사연을 작성해주세요'} />
 
-        <section className="flex flex-col gap-8">
+        <section className="flex flex-col gap-3">
           {recentLetters && selectedLetter && (
             <>
               <JuniorRecentLetterListContainer

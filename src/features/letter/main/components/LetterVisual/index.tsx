@@ -2,6 +2,7 @@ import { LETTER_STATUS_JUNIOR_LABEL } from '@/features/letter/types/Letter'
 import { AnswerStatus } from '@/shared/types/AnswerStatus'
 import { Category } from '@/shared/types/Category'
 import Image from 'next/image'
+import Link from 'next/link'
 
 type Letter = {
   letterId: number
@@ -22,7 +23,14 @@ export default function LetterVisual({
   selectedLetter: Letter
 }) {
   return (
-    <div className="flex flex-col items-center">
+    <div className="relative flex flex-col items-center pt-5">
+      <Link
+        href={'/latte-chat/letters/new'}
+        className="b5 absolute right-0 top-0 rounded-10 bg-white px-3 py-1.5 text-secondary-brown-4 shadow-border"
+      >
+        사연 추가하기
+      </Link>
+
       <div className="relative flex items-start justify-center">
         <Image
           src={
