@@ -21,12 +21,12 @@ export function ModalProvider({ children }: { children: ReactNode }) {
       {children}
       {modalContent &&
         createPortal(
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-5">
-            <div className="w-full rounded-xl bg-white p-6 py-10 shadow-lg">
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/40 px-5">
+            <div className="w-full rounded-xl bg-white shadow-lg">
               {modalContent}
             </div>
           </div>,
-          document.body
+          document.getElementById('modal-root')!
         )}
     </ModalContext.Provider>
   )
