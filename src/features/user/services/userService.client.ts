@@ -66,3 +66,22 @@ export const fetchJuniorUser = async ({
     },
   })
 }
+
+// 중장년 상세 조회
+export const fetchSeniorUser = async ({
+  seniorId,
+}: {
+  seniorId: number
+}): Promise<any> => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  console.log(token)
+
+  return await httpCSR(`/senior/${seniorId}/detail`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}

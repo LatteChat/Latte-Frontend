@@ -1,9 +1,9 @@
-import { useGetMyInfoQuery } from '@/features/user/hooks/useGetMyInfoQuery'
+import { Fragment } from 'react'
+import useGetMyInfoQuery from '@/features/user/hooks/useGetMyInfoQuery'
 import UserInfoBox from '@/features/user/mypage/components/UserInfoBox'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
 import Link from 'next/link'
-import { Fragment } from 'react'
 
 const TOPBAR_ICONS = [
   {
@@ -18,63 +18,30 @@ const TOPBAR_ICONS = [
   },
 ]
 
-const MENU_ICONS = [
-  {
-    iconUrl: '/icons/tag-icon.svg',
-    alt: '칭호',
-    href: '',
-  },
-  {
-    iconUrl: '/icons/comment-rectangle-icon.svg',
-    alt: '내가 쓴 글',
-    href: '',
-  },
-  {
-    iconUrl: '/icons/comment-round-icon.svg',
-    alt: '내가 쓴 댓글',
-    href: '',
-  },
-  {
-    iconUrl: '/icons/coffee-bean-icon.svg',
-    alt: '포인트',
-    href: '',
-  },
-  {
-    iconUrl: '/icons/present-icon.svg',
-    alt: '스토어',
-    href: '',
-  },
-  {
-    iconUrl: '/icons/calendar-icon.svg',
-    alt: '캘린더',
-    href: '',
-  },
-]
-
 const SETTING_ICONS = [
   {
     iconUrl: '/icons/text-icon.svg',
-    alt: '글자 크기',
+    title: '글자 크기',
     href: '',
   },
   {
     iconUrl: '/icons/language-icon.svg',
-    alt: '언어 선택',
+    title: '언어 선택',
     href: '',
   },
   {
     iconUrl: '/icons/user-icon.svg',
-    alt: '사용자 관리',
+    title: '사용자 관리',
     href: '',
   },
   {
     iconUrl: '/icons/darkmode-icon.svg',
-    alt: '다크 모드',
+    title: '다크 모드',
     href: '',
   },
   {
     iconUrl: '/icons/setting-fill-icon.svg',
-    alt: '설정',
+    title: '설정',
     href: '',
   },
 ]
@@ -90,6 +57,39 @@ const FOOTER_CONTENT2 = [
 export default function MypageContainer() {
   const { data: userInfo } = useGetMyInfoQuery()
 
+  const MENU_ICONS = [
+    {
+      iconUrl: '/icons/edit-icon.svg',
+      title: '프로필 수정',
+      href: '',
+    },
+    {
+      iconUrl: '/icons/comment-rectangle-icon.svg',
+      title: userInfo?.type === 'SENIOR' ? '내가 쓴 답변' : '내가 쓴 사연',
+      href: '',
+    },
+    {
+      iconUrl: '/icons/comment-round-icon.svg',
+      title: '내가 쓴 댓글',
+      href: '',
+    },
+    {
+      iconUrl: '/icons/coffee-bean-icon.svg',
+      title: '포인트',
+      href: '',
+    },
+    {
+      iconUrl: '/icons/present-icon.svg',
+      title: '스토어',
+      href: '',
+    },
+    {
+      iconUrl: '/icons/bookmark-icon.svg',
+      title: '스크랩',
+      href: '',
+    },
+  ]
+
   return (
     <div>
       <div className="sticky top-0 z-10 flex flex-col gap-4 bg-white">
@@ -104,6 +104,7 @@ export default function MypageContainer() {
             image={userInfo?.image}
             tags={userInfo?.tag}
             age={userInfo?.age}
+            type={userInfo?.type}
           />
 
           <div className="mb-5 flex w-full flex-col rounded-10 border bg-white p-4 shadow">
@@ -112,87 +113,87 @@ export default function MypageContainer() {
                 return (
                   <Link
                     href={menu.href}
-                    key={menu.alt}
-                    className="border-gray-2 flex flex-1 flex-col items-center justify-center gap-2 border-r pb-3 pt-1 last:border-none"
+                    key={menu.title}
+                    className="flex flex-1 flex-col items-center justify-center gap-2 border-r border-gray-2 pb-3 pt-1 last:border-none"
                   >
                     <img
                       src={menu.iconUrl}
-                      alt={menu.alt}
+                      alt={menu.title}
                       className="aspect-square h-6 w-6"
                     />
-                    <span className="b4 text-black">{menu.alt}</span>
+                    <span className="b4 text-black">{menu.title}</span>
                   </Link>
                 )
               })}
             </div>
             <hr className="my-2" />
             <div className="flex">
-              {MENU_ICONS.slice(3, 6).map((menu, index) => {
+              {MENU_ICONS.slice(3, 6).map((menu) => {
                 return (
                   <Link
                     href={menu.href}
-                    key={menu.alt}
-                    className="border-gray-2 flex flex-1 flex-col items-center justify-center gap-2 border-r pb-1 pt-3 last:border-none"
+                    key={menu.title}
+                    className="flex flex-1 flex-col items-center justify-center gap-2 border-r border-gray-2 pb-1 pt-3 last:border-none"
                   >
                     <img
                       src={menu.iconUrl}
-                      alt={menu.alt}
+                      alt={menu.title}
                       className="aspect-square h-6 w-6"
                     />
-                    <span className="text-secondary-brown-4 b4">
-                      {menu.alt}
-                    </span>
+                    <span className="b4 text-black">{menu.title}</span>
                   </Link>
                 )
               })}
             </div>
           </div>
 
-          <div className="bg-secondary-brown-1 flex w-full items-center justify-between rounded-10 border-2 border-black px-5 pb-4 pt-5">
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-1">
-                <span className="h4 text-secondary-brown-4">라떼챗</span>
-                <span className="b9 inline-block rounded-full bg-black px-1 py-[2px] text-white">
-                  프리미엄
-                </span>
+          <div className="rounded-10 bg-latte-gradient-3 p-0.5">
+            <div className="bg-latte-gradient-4 flex w-full items-center justify-between rounded-lg px-5 pb-4 pt-5">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-1">
+                  <span className="h4 text-secondary-brown-4">라떼챗</span>
+                  <span className="b9 inline-block rounded-full bg-black px-1 py-[2px] text-white">
+                    프리미엄
+                  </span>
+                </div>
+                <p className="b10 text-gray-5">
+                  다음 결제 예정일: 2025년 9월 16일
+                </p>
               </div>
-              <p className="b10 text-gray-5">
-                다음 결제 예정일: 2025년 9월 16일
-              </p>
+              <button className="b10 flex items-center gap-1 rounded-10 bg-gray-2 px-2 py-1 text-black">
+                변경하기
+                <img
+                  src="/icons/next-arrow-icon.svg"
+                  className="aspect-square h-3 w-3"
+                />
+              </button>
             </div>
-            <button className="b10 bg-gray-2 flex items-center gap-1 rounded-10 px-2 py-1 text-black">
-              변경하기
-              <img
-                src="/icons/next-arrow-icon.svg"
-                className="aspect-square h-3 w-3"
-              />
-            </button>
           </div>
         </div>
 
-        <hr className="mb-5 h-[5px] bg-gray-300" />
+        <hr className="mb-5 h-[5px] bg-gray-2" />
 
         <section className="flex flex-col gap-5 px-5">
           {SETTING_ICONS.map((setting, index) => {
             return (
-              <div key={setting.alt} className="flex items-center space-x-4">
+              <div key={setting.title} className="flex items-center space-x-4">
                 <img
                   src={setting.iconUrl}
                   className="aspect-square h-6 w-6 shrink-0"
-                  alt={setting.alt}
+                  alt={setting.title}
                 />
-                <span className="b1 flex-1 text-black">{setting.alt}</span>
+                <span className="b1 flex-1 text-black">{setting.title}</span>
                 <img
                   src="/icons/right-arrow-icon.svg"
                   className="aspect-square h-6 w-6 shrink-0"
-                  alt={setting.alt}
+                  alt={setting.title}
                 />
               </div>
             )
           })}
         </section>
 
-        <footer className="b9 mb-6 mt-10 flex w-full flex-col items-center justify-start gap-4 text-gray-400">
+        <footer className="b9 mb-6 mt-10 flex w-full flex-col items-center justify-start gap-4 text-gray-4">
           <div className="flex gap-2">
             {FOOTER_CONTENT1.map((content, index) => {
               let hasLine = true
@@ -202,7 +203,7 @@ export default function MypageContainer() {
               return (
                 <Fragment key={content}>
                   <span>{content}</span>
-                  {hasLine && <hr className="h-3 w-[1px] bg-gray-400" />}
+                  {hasLine && <hr className="h-3 w-[1px] bg-gray-4" />}
                 </Fragment>
               )
             })}
@@ -210,13 +211,13 @@ export default function MypageContainer() {
           <div className="flex gap-2">
             {FOOTER_CONTENT2.map((content, index) => {
               let hasLine = true
-              if (index === FOOTER_CONTENT1.length - 1) {
+              if (index === FOOTER_CONTENT2.length - 1) {
                 hasLine = false
               }
               return (
                 <Fragment key={content}>
                   <span>{content}</span>
-                  {hasLine && <hr className="h-3 w-[1px] bg-gray-400" />}
+                  {hasLine && <hr className="h-3 w-[1px] bg-gray-4" />}
                 </Fragment>
               )
             })}
