@@ -1,22 +1,22 @@
 import CategoryTag from '@/features/user/onboarding/components/CategoryTag'
 
 const CATEGORIES = [
-  '뉴스',
-  '쇼핑',
-  '반려동물',
-  '연예',
-  '증권 및 금융',
-  '스포츠',
-  '취업 및 회사',
-  '진로',
-  '게임',
-  '뷰티 및 패션',
-  '독서',
-  '여행',
-  '영화',
-  '애니메이션',
-  '음식 및 요리',
-  '음악 및 악기',
+  { label: '뉴스', value: 'NEWS' },
+  { label: '쇼핑', value: 'SHOPPING' },
+  { label: '반려동물', value: 'PET' },
+  { label: '연예', value: 'ENTERTAINMENT' },
+  { label: '증권 및 금융', value: 'FINANCE' },
+  { label: '스포츠', value: 'SPORTS' },
+  { label: '취업 및 회사', value: 'JOB' },
+  { label: '진로', value: 'CAREER' },
+  { label: '게임', value: 'GAME' },
+  { label: '뷰티 및 패션', value: 'BEAUTY_FASHION' },
+  { label: '독서', value: 'BOOK' },
+  { label: '여행', value: 'TRAVEL' },
+  { label: '영화', value: 'MOVIE' },
+  { label: '애니메이션', value: 'ANIMATION' },
+  { label: '음식 및 요리', value: 'FOOD' },
+  { label: '음악 및 악기', value: 'MUSIC' },
 ]
 
 export default function CategorySelectorModal({
@@ -43,10 +43,10 @@ export default function CategorySelectorModal({
       <div className="flex flex-wrap gap-3">
         {CATEGORIES.map((category) => (
           <CategoryTag
-            key={category}
-            label={category}
+            key={category.value}
+            label={category.label}
             isSelected={false}
-            onClick={() => onSelectCategory(category)}
+            onClick={() => onSelectCategory(category.value)}
           />
         ))}
       </div>
