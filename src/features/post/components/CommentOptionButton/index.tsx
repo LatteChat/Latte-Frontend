@@ -1,15 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
 import { useModal } from '@/shared/contexts/ModalContext'
 import DeleteCommentConfirmModal from '@/features/modal/components/DeleteCommentConfirmModal'
+import { useCommentActionActions } from '../../comment/stores/commentActionStore'
 
 export default function CommentOptionButton({
   commentId,
+  content,
+  nickname,
 }: {
   commentId: number
+  content: string
+  nickname: string
 }) {
   const [isShow, setIsShow] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const { openModal } = useModal()
+  const { setType, setSelectedComment } = useCommentActionActions()
+  const { cancelSelectedComment } = useCommentActionActions()
 
   const OPTIONS = [
     {
@@ -18,12 +25,21 @@ export default function CommentOptionButton({
       onClick: (e: React.MouseEvent<HTMLLIElement>) => {
         e.stopPropagation()
         openModal(<DeleteCommentConfirmModal commentId={commentId} />)
+        cancelSelectedComment()
       },
     },
     {
-      id: 'modify',
+      id: 'edit',
       value: '수정',
-      onClick: () => {},
+      onClick: (e: React.MouseEvent<HTMLLIElement>) => {
+        e.stopPropagation()
+        setSelectedComment({
+          id: commentId,
+          content,
+          nickname,
+        })
+        setType('EDIT')
+      },
     },
     {
       id: 'report',

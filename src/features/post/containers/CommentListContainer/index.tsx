@@ -16,7 +16,6 @@ export default function CommentListContainer({
     page: 0,
     sort,
   })
-  const [selectedComment, setSelectedComment] = useState<any>(null)
 
   console.log('댓글 리스트:', comments)
 
@@ -69,14 +68,6 @@ export default function CommentListContainer({
                   isEdit: comment.isEdit,
                   replies: comment.replies,
                 }}
-                onClick={() =>
-                  setSelectedComment({
-                    id: comment.commentId,
-                    nickname,
-                    content: comment.comment,
-                  })
-                }
-                isSelect={selectedComment?.id === comment.commentId}
                 type="comment"
               />
             )
@@ -84,13 +75,7 @@ export default function CommentListContainer({
         </div>
       </div>
 
-      <CommentInput
-        isSelect={selectedComment !== null}
-        selectedComment={selectedComment}
-        onClickCancel={() => {
-          setSelectedComment(null)
-        }}
-      />
+      <CommentInput />
     </section>
   )
 }

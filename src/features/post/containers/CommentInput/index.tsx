@@ -4,28 +4,32 @@ import { useEffect, useState } from 'react'
 import useSaveCommentQuery from '../../comment/hooks/useSaveCommentQuery'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useParams } from 'next/navigation'
+import {
+  useCommentAction,
+  useCommentActionActions,
+} from '../../comment/stores/commentActionStore'
+import useEditCommentQuery from '../../comment/hooks/useEditCommentQuery'
 
-export default function CommentInput({
-  isSelect,
-  selectedComment,
-  onClickCancel,
-}: {
-  isSelect: boolean
-  selectedComment?: {
-    id: number
-    nickname: string
-    content: string
-  }
-  onClickCancel: (e: React.MouseEvent<HTMLButtonElement>) => void
-}) {
+export default function CommentInput() {
   const params = useParams<{ id: string }>()
   const letterId = Number(params.id) ?? null
   const { data: userInfo } = useUserInfo()
 
-  const [type, setType] = useState<'COMMENT' | 'REPLY'>('COMMENT')
-
   const [comment, setComment] = useState('')
   const { mutate: saveCommentMutate } = useSaveCommentQuery(letterId)
+  const { mutate: editCommentMutate } = useEditCommentQuery(letterId)
+  const { cancelSelectedComment, setType } = useCommentActionActions()
+  const { type, selectedComment } = useCommentAction()
+
+  console.log(type)
+
+  useEffect(() => {
+    if (type === 'EDIT') {
+      setComment(selectedComment?.content ?? '')
+    } else {
+      setComment('')
+    }
+  }, [selectedComment])
 
   const handleSubmitComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -45,8 +49,7 @@ export default function CommentInput({
           comment: comment,
         },
       })
-    } else {
-      console.log('답글을 달려고하는군요')
+    } else if (type === 'REPLY') {
       if (!letterId) return
       if (!selectedComment) return
       saveCommentMutate({
@@ -59,31 +62,40 @@ export default function CommentInput({
           comment: comment,
         },
       })
+      cancelSelectedComment()
+    } else if (type === 'EDIT') {
+      if (!selectedComment?.id) return
+      editCommentMutate({
+        commentId: selectedComment.id,
+        payload: {
+          comment,
+        },
+      })
+      cancelSelectedComment()
     }
 
     setComment('')
   }
 
-  // 댓글 작성 type 변경
-  useEffect(() => {
-    if (isSelect) {
-      setType('REPLY')
-    } else {
-      setType('COMMENT')
-    }
-  }, [isSelect])
-
   return (
     <div className="sticky bottom-0 flex w-full flex-col items-center">
-      {isSelect && (
+      {!!selectedComment && (
         <div className="flex w-full items-start gap-2 rounded-t-10 bg-gray-2 px-5 py-2">
           <img src="/icons/reply-icon.svg" className="h-5 w-5" />
           <div className="flex w-full flex-col gap-1">
             <div className="flex w-full justify-between">
               <span className="b6 text-gray-7">
-                {selectedComment?.nickname} 님에게 답글
+                {type === 'EDIT'
+                  ? '수정중인 댓글'
+                  : `${selectedComment?.nickname} 님에게 답글`}
               </span>
-              <button onClick={onClickCancel} className="b6 text-gray-8">
+              <button
+                onClick={() => {
+                  setType('COMMENT')
+                  cancelSelectedComment()
+                }}
+                className="b6 text-gray-8"
+              >
                 취소
               </button>
             </div>

@@ -6,6 +6,10 @@ import CommentReactionContainer from '../../containers/CommentReactionContainer'
 import CommentOptionButton from '../CommentOptionButton'
 import UserProfile from '@/shared/components/UserProfile'
 import { AgeType } from '@/features/user/types/User'
+import {
+  useCommentAction,
+  useCommentActionActions,
+} from '../../comment/stores/commentActionStore'
 
 type CommentType = 'comment' | 'reply'
 
@@ -54,8 +58,6 @@ export default function Comment({
     isEdit,
     replies,
   },
-  onClick,
-  isSelect,
   type,
 }: {
   user: {
@@ -72,19 +74,30 @@ export default function Comment({
     isEdit: boolean
     replies: any[]
   }
-  onClick?: () => void
-  isSelect?: boolean
   type: CommentType
 }) {
   const hasReplies = useMemo(() => (replies?.length ?? 0) > 0, [replies])
   const [isOpen, setIsOpen] = useState(false)
+  const { selectedComment } = useCommentAction()
+  const { setSelectedComment, setType } = useCommentActionActions()
+
+  const handleSelectComment = () => {
+    setType('REPLY')
+    if (type === 'comment') {
+      setSelectedComment({
+        id: commentId,
+        content,
+        nickname,
+      })
+    }
+  }
 
   return (
     <div
-      className={`${type === 'reply' ? 'pl-10' : 'ml-0'} w-full ${isSelect ? 'rounded-10 bg-gray-1 p-2' : ''}`}
+      className={`${type === 'reply' ? 'pl-10' : 'ml-0'} w-full ${selectedComment?.id === commentId ? 'rounded-10 bg-gray-1 p-2' : ''}`}
     >
       <div
-        onClick={onClick && onClick}
+        onClick={handleSelectComment}
         className={`${type === 'reply' ? '' : 'cursor-pointer'} flex w-full gap-2`}
       >
         <div
@@ -133,7 +146,11 @@ export default function Comment({
             )}
           </div>
 
-          <CommentOptionButton commentId={commentId} />
+          <CommentOptionButton
+            commentId={commentId}
+            content={content}
+            nickname={nickname}
+          />
         </div>
       </div>
 
