@@ -6,46 +6,34 @@ import 'swiper/css/pagination'
 import './customSwiperStyles.css'
 import PopularPostCard from '../../components/PopularPostCard'
 import Link from 'next/link'
-
-const POPULAR_POSTS = [
-  {
-    id: 1,
-    rank: 1,
-    title: 'N기업 관련 취업 질문',
-    content:
-      '최근 모기업 면접을 보고 왔는데, 아주아주 어려웠습니다. 도대체 취업은 어떻게 하는 것인가요!!!최근 모기업 면접을 보고 왔는데, 아주아주 어려웠습니다. 도대체 취업은 어떻게 하는 것인가요!!!',
-    isLike: true,
-    writer: '김유경',
-    imageUrl: '/images/test-image.png',
-  },
-  {
-    id: 2,
-    rank: 2,
-    title: 'N기업 관련 취업 질문',
-    content:
-      '최근 모기업 면접을 보고 왔는데, 아주아주 어려웠습니다. 도대체 취업은 어떻게 하는 것인가요!!!',
-    isLike: false,
-    writer: '김유경',
-    imageUrl: '/images/test-image.png',
-  },
-  {
-    id: 3,
-    rank: 3,
-    title: 'N기업 관련 취업 질문',
-    content:
-      '최근 모기업 면접을 보고 왔는데, 아주아주 어려웠습니다. 도대체 취업은 어떻게 하는 것인가요!!!',
-    isLike: false,
-    writer: '김유경',
-    imageUrl: '/images/test-image.png',
-  },
-]
+import { useGetPostListQuery } from '../../hooks/useGetPostListQuery'
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
 
 export default function PopularPostListContainer() {
+  const { data: userInfo } = useUserInfo()
+  const { data: popularPostList } = useGetPostListQuery(
+    userInfo
+      ? {
+          page: 0,
+          filter: 'view',
+          category: null,
+          userId:
+            userInfo.memberType === 'JUNIOR'
+              ? userInfo.juniorId
+              : userInfo.seniorId,
+          memberType: userInfo.memberType,
+        }
+      : undefined
+  )
+
   return (
     <section className="w-full space-y-4">
       <header className="flex justify-between px-5">
         <h1 className="h3">인기 게시글</h1>
-        <Link href={`/`} className="flex cursor-pointer items-center gap-1">
+        <Link
+          href={`/latte-chat/posts`}
+          className="flex cursor-pointer items-center gap-1"
+        >
           <span className="b6">더보기</span>
           <img
             src="/icons/right-arrow-icon.svg"
@@ -67,9 +55,19 @@ export default function PopularPostListContainer() {
             disableOnInteraction: false,
           }}
         >
-          {POPULAR_POSTS.map((post) => (
-            <SwiperSlide key={post.id}>
-              <PopularPostCard post={post} />
+          {popularPostList?.content.slice(0, 3).map((post, index) => (
+            <SwiperSlide key={post.letterId}>
+              <PopularPostCard
+                post={{
+                  letterId: post.letterId,
+                  title: post.title,
+                  content: post.content,
+                  imageUrl: post.image,
+                  isLike: post.liked,
+                }}
+                user={{ name: post.juniorName }}
+                rank={index + 1}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
