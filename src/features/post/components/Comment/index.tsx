@@ -1,11 +1,15 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import ReplyList from '../ReplyList'
 import CommentReactionContainer from '../../containers/CommentReactionContainer'
 import CommentOptionButton from '../CommentOptionButton'
 import UserProfile from '@/shared/components/UserProfile'
 import { AgeType } from '@/features/user/types/User'
+import {
+  useCommentAction,
+  useCommentActionActions,
+} from '../../comment/stores/commentActionStore'
 
 type CommentType = 'comment' | 'reply'
 
@@ -45,7 +49,15 @@ type comment = {
 
 export default function Comment({
   user: { nickname, profile, age },
-  comment: { createdAt, content, likeCount, commentCount, isEdit, replies },
+  comment: {
+    commentId,
+    createdAt,
+    content,
+    likeCount,
+    commentCount,
+    isEdit,
+    replies,
+  },
   type,
 }: {
   user: {
@@ -54,6 +66,7 @@ export default function Comment({
     age: AgeType
   }
   comment: {
+    commentId: number
     createdAt: string
     content: string
     likeCount: number
@@ -63,12 +76,30 @@ export default function Comment({
   }
   type: CommentType
 }) {
-  const hasReplies = useRef((replies?.length ?? 0) > 0)
+  const hasReplies = useMemo(() => (replies?.length ?? 0) > 0, [replies])
   const [isOpen, setIsOpen] = useState(false)
+  const { selectedComment } = useCommentAction()
+  const { setSelectedComment, setType } = useCommentActionActions()
+
+  const handleSelectComment = () => {
+    setType('REPLY')
+    if (type === 'comment') {
+      setSelectedComment({
+        id: commentId,
+        content,
+        nickname,
+      })
+    }
+  }
 
   return (
-    <div className={`${type === 'reply' ? 'ml-10' : 'ml-0'} w-full`}>
-      <div className="flex w-full gap-2">
+    <div
+      className={`${type === 'reply' ? 'pl-10' : 'ml-0'} w-full ${selectedComment?.id === commentId ? 'rounded-10 bg-gray-1 p-2' : ''}`}
+    >
+      <div
+        onClick={handleSelectComment}
+        className={`${type === 'reply' ? '' : 'cursor-pointer'} flex w-full gap-2`}
+      >
         <div
           className={`relative flex aspect-square ${type === 'comment' ? 'h-9 w-9' : 'h-7 w-7'}`}
         >
@@ -80,7 +111,7 @@ export default function Comment({
 
         <div className="flex w-full items-start justify-between gap-5">
           {/* 댓글 본문 */}
-          <div>
+          <div className="flex flex-col items-start">
             <div className="flex items-end gap-1">
               <span className="b6 text-gray-6">{nickname}</span>
               <span className="b9 text-gray-4">{createdAt}</span>
@@ -92,18 +123,39 @@ export default function Comment({
             </p>
 
             <CommentReactionContainer
+              commentId={commentId}
               likeCount={likeCount}
               commentCount={commentCount ?? 0}
               type={type}
-              commentAction={{ setIsOpen }}
             />
+
+            {type === 'comment' && hasReplies && !isOpen && (
+              <button
+                className="bu mt-4 flex items-center"
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  setIsOpen(true)
+                  e.stopPropagation()
+                }}
+              >
+                <img
+                  src="/icons/down-arrow-icon.svg"
+                  className="aspect-square h-4 w-4"
+                  alt="답글 펼치기"
+                />
+                <span className="b9 text-gray-4">답글 펼치기</span>
+              </button>
+            )}
           </div>
 
-          <CommentOptionButton />
+          <CommentOptionButton
+            commentId={commentId}
+            content={content}
+            nickname={nickname}
+          />
         </div>
       </div>
 
-      {type === 'comment' && hasReplies.current && isOpen && (
+      {type === 'comment' && hasReplies && isOpen && (
         <ReplyList
           replies={replies as reply[]}
           commentAction={{ isOpen, setIsOpen }}

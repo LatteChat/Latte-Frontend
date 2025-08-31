@@ -1,5 +1,6 @@
 'use client'
 
+import { AgeType } from '@/features/user/types/User'
 import { httpCSR } from '@/shared/apis/http'
 import { AnswerStatus } from '@/shared/types/AnswerStatus'
 import { Category } from '@/shared/types/Category'
@@ -81,12 +82,38 @@ export const fetchRecentJuniorLetterList = async ({
   })
 }
 
-// 특정 사연 상세 조회
+export type UserDetail = {
+  name: string
+  image: string
+  tag: string[]
+  age: AgeType
+}
+
+export type AnswerResponse = {
+  seniorDetailDto: UserDetail
+  createdAt: string
+  content: string
+}
+
+export type LetterDetailResponseDto = {
+  juniorDetailDto: UserDetail
+  createdAt: string
+  view: number
+  heart: number
+  category: Category
+  image: string
+  title: string
+  content: string
+  answerStatus: AnswerStatus
+  answerResponseDto: AnswerResponse | null
+}
+
+// 사연 상세 조회
 export const fetchLetterDetail = async ({
   letterId,
 }: {
   letterId: number
-}): Promise<any> => {
+}): Promise<LetterDetailResponseDto> => {
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
 

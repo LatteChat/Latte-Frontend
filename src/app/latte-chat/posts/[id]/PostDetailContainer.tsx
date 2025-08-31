@@ -15,7 +15,7 @@ const TOPBAR_ICONS = [
     href: '',
   },
   {
-    iconUrl: '/icons/bookmark-icon.svg',
+    iconUrl: '/icons/empty-bookmark-icon.svg',
     alt: '북마크',
     href: '',
   },
