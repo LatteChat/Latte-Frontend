@@ -1,3 +1,5 @@
+'use client'
+
 import LetterDetailContainer from './LetterDetailContainer'
 
 export default function LetterDetailPage() {
