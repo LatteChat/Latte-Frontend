@@ -40,6 +40,8 @@ module.exports = {
         'latte-gradient-2': 'linear-gradient(90deg, #FFFFFF 0%, #E5CBA5 100%)',
         'latte-gradient-3':
           'linear-gradient(180deg, #C494A1 0%, #D4CD48 50%, #D4CD48 100%)',
+        'latte-gradient-4':
+          'conic-gradient(from 230deg at 57.45% 76.53%, #FFF 0.009085076089832deg, #FFF9EE 340deg)',
       },
       minHeight: {
         main: 'calc(100svh - 5rem)',
