@@ -9,7 +9,7 @@ export default function CountWithIconButton({
   iconName: string
   size?: string
   count: number
-  onClick?: () => void
+  onClick?: (e: React.FormEvent<HTMLButtonElement>) => void
 }) {
   return (
     <button

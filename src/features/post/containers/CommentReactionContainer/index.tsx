@@ -17,7 +17,8 @@ export default function CommentReactionContainer({
   const letterId = Number(params.id) ?? null
   const { mutate: likeCommentMutate } = useLikeCommentQuery(letterId)
 
-  const handleClickLikeButton = () => {
+  const handleClickLikeButton = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
     likeCommentMutate({
       commentId,
     })
