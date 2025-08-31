@@ -144,3 +144,32 @@ export const sendLetter = async ({ letterId }: { letterId: number }) => {
     },
   })
 }
+
+// 청년층 필터링 별 사연 조회 (카테고리, 사연 상태)
+export const fetchFilteredJuniorLetterList = async ({
+  juniorId,
+  category,
+  answer,
+  page,
+}: {
+  juniorId: number
+  category: string | null
+  answer: 0 | 1 | 2 | 3 | 4 // (0: 전체, 1: 답변 대기중, 2: 사연 저장, 3: 채택 완료, 4: 답변 완료)
+  page: number
+}): Promise<any> => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  const query = new URLSearchParams({
+    ...(category ? { category } : {}),
+    answer: String(answer),
+    page: String(page),
+  })
+
+  return await httpCSR(`/junior/${juniorId}/category?${query.toString()}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
