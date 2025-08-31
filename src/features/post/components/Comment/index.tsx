@@ -123,6 +123,7 @@ export default function Comment({
             </p>
 
             <CommentReactionContainer
+              commentId={commentId}
               likeCount={likeCount}
               commentCount={commentCount ?? 0}
               type={type}

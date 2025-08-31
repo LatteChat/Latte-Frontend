@@ -1,14 +1,28 @@
+import { useParams } from 'next/navigation'
+import useLikeCommentQuery from '../../comment/hooks/useLikeCommentQuery'
 import CountWithIconButton from '../../components/CountWithIconButton'
 
 export default function CommentReactionContainer({
+  commentId,
   likeCount,
   commentCount,
   type,
 }: {
+  commentId: number
   likeCount: number
   commentCount: number
   type?: string
 }) {
+  const params = useParams<{ id: string }>()
+  const letterId = Number(params.id) ?? null
+  const { mutate: likeCommentMutate } = useLikeCommentQuery(letterId)
+
+  const handleClickLikeButton = () => {
+    likeCommentMutate({
+      commentId,
+    })
+  }
+
   return (
     <div className="flex gap-2">
       <CountWithIconButton
@@ -16,6 +30,7 @@ export default function CommentReactionContainer({
         iconName="좋아요"
         size="0.875"
         count={likeCount}
+        onClick={handleClickLikeButton}
       />
       {type === 'comment' && (
         <CountWithIconButton

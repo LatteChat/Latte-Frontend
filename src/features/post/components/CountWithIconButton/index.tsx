@@ -3,14 +3,19 @@ export default function CountWithIconButton({
   iconName,
   size,
   count,
+  onClick,
 }: {
   iconUrl: string
   iconName: string
   size?: string
   count: number
+  onClick?: () => void
 }) {
   return (
-    <button className="flex cursor-pointer items-center gap-[3px]">
+    <button
+      onClick={onClick}
+      className="flex cursor-pointer items-center gap-[3px]"
+    >
       <img
         src={iconUrl}
         className={`aspect-square h-3 w-3`}
