@@ -44,8 +44,8 @@ export default function JuniorLettersContainer() {
         <NavTabBar />
       </div>
 
-      <main className="bg-latte-gradient-1 flex h-auto min-h-[calc(100svh-11rem)] flex-col p-5">
-        <GreetingTopBar />
+      <main className="flex h-auto min-h-[calc(100svh-11rem)] flex-col bg-latte-gradient-1 p-5">
+        <GreetingTopBar title={'사연을 작성해주세요'} />
 
         <section className="flex flex-col gap-8">
           {recentLetters && selectedLetter && (

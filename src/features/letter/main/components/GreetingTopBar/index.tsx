@@ -1,13 +1,13 @@
 import Link from 'next/link'
 
-export default function GreetingTopBar() {
+export default function GreetingTopBar({ title }: { title: string }) {
   return (
     <div className="mb-3 flex items-start justify-between">
-      <p className="h2 text-secondary-brown-5">느긋한 오후예요.</p>
+      <p className="h2 text-secondary-brown-5">{title}</p>
       <div className="relative">
         <Link
           href={'/latte-chat/letters/archive'}
-          className="bg-secondary-brown-4 flex items-center gap-1 rounded px-2.5 py-1.5"
+          className="flex items-center gap-1 rounded bg-secondary-brown-4 px-2.5 py-1.5"
         >
           <span className="b6 text-secondary-brown-1">글 보관함</span>
           <img src="/icons/box-icon.svg" />
