@@ -56,6 +56,13 @@ export type Letter = {
   letterId: number
   juniorId: number
   answerStatus: AnswerStatus
+  letterStatus:
+    | 'WRITING'
+    | 'SENT'
+    | 'ANSWERED'
+    | 'ADOPTED'
+    | 'MATCHED'
+    | 'EMPTY'
   title: string
   content: string
   image: string | null
@@ -119,6 +126,19 @@ export const fetchLetterDetail = async ({
 
   return await httpCSR(`/letter/${letterId}/detail`, {
     method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
+
+// 사연 전송
+export const sendLetter = async ({ letterId }: { letterId: number }) => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/junior/${letterId}/send`, {
+    method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
     },
