@@ -45,7 +45,15 @@ type comment = {
 
 export default function Comment({
   user: { nickname, profile, age },
-  comment: { createdAt, content, likeCount, commentCount, isEdit, replies },
+  comment: {
+    commentId,
+    createdAt,
+    content,
+    likeCount,
+    commentCount,
+    isEdit,
+    replies,
+  },
   onClick,
   isSelect,
   type,
@@ -56,6 +64,7 @@ export default function Comment({
     age: AgeType
   }
   comment: {
+    commentId: number
     createdAt: string
     content: string
     likeCount: number
@@ -124,7 +133,7 @@ export default function Comment({
             )}
           </div>
 
-          <CommentOptionButton />
+          <CommentOptionButton commentId={commentId} />
         </div>
       </div>
 

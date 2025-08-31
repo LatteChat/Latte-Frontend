@@ -61,6 +61,7 @@ export default function CommentListContainer({
                   age,
                 }}
                 comment={{
+                  commentId: comment.commentId,
                   createdAt: comment.createdAt,
                   content: comment.comment,
                   likeCount: comment.heart,

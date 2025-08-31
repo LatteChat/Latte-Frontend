@@ -38,6 +38,7 @@ export default function ReplyList({
                   age,
                 }}
                 comment={{
+                  commentId: reply.commentId,
                   createdAt: reply.createdAt,
                   content: reply.comment,
                   likeCount: reply.heart,
