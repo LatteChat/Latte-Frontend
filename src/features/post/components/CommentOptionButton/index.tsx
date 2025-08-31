@@ -1,26 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
-import useDeleteCommentQuery from '../../comment/hooks/useDeleteCommentQuery'
-import { useParams } from 'next/navigation'
+import { useModal } from '@/shared/contexts/ModalContext'
+import DeleteCommentConfirmModal from '@/features/modal/components/DeleteCommentConfirmModal'
 
 export default function CommentOptionButton({
   commentId,
 }: {
   commentId: number
 }) {
-  const params = useParams()
-  const letterId = Number(params.id) ?? null
   const [isShow, setIsShow] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
-  const { mutate: deleteCommentMutate } = useDeleteCommentQuery(letterId)
+  const { openModal } = useModal()
 
   const OPTIONS = [
     {
       id: 'delete',
       value: '삭제',
       onClick: (e: React.MouseEvent<HTMLLIElement>) => {
-        if (!commentId) return
         e.stopPropagation()
-        deleteCommentMutate({ commentId })
+        openModal(<DeleteCommentConfirmModal commentId={commentId} />)
       },
     },
     {
