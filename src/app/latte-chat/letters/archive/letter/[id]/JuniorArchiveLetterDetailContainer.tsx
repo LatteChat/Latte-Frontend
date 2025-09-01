@@ -4,6 +4,7 @@ import { useGetJuniorLetterDetail } from '@/features/letter/detail/hooks/useGetJ
 import LetterCardLayout from '@/shared/components/LetterCardLayout'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 
 export default function JuniorArchiveLetterDetailContainer() {
   const params = useParams()
@@ -30,46 +31,74 @@ export default function JuniorArchiveLetterDetailContainer() {
     }
   }
 
+  const [expanded, setExpanded] = useState(false)
+  const [isOverflow, setIsOverflow] = useState(false)
+  const textRef = useRef<HTMLParagraphElement>(null)
+
+  useEffect(() => {
+    if (textRef.current) {
+      const { scrollHeight, clientHeight } = textRef.current
+      if (scrollHeight > clientHeight) {
+        setIsOverflow(true)
+      }
+    }
+  }, [letterDetail?.content])
+
   return (
     <LetterCardLayout
       title={renderTitle()}
       actionButton={
         letterDetail?.letterStatus && (
-          <LetterActionButtonBox letterStatus={letterDetail?.letterStatus} />
+          <LetterActionButtonBox
+            letterStatus={letterDetail?.letterStatus}
+            // hasAnswer={(letterDetail.answerResponseDto ?? []).length > 0}
+          />
         )
       }
     >
       <div className="flex flex-col items-start gap-2">
         <div className="flex gap-2">
           <span className="b9 inline-block rounded bg-secondary-brown-2 px-2 py-0.5 text-white">
-            취업 및 회사
+            {letterDetail?.category}
           </span>
           <span className="b9 inline-block rounded border border-primary px-2 py-0.5 text-secondary-brown-2">
             현실적인
           </span>
         </div>
-        <h2 className="h3 text-black">{letterDetail?.title}</h2>
+        <h2 className="h3 mb-5 text-black">{letterDetail?.title}</h2>
       </div>
 
-      <figure className="p-5">
-        <Image
-          src={letterDetail?.image ?? '/images/test-image.png'}
-          alt="사연 이미지"
-          className="aspect-square w-full rounded-10 object-cover shadow-border"
-          width={255}
-          height={255}
-        />
-      </figure>
+      {letterDetail?.letterStatus !== 'WRITING' && (
+        <figure className="mb-5 px-5">
+          <Image
+            src={letterDetail?.image ?? '/images/test-image.png'}
+            alt="사연 이미지"
+            className="aspect-square w-full rounded-10 object-cover shadow-border"
+            width={255}
+            height={255}
+          />
+        </figure>
+      )}
 
-      <p className="b1 line-clamp-6 text-gray-7">
+      <p
+        ref={textRef}
+        className={`b1 whitespace-pre-line text-gray-7 ${
+          expanded ? '' : 'clamp-with-more'
+        } ${isOverflow && !expanded ? 'show-more' : ''}`}
+        onClick={() => {
+          if (isOverflow && !expanded) setExpanded(true)
+        }}
+      >
         {letterDetail?.content}
-        <span className="text-black">&nbsp;&nbsp;...더보기</span>
+        <span className="text-black"></span>
       </p>
 
-      <AnswerListContainer
-        answers={letterDetail?.answerResponseDto ?? []}
-        isAdopted={true}
-      />
+      {letterDetail?.letterStatus !== 'WRITING' && (
+        <AnswerListContainer
+          answers={letterDetail?.answerResponseDto ?? []}
+          isAdopted={true}
+        />
+      )}
     </LetterCardLayout>
   )
 }
