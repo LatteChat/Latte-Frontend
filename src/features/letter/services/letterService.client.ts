@@ -252,3 +252,20 @@ export const updateAdoptedAnswer = async ({
     },
   })
 }
+
+// 청년 글 보관함 new 체크
+export const fetchLetterArchiveNewState = async ({
+  juniorId,
+}: {
+  juniorId: number
+}): Promise<LetterDetailResponseDto> => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/junior/${juniorId}/is-new`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}

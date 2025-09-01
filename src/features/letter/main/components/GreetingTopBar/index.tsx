@@ -1,6 +1,13 @@
+import { useGetLetterArchiveNewStateQuery } from '@/features/letter/hooks/useGetLetterArchiveNewStateQuery'
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import Link from 'next/link'
 
 export default function GreetingTopBar({ title }: { title: string }) {
+  const { data: userInfo } = useUserInfo()
+  const { data: letterArchiveNewState } = useGetLetterArchiveNewStateQuery({
+    juniorId: userInfo?.juniorId!,
+  })
+
   return (
     <div className="mb-3 flex items-start justify-between">
       <p className="h2 text-secondary-brown-5">{title}</p>
@@ -12,9 +19,11 @@ export default function GreetingTopBar({ title }: { title: string }) {
           <span className="b6 text-secondary-brown-1">글 보관함</span>
           <img src="/icons/box-icon.svg" />
         </Link>
-        <span className="b7 absolute -right-1 -top-3 flex items-center justify-center rounded bg-red-500 px-1 py-[2px] text-white">
-          New
-        </span>
+        {letterArchiveNewState && (
+          <span className="b7 absolute -right-1 -top-3 flex items-center justify-center rounded bg-red-500 px-1 py-[2px] text-white">
+            New
+          </span>
+        )}
       </div>
     </div>
   )
