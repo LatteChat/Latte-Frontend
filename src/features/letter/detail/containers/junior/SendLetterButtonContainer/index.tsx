@@ -2,13 +2,12 @@ import useSaveLetterImageQuery from '@/features/letter/hooks/useSaveLetterImageQ
 import ImageGeneratingModal from '@/features/modal/components/ImageGeneratingModal'
 import Button from '@/shared/components/Button'
 import { useModal } from '@/shared/contexts/ModalContext'
-import { useQueryClient } from '@tanstack/react-query'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 export default function SendLetterButtonContainer() {
+  const router = useRouter()
   const params = useParams()
   const letterId = params.id ? Number(params.id) : null
-  const queryClient = useQueryClient()
 
   if (!letterId) return
 
@@ -27,9 +26,9 @@ export default function SendLetterButtonContainer() {
           },
           {
             onSuccess: (data) => {
-              queryClient.invalidateQueries({
-                queryKey: ['/junior/letter/detail', letterId],
-              })
+              router.push(
+                `/latte-chat/letters/archive/letter/${letterId}/generate`
+              )
             },
           }
         )
