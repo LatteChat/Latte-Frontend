@@ -1,7 +1,8 @@
-import useSendLetterQuery from '@/features/letter/hooks/useSendLetterQuery'
+import useSaveLetterImageQuery from '@/features/letter/hooks/useSaveLetterImageQuery'
 import ImageGeneratingModal from '@/features/modal/components/ImageGeneratingModal'
 import { useModal } from '@/shared/contexts/ModalContext'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function LetterActionSection({
   selectedLetterId,
@@ -12,8 +13,11 @@ export default function LetterActionSection({
   type: 'WRITING' | 'SENT' | 'ANSWERED' | 'ADOPTED' | 'MATCHED' | 'EMPTY'
   href?: string
 }) {
-  const { mutate: sendLetterMutate } = useSendLetterQuery()
+  const router = useRouter()
   const { openModal } = useModal()
+
+  const { mutate: saveLetterImageMutate } =
+    useSaveLetterImageQuery(selectedLetterId)
 
   const renderActionButton = () => {
     switch (type) {
@@ -37,9 +41,18 @@ export default function LetterActionSection({
             <button
               onClick={() => {
                 openModal(<ImageGeneratingModal />)
-                sendLetterMutate({
-                  letterId: selectedLetterId,
-                })
+                saveLetterImageMutate(
+                  {
+                    letterId: selectedLetterId,
+                  },
+                  {
+                    onSuccess: () => {
+                      router.push(
+                        `/latte-chat/letters/archive/letter/${selectedLetterId}/generate`
+                      )
+                    },
+                  }
+                )
               }}
               className="h4 flex w-full items-center justify-center rounded-2xl bg-secondary-brown-2 py-4 text-secondary-brown-1"
             >
