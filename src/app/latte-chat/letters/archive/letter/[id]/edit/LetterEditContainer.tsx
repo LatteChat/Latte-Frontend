@@ -112,7 +112,7 @@ export default function LetterEditContainer() {
                   onClick={() => {
                     if (!userInfo?.juniorId) return
                     updateLetterMutate({
-                      letterId: userInfo?.juniorId,
+                      letterId: letterId,
                       body: letterCreateState,
                     })
                   }}
