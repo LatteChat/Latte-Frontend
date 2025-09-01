@@ -185,7 +185,7 @@ export const fetchJuniorLetterDetail = async ({
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
 
-  return await httpCSR(`/junior/letter/${letterId}/detail`, {
+  return await httpCSR(`/junior/${letterId}/detail`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
