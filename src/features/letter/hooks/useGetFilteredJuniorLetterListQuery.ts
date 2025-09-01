@@ -22,5 +22,6 @@ export const useGetFilteredJuniorLetterListQuery = ({
         page,
       }),
     retry: 2,
+    enabled: !!juniorId,
   })
 }

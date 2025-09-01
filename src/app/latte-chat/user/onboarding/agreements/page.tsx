@@ -5,25 +5,25 @@ import Checkbox from '@/features/user/onboarding/components/Checkbox'
 import StepButton from '@/features/user/onboarding/components/StepButton'
 import StepTitle from '@/features/user/onboarding/components/StepTitle'
 import { useSignupStore } from '@/features/user/stores/signupStore'
+import { useRouter } from 'next/navigation'
 
 export default function UserOnBoardingAgreementsPage() {
+  const router = useRouter()
   const [agreeList, setAgreeList] = useState([false, false, false])
   const pushAllowed = useSignupStore((state) => state.pushAllowed)
   const setPushAllowed = useSignupStore((state) => state.setPushAllowed)
-  const signupInfoReset = useSignupStore((state) => state.reset)
 
   const [isAvailable, setIsAvailable] = useState(true)
 
   const handleClickNextButton = async () => {
     if (typeof window === 'undefined') return
 
-    const memberId = localStorage.getItem('memberId')
     if (agreeList.some((agree) => agree == false)) {
       setIsAvailable(false)
       return
     }
 
-    signupInfoReset()
+    router.push(`/latte-chat/user/onboarding/guide`)
   }
 
   return (

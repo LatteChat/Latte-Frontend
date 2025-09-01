@@ -2,31 +2,55 @@ import Editor from '@/features/letter/create/components/Editor'
 import LetterVisibilityToggleContainer from '@/features/letter/create/containers/LetterVisibilityToggleContainer'
 import TitleHeader from '@/shared/components/TitleHeader'
 import Image from 'next/image'
-import useSaveLetter from '@/features/letter/hooks/saveLetter'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
+  useLetterCreateActions,
   useLetterCreateState,
-  useLetterCreateStore,
 } from '@/features/letter/stores/letterCreateStore'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useModal } from '@/shared/contexts/ModalContext'
 import CategorySelectorModal from '@/features/modal/components/CategorySelectorModal'
+import { useParams } from 'next/navigation'
+import { useGetJuniorLetterDetail } from '@/features/letter/detail/hooks/useGetJuniorLetterDetail'
+import useUpdateLetterQuery from '@/features/letter/hooks/useUpdateLetterQuery'
 
-export default function LetterWriteContainer() {
-  const { data: userInfo } = useUserInfo() // 추후 여기서 juniorId 추출해서 API에 적용
+export default function LetterEditContainer() {
+  const params = useParams()
+  const letterId = params.id ? Number(params.id) : null
+
+  if (!letterId) return
+
+  const { data: letterDetail } = useGetJuniorLetterDetail({
+    letterId,
+  })
+
+  const { data: userInfo } = useUserInfo()
   const { openModal } = useModal()
 
   const [isEditorFocus, setIsEditorFocus] = useState(false)
 
-  const category = useLetterCreateStore((state) => state.category)
+  const { category, answerType } = useLetterCreateState()
+  const { setAll } = useLetterCreateActions()
 
   const letterCreateState = useLetterCreateState()
-  const { mutate: saveLetterMutate } = useSaveLetter()
+  const { mutate: updateLetterMutate } = useUpdateLetterQuery()
+
+  useEffect(() => {
+    if (letterDetail) {
+      setAll({
+        title: letterDetail.title,
+        content: letterDetail.content,
+        isOpen: true,
+        category: letterDetail.category,
+        answerType: ['현실적인'],
+      })
+    }
+  }, [letterDetail])
 
   return (
     <>
       <div>
-        <TitleHeader title="사연 작성하기" />
+        <TitleHeader title="사연 수정하기" />
 
         <div className="flex h-auto min-h-[calc(100svh-8rem)] flex-col items-center bg-secondary-brown-1 px-5 pt-10">
           <div className="mb-4 flex w-full justify-center">
@@ -73,23 +97,27 @@ export default function LetterWriteContainer() {
             {isEditorFocus ? (
               <div className="h-full w-full flex-1 pt-5">
                 {category && (
-                  <span className="b9 mb-4 ml-5 inline-block rounded-md bg-secondary-brown-2 px-2 py-[1px] text-secondary-brown-1">
-                    취업 및 회사
-                  </span>
+                  <div className="flex gap-2">
+                    <span className="b9 mb-4 ml-5 inline-block rounded bg-secondary-brown-2 px-2 py-0.5 text-secondary-brown-1">
+                      {category}
+                    </span>
+                    <span className="b9 border-main mb-4 inline-block rounded border bg-white px-2 py-0.5 text-secondary-brown-2">
+                      {answerType}
+                    </span>
+                  </div>
                 )}
                 <Editor />
                 <button
                   className="b3 absolute bottom-5 left-1/2 -translate-x-1/2 rounded-10 bg-secondary-brown-2 px-7 py-2 text-secondary-brown-1"
                   onClick={() => {
                     if (!userInfo?.juniorId) return
-                    console.log(letterCreateState)
-                    saveLetterMutate({
-                      juniorId: userInfo?.juniorId,
+                    updateLetterMutate({
+                      letterId: letterId,
                       body: letterCreateState,
                     })
                   }}
                 >
-                  저장하기
+                  수정하기
                 </button>
               </div>
             ) : (
@@ -103,10 +131,10 @@ export default function LetterWriteContainer() {
                 <button
                   className="b3 absolute bottom-5 rounded-10 bg-secondary-brown-2 px-7 py-2 text-secondary-brown-1 shadow-border"
                   onClick={() =>
-                    saveLetterMutate({ juniorId: 7, body: letterCreateState })
+                    updateLetterMutate({ letterId: 7, body: letterCreateState })
                   }
                 >
-                  저장하기
+                  수정하기
                 </button>
               </div>
             )}

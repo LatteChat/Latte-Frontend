@@ -17,6 +17,7 @@ export const useGetRecentJuniorLetterListQuery = ({
     queryKey: ['/junior/coffee', { juniorId }],
     queryFn: () => fetchRecentJuniorLetterList({ juniorId }),
     retry: 2,
+    enabled: !!juniorId,
     select: (data) => {
       const list: Letter[] = data || []
 
@@ -26,7 +27,8 @@ export const useGetRecentJuniorLetterListQuery = ({
           ...Array.from({ length: 5 - list.length }, (_, i) => ({
             letterId: -i,
             juniorId,
-            answerStatus: 'EMPTY' as const,
+            answerStatus: null,
+            letterStatus: 'EMPTY' as const,
             title: '',
             content: '',
             image: '',

@@ -1,32 +1,33 @@
 import { useMutation } from '@tanstack/react-query'
+import { updateLetter } from '../services/letterService.client'
 import { useRouter } from 'next/navigation'
-import { saveLetter } from '../services/letterService.client'
 import { useLetterCreateActions } from '../stores/letterCreateStore'
 
-export default function useSaveLetter() {
+export default function useUpdateLetterQuery() {
   const router = useRouter()
   const { reset } = useLetterCreateActions()
 
   return useMutation({
     mutationFn: ({
-      juniorId,
+      letterId,
       body,
     }: {
-      juniorId: number
+      letterId: number
       body: {
         category: string | null
         title: string
         content: string
+        answerType: string[]
         isOpen: boolean
       }
-    }) => saveLetter({ juniorId }, body),
+    }) => updateLetter({ letterId, body }),
     onSuccess: (data) => {
-      console.log('사연 등록 성공:', data)
+      console.log('사연 수정 성공:', data)
       reset()
       router.back()
     },
     onError: (error) => {
-      console.error('사연 등록 실패:', error)
+      console.error('사연 수정 실패:', error)
     },
   })
 }

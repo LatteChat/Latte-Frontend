@@ -6,6 +6,7 @@ import JuniorRecentLetterListContainer from '@/features/letter/main/containers/J
 import { Letter } from '@/features/letter/services/letterService.client'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useEffect, useState } from 'react'
 
 const TOPBAR_ICONS = [
@@ -22,10 +23,11 @@ const TOPBAR_ICONS = [
 ]
 
 export default function JuniorLettersContainer() {
+  const { data: userInfo } = useUserInfo()
   const [selectedLetter, setSelectedLetter] = useState<Letter | null>(null)
 
   const { data: recentLetters, isFetched } = useGetRecentJuniorLetterListQuery({
-    juniorId: 7,
+    juniorId: userInfo?.juniorId!,
   })
 
   console.log(recentLetters)
@@ -47,7 +49,7 @@ export default function JuniorLettersContainer() {
       <main className="flex h-auto min-h-[calc(100svh-11rem)] flex-col bg-latte-gradient-1 p-5">
         <GreetingTopBar title={'사연을 작성해주세요'} />
 
-        <section className="flex flex-col gap-8">
+        <section className="flex flex-col gap-3">
           {recentLetters && selectedLetter && (
             <>
               <JuniorRecentLetterListContainer
@@ -61,7 +63,8 @@ export default function JuniorLettersContainer() {
         </section>
         {selectedLetter && (
           <LetterActionSection
-            type={selectedLetter?.answerStatus}
+            selectedLetterId={selectedLetter.letterId}
+            type={selectedLetter?.letterStatus}
             href="/latte-chat/letters/new"
           />
         )}
