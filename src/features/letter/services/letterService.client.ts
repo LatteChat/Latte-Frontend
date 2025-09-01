@@ -115,18 +115,20 @@ export type LetterDetailResponseDto = {
   answerResponseDto: AnswerResponse[]
 }
 
-// 사연 상세 조회
+// 중장년층 사연 상세 조회
 export const fetchLetterDetail = async ({
   letterId,
+  seniorId,
 }: {
   letterId: number
+  seniorId: number
 }): Promise<LetterDetailResponseDto> => {
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
 
   console.log(letterId)
 
-  return await httpCSR(`/junior/letter/${letterId}/detail`, {
+  return await httpCSR(`/senior/${letterId}/${seniorId}/detail`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -226,6 +228,25 @@ export const saveLetterImage = async ({ letterId }: { letterId: number }) => {
 
   return await httpCSR(`/junior/${letterId}/generate/image`, {
     method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
+
+// 답변 채택
+export const updateAdoptedAnswer = async ({
+  letterId,
+  answerId,
+}: {
+  letterId: number
+  answerId: number
+}) => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/letter/${letterId}/${answerId}/adopt`, {
+    method: 'PATCH',
     headers: {
       Authorization: `Bearer ${token}`,
     },

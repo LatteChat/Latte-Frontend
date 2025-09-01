@@ -6,14 +6,11 @@ import 'swiper/css/pagination'
 import './customSwiperStyles.css'
 import LetterAnswerCard from '../../components/LetterAnswerCard'
 import { AgeType } from '@/features/user/types/User'
+import { useAnswerAdoptActions } from '@/features/letter/stores/answerAdoptStore'
 
-export default function AnswerListContainer({
-  answers,
-  isAdopted,
-}: {
-  answers: any[]
-  isAdopted: boolean
-}) {
+export default function AnswerListContainer({ answers }: { answers: any[] }) {
+  const { setSelectedAnswer } = useAnswerAdoptActions()
+
   console.log('answers:', answers)
   return (
     <section className="mt-5 flex w-full flex-col items-center overflow-hidden">
@@ -23,10 +20,14 @@ export default function AnswerListContainer({
         spaceBetween={16}
         slidesPerView={1}
         pagination={{ clickable: true }}
+        onSlideChange={(swiper) => {
+          setSelectedAnswer(answers[swiper.activeIndex].answerId)
+        }}
       >
         {answers.map(
           (answer: {
             answerId: number
+            answerStatus: any
             content: string
             createdAt: string
             seniorDetailDto: {
@@ -51,7 +52,7 @@ export default function AnswerListContainer({
                   content: answer.content,
                   createdAt: answer.createdAt,
                 }}
-                adopted={isAdopted}
+                adopted={answer.answerStatus === 'ADOPTED'}
               />
             </SwiperSlide>
           )
