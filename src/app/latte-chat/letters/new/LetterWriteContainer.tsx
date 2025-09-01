@@ -1,7 +1,5 @@
 import Editor from '@/features/letter/create/components/Editor'
-import CategorySelectorModal from '@/features/letter/create/components/CategorySelectorModal'
 import LetterVisibilityToggleContainer from '@/features/letter/create/containers/LetterVisibilityToggleContainer'
-import ModalLayout from '@/shared/components/ModalLayout'
 import TitleHeader from '@/shared/components/TitleHeader'
 import Image from 'next/image'
 import useSaveLetter from '@/features/letter/hooks/saveLetter'
@@ -11,49 +9,29 @@ import {
   useLetterCreateStore,
 } from '@/features/letter/stores/letterCreateStore'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
+import { useModal } from '@/shared/contexts/ModalContext'
+import CategorySelectorModal from '@/features/modal/components/CategorySelectorModal'
 
 export default function LetterWriteContainer() {
   const { data: userInfo } = useUserInfo() // 추후 여기서 juniorId 추출해서 API에 적용
+  const { openModal } = useModal()
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [isEditorFocus, setIsEditorFocus] = useState(false)
 
   const category = useLetterCreateStore((state) => state.category)
-  const setCategory = useLetterCreateStore((state) => state.setCategory)
+
   const letterCreateState = useLetterCreateState()
   const { mutate: saveLetterMutate } = useSaveLetter()
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-  }
-
-  const handleSelectCategory = (category: string) => {
-    setCategory(category)
-    handleCloseModal()
-  }
-
   return (
     <>
-      {isModalOpen && (
-        <ModalLayout>
-          <CategorySelectorModal
-            onClose={handleCloseModal}
-            onSelectCategory={handleSelectCategory}
-          />
-        </ModalLayout>
-      )}
-
       <div>
         <TitleHeader title="사연 작성하기" />
 
         <div className="flex h-auto min-h-[calc(100svh-8rem)] flex-col items-center bg-secondary-brown-1 px-5 pt-10">
           <div className="mb-4 flex w-full justify-center">
             <button
-              onClick={handleOpenModal}
+              onClick={() => openModal(<CategorySelectorModal />)}
               type="button"
               className="h4 flex items-center gap-3 rounded-10 bg-white px-3 py-2 text-black shadow-border"
             >
