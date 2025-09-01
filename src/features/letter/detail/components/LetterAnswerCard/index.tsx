@@ -28,7 +28,7 @@ export default function LetterAnswerCard({
       )}
       <div className="flex flex-col items-center">
         <div className="mb-2.5 ml-1 flex aspect-square h-10 w-10">
-          <UserProfile profile="/images/coffee-bean-image.png" />
+          <UserProfile profile="/images/coffee-bean-image.png" age={user.age} />
         </div>
         <span className="b7 mb-1">{user.name}</span>
         <div className="flex flex-wrap justify-center gap-1">

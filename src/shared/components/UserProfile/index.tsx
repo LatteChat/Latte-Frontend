@@ -3,12 +3,11 @@ import Image from 'next/image'
 
 const AGE_CLASS_MAPPING: Record<AgeType, string> = {
   UNDER_10: "bg-[url('/images/badge/badge-image-1.png')]",
-  TEENAGER: "bg-[url('/images/badge/badge-image-2.png')]",
-  TWENTIES: "bg-[url('/images/badge/badge-image-3.png')]",
-  THIRTIES: "bg-[url('/images/badge/badge-image-4.png')]",
-  FORTIES: "bg-[url('/images/badge/badge-image-5.png')]",
-  FIFTIES: "bg-[url('/images/badge/badge-image-6.png')]",
-  SIXTIES_AND_ABOVE: "bg-[url('/images/badge/badge-image-7.png')]",
+  TWENTIES: "bg-[url('/images/badge/badge-image-2.png')]",
+  THIRTIES: "bg-[url('/images/badge/badge-image-3.png')]",
+  FORTIES: "bg-[url('/images/badge/badge-image-4.png')]",
+  FIFTIES: "bg-[url('/images/badge/badge-image-5.png')]",
+  SIXTIES_AND_ABOVE: "bg-[url('/images/badge/badge-image-6.png')]",
 } as const
 
 export default function UserProfile({
