@@ -192,3 +192,29 @@ export const fetchJuniorLetterDetail = async ({
     },
   })
 }
+
+// 사연 수정
+export const updateLetter = async ({
+  letterId,
+  body,
+}: {
+  letterId: number
+  body: {
+    category: string | null
+    title: string
+    content: string
+    answerType: string[]
+    isOpen: boolean
+  }
+}) => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/junior/${letterId}/modify`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
+  })
+}
