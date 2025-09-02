@@ -23,6 +23,7 @@ export default function SeniorLetterContentCardListContainer() {
           <ContentCard
             key={letter.letterId}
             letter={{
+              letterId: letter.letterId,
               category: letter.category,
               writeStyle: '현실적인',
               title: letter.title,

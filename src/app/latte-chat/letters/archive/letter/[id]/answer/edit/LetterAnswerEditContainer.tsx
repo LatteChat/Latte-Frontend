@@ -1,31 +1,46 @@
 import TitleHeader from '@/shared/components/TitleHeader'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import AnswerEditor from '@/features/letter/answer/components/AnswerEditor'
-import useSaveAnswer from '@/features/letter/hooks/useSaveAnswer'
-import { useAnswerCreateState } from '@/features/letter/stores/answerCreateStore'
+import {
+  useAnswerCreateActions,
+  useAnswerCreateState,
+} from '@/features/letter/stores/answerCreateStore'
 import { useParams } from 'next/navigation'
+import useUpdateAnswerQuery from '@/features/letter/hooks/useUpdateAnswerQuery'
+import { useGetSeniorLetterDetail } from '@/features/letter/detail/hooks/useGetSeniorLetterDetail'
 
-export default function LetterAnswerWriteContainer() {
+export default function LetterAnswerEditContainer() {
   const params = useParams()
   const letterId = Number(params.id) ?? null
 
   if (!letterId) return null
 
   const { data: userInfo } = useUserInfo()
+  const { data: letterDetail } = useGetSeniorLetterDetail({
+    letterId,
+    seniorId: userInfo?.seniorId,
+  })
 
   const [isEditorFocus, setIsEditorFocus] = useState(false)
 
   const answerCreateState = useAnswerCreateState()
-  const { mutate: saveAnswerMutate } = useSaveAnswer({
-    letterId,
-  })
+  const { setContent } = useAnswerCreateActions()
+  const { mutate: updateAnswerMutate } = useUpdateAnswerQuery()
+
+  console.log(letterDetail)
+
+  useEffect(() => {
+    if (letterDetail) {
+      setContent(letterDetail.answerResponseDto.content)
+    }
+  }, [letterDetail])
 
   return (
     <>
       <div>
-        <TitleHeader title="답변 작성하기" />
+        <TitleHeader title="답변 수정하기" />
 
         <div className="flex h-auto min-h-[calc(100svh-8rem)] flex-col items-center bg-secondary-brown-1 px-5 pt-10">
           <div className="mb-4 flex w-full justify-center px-10">
@@ -63,14 +78,14 @@ export default function LetterAnswerWriteContainer() {
                   className="b3 absolute bottom-5 left-1/2 -translate-x-1/2 rounded-10 bg-secondary-brown-2 px-7 py-2 text-secondary-brown-1"
                   onClick={() => {
                     if (!userInfo?.seniorId) return
-                    saveAnswerMutate({
+                    updateAnswerMutate({
                       letterId,
-                      seniorId: userInfo?.seniorId,
+                      answerId: letterDetail.answerResponseDto.answerId,
                       body: answerCreateState,
                     })
                   }}
                 >
-                  저장하기
+                  수정하기
                 </button>
               </div>
             ) : (
@@ -85,14 +100,14 @@ export default function LetterAnswerWriteContainer() {
                   className="b3 absolute bottom-5 rounded-10 bg-secondary-brown-2 px-7 py-2 text-secondary-brown-1 shadow-border"
                   onClick={() => {
                     if (!userInfo?.seniorId) return
-                    saveAnswerMutate({
+                    updateAnswerMutate({
                       letterId,
-                      seniorId: userInfo?.seniorId,
+                      answerId: letterDetail.answerResponseDto.answerId,
                       body: answerCreateState,
                     })
                   }}
                 >
-                  저장하기
+                  수정하기
                 </button>
               </div>
             )}

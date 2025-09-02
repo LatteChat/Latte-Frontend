@@ -164,3 +164,27 @@ export const fetchSeniorLetterDetail = async ({
     },
   })
 }
+
+// 답변 수정
+export const updateAnswer = async ({
+  letterId,
+  answerId,
+  body,
+}: {
+  letterId: number
+  answerId: number
+  body: {
+    content: string
+  }
+}) => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/senior/${letterId}/${answerId}/answer/modify`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
+  })
+}

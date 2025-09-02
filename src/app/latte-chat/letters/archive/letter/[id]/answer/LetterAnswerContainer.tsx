@@ -3,6 +3,7 @@ import { useGetSeniorLetterDetail } from '@/features/letter/detail/hooks/useGetS
 import LetterCardLayout from '@/shared/components/LetterCardLayout'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 
 export default function LetterAnswerContainer({
@@ -27,9 +28,12 @@ export default function LetterAnswerContainer({
       actionButton={
         <div className="mt-10 flex w-full flex-col items-center justify-center gap-5">
           <p className="b6 text-gray-6">답변을 수정하시겠어요?</p>
-          <button className="h4 w-full rounded-10 bg-secondary-brown-2 py-4 text-white">
+          <Link
+            href="answer/edit"
+            className="h4 w-full rounded-10 bg-secondary-brown-2 py-4 text-center text-white"
+          >
             수정하기
-          </button>
+          </Link>
           <button
             onClick={() => {
               if (!userInfo?.seniorId) return
