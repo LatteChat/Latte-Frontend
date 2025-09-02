@@ -98,7 +98,8 @@ export default function SeniorLetterListArchiveCategoryContainer() {
                     date: letter.createAt,
                     likeCount: letter.heart,
                     commentCount: letter.view,
-                    status: letter.answerStatus,
+                    answerStatus: letter.answerStatus,
+                    letterStatus: letter.letterStatus,
                   }}
                   showStatus
                   showShadow

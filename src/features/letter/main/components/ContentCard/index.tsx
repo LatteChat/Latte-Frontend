@@ -6,10 +6,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 export default function ContentCard({
-  letter: { category, writeStyle, title, content, letterType },
+  letter: { letterId, category, writeStyle, title, content, letterType },
   user: { nickname },
 }: {
   letter: {
+    letterId: number
     category: string
     writeStyle: string
     title: string
@@ -33,7 +34,7 @@ export default function ContentCard({
 
   const handleSelectLetter = () => {
     selectLetterMutate({
-      letterId: 5,
+      letterId: letterId,
       seniorId: userInfo?.seniorId!,
     })
   }

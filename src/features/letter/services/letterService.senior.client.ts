@@ -145,3 +145,46 @@ export const fetchSelectLetter = async ({
     },
   })
 }
+
+// 중장년 사연 상세 조회
+export const fetchSeniorLetterDetail = async ({
+  letterId,
+  seniorId,
+}: {
+  letterId: number
+  seniorId: number
+}): Promise<any> => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/senior/${letterId}/${seniorId}/detail`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
+
+// 답변 수정
+export const updateAnswer = async ({
+  letterId,
+  answerId,
+  body,
+}: {
+  letterId: number
+  answerId: number
+  body: {
+    content: string
+  }
+}) => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/senior/${letterId}/${answerId}/answer/modify`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
+  })
+}

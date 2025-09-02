@@ -2,7 +2,6 @@ import { httpCSR } from '@/shared/apis/http'
 
 type AgeType =
   | 'UNDER_10'
-  | 'TEENAGER'
   | 'TWENTIES'
   | 'THIRTIES'
   | 'FORTIES'

@@ -2,7 +2,7 @@ import Editor from '@/features/letter/create/components/Editor'
 import LetterVisibilityToggleContainer from '@/features/letter/create/containers/LetterVisibilityToggleContainer'
 import TitleHeader from '@/shared/components/TitleHeader'
 import Image from 'next/image'
-import useSaveLetter from '@/features/letter/hooks/saveLetter'
+import useSaveLetterQuery from '@/features/letter/hooks/userSaveLetterQuery'
 import { useState } from 'react'
 import {
   useLetterCreateState,
@@ -21,7 +21,7 @@ export default function LetterWriteContainer() {
   const category = useLetterCreateStore((state) => state.category)
 
   const letterCreateState = useLetterCreateState()
-  const { mutate: saveLetterMutate } = useSaveLetter()
+  const { mutate: saveLetterMutate } = useSaveLetterQuery()
 
   return (
     <>

@@ -115,27 +115,6 @@ export type LetterDetailResponseDto = {
   answerResponseDto: AnswerResponse[]
 }
 
-// 중장년층 사연 상세 조회
-export const fetchLetterDetail = async ({
-  letterId,
-  seniorId,
-}: {
-  letterId: number
-  seniorId: number
-}): Promise<LetterDetailResponseDto> => {
-  const token = localStorage.getItem('accessToken')
-  if (!token) throw new Error('토큰이 없습니다.')
-
-  console.log(letterId)
-
-  return await httpCSR(`/senior/${letterId}/${seniorId}/detail`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-}
-
 // 사연 전송
 export const sendLetter = async ({ letterId }: { letterId: number }) => {
   const token = localStorage.getItem('accessToken')
@@ -264,6 +243,19 @@ export const fetchLetterArchiveNewState = async ({
 
   return await httpCSR(`/junior/${juniorId}/is-new`, {
     method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
+
+// 사연 삭제
+export const deleteLetter = async ({ letterId }: { letterId: number }) => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/junior/${letterId}/delete`, {
+    method: 'PATCH',
     headers: {
       Authorization: `Bearer ${token}`,
     },

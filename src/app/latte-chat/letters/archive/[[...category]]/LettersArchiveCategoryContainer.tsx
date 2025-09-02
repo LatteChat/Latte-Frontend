@@ -82,7 +82,7 @@ export default function LettersArchiveCategoryContainer() {
             return (
               <Link
                 key={letter.letterId}
-                href={`/latte-chat/letters/${letter.letterId}`}
+                href={`/latte-chat/letters/archive/letter/${letter.letterId}`}
               >
                 <PostCard
                   post={{

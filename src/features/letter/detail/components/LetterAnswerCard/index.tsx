@@ -10,6 +10,7 @@ export type Member = {
 
 export default function LetterAnswerCard({
   answer: { user, content, createdAt },
+  isAdoptedLetter = false,
   adopted,
 }: {
   answer: {
@@ -17,13 +18,16 @@ export default function LetterAnswerCard({
     content: string
     createdAt: string
   }
+  isAdoptedLetter?: boolean
   adopted?: boolean
 }) {
   return (
-    <section className="relative flex flex-col gap-4 rounded-10 border border-secondary-brown-2 bg-secondary-brown-1 p-5">
-      {adopted && (
-        <span className="b10 absolute left-5 top-5 rounded-10 bg-secondary-brown-2 px-2 py-1 text-white">
-          채택한 답변
+    <section className="relative flex h-full flex-1 flex-col gap-4 rounded-10 border border-secondary-brown-2 bg-secondary-brown-1 p-5">
+      {isAdoptedLetter && (
+        <span
+          className={`b10 self-start rounded-10 ${adopted ? 'bg-secondary-brown-2' : 'bg-gray-5'} px-2 py-1 text-white`}
+        >
+          {adopted ? '답변이 채택되었어요.' : '아쉽지만, 채택이 되지 않았어요.'}
         </span>
       )}
       <div className="flex flex-col items-center">
@@ -32,7 +36,7 @@ export default function LetterAnswerCard({
         </div>
         <span className="b7 mb-1">{user.name}</span>
         <div className="flex flex-wrap justify-center gap-1">
-          {user.tag.map((tag, index) => {
+          {(user.tag ?? []).map((tag, index) => {
             return (
               <span
                 key={index}
@@ -45,7 +49,7 @@ export default function LetterAnswerCard({
         </div>
       </div>
 
-      <p className="b4 text-gray-7">{content}</p>
+      <p className="b4 flex-grow text-gray-7">{content}</p>
 
       <time className="b9 self-end text-gray-5">{createdAt}</time>
     </section>

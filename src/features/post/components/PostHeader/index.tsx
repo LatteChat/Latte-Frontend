@@ -3,7 +3,6 @@ import { formatDateDefault, formatDateTime } from '@/shared/utils/formatDate'
 
 type AgeType =
   | 'UNDER_10'
-  | 'TEENAGER'
   | 'TWENTIES'
   | 'THIRTIES'
   | 'FORTIES'

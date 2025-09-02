@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import { saveLetter } from '../services/letterService.client'
 import { useLetterCreateActions } from '../stores/letterCreateStore'
 
-export default function useSaveLetter() {
+export default function useSaveLetterQuery() {
   const router = useRouter()
   const { reset } = useLetterCreateActions()
 

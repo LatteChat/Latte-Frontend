@@ -49,10 +49,7 @@ export default function JuniorArchiveLetterDetailContainer() {
       title={renderTitle()}
       actionButton={
         letterDetail?.letterStatus && (
-          <LetterActionButtonBox
-            letterStatus={letterDetail?.letterStatus}
-            // hasAnswer={(letterDetail.answerResponseDto ?? []).length > 0}
-          />
+          <LetterActionButtonBox letterStatus={letterDetail?.letterStatus} />
         )
       }
     >
@@ -61,7 +58,7 @@ export default function JuniorArchiveLetterDetailContainer() {
           <span className="b9 inline-block rounded bg-secondary-brown-2 px-2 py-0.5 text-white">
             {letterDetail?.category}
           </span>
-          <span className="b9 inline-block rounded border border-primary px-2 py-0.5 text-secondary-brown-2">
+          <span className="b9 inline-block rounded border border-primary bg-white px-2 py-0.5 text-secondary-brown-2">
             현실적인
           </span>
         </div>
@@ -96,7 +93,7 @@ export default function JuniorArchiveLetterDetailContainer() {
       {letterDetail?.letterStatus !== 'WRITING' && (
         <AnswerListContainer
           answers={letterDetail?.answerResponseDto ?? []}
-          isAdopted={true}
+          letterStatus={letterDetail?.letterStatus}
         />
       )}
     </LetterCardLayout>
