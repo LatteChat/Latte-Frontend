@@ -39,7 +39,7 @@ export default function LetterAnswerContainer({
               if (!userInfo?.seniorId) return
               sendAnswerMutate({
                 letterId,
-                answerId: userInfo?.seniorId,
+                answerId: letterDetail.answerResponseDto.answerId,
               })
             }}
             className="h4 w-full rounded-10 bg-secondary-brown-4 py-4 text-white"
