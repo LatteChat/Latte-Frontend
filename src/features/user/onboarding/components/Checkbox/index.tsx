@@ -6,6 +6,7 @@ type CheckboxProps = {
   isCheck: boolean
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   children?: React.ReactNode
+  showRequired?: boolean
 }
 
 export default function Checkbox({
@@ -14,6 +15,7 @@ export default function Checkbox({
   isCheck,
   onChange,
   children,
+  showRequired = true,
 }: CheckboxProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -24,10 +26,12 @@ export default function Checkbox({
           checked={isCheck}
           onChange={onChange}
           type="checkbox"
-          className="accent-secondary-brown-4 mr-2 aspect-square h-5 w-5"
+          className="mr-2 aspect-square h-5 w-5 accent-secondary-brown-4"
         />
         <span className="b4 flex-1 text-black">
-          <span className="mr-1">{required ? '[필수]' : '[선택]'}</span>
+          {showRequired && (
+            <span className="mr-1">{required ? '[필수]' : '[선택]'}</span>
+          )}
           {label}
         </span>
         {children && (
@@ -55,7 +59,7 @@ export default function Checkbox({
       </label>
 
       {isExpanded && children && (
-        <div className="b4 text-gray-5 pl-7">{children}</div>
+        <div className="b4 pl-7 text-gray-5">{children}</div>
       )}
     </div>
   )

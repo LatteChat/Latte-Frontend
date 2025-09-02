@@ -25,7 +25,7 @@ export const LETTER_STATUS_JUNIOR_LABEL: Record<
     icon: '/images/coffee-bean-image.svg',
     image: '/images/coffee-beans-image.svg',
   },
-  SEND: {
+  SENT: {
     beanLabel: '전송됨',
     label: '답변 대기 중',
     icon: '/images/latte-image.svg',
@@ -62,8 +62,8 @@ export const LETTER_STATUS_JUNIOR_LABEL: Record<
     image: '/images/latte-image.svg',
   },
   EMPTY: {
-    beanLabel: '대기중',
-    label: '대기 중',
+    beanLabel: '미작성',
+    label: '미작성',
     icon: '/images/coffee-bean-image.svg',
     image: '/images/coffee-beans-image.svg',
   },
@@ -76,7 +76,7 @@ export const LETTER_STATUS_LABEL: Record<AnswerStatus, LetterStatusInfo> = {
     icon: '/images/coffee-bean-image.svg',
     image: '/images/coffee-beans-image.svg',
   },
-  SEND: {
+  SENT: {
     beanLabel: '전송됨',
     label: '답변 대기 중',
     icon: '/images/latte-image.svg',

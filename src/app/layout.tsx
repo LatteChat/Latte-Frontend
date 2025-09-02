@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import '@/shared/styles/globals.css'
 import '@/shared/styles/fonts.css'
 import ReactQueryProvider from '@/shared/providers/ReactQueryProvider'
+import { ModalProvider } from '@/shared/contexts/ModalContext'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <ReactQueryProvider>
-          <div className="flex justify-center">{children}</div>
+          <ModalProvider>
+            <div className="flex justify-center">{children}</div>
+          </ModalProvider>
         </ReactQueryProvider>
       </body>
     </html>

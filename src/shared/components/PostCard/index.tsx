@@ -2,10 +2,11 @@ import Image from 'next/image'
 import PostTag from '../PostTag'
 import { Category } from '@/shared/types/Category'
 import { AnswerStatus } from '@/shared/types/AnswerStatus'
+import { formatDate } from '@/shared/utils/formatDate'
 
 const LETTER_STATUS_LABEL: Record<AnswerStatus, string> = {
   WRITING: '저장됨',
-  SEND: '답변 대기 중',
+  SENT: '답변 대기 중',
   WAITING: '답변 대기 중',
   SAVED: '저장됨',
   ANSWERED: '답변 완료',
@@ -22,7 +23,14 @@ type Post = {
   date: string
   likeCount: number
   commentCount: number
-  status?: AnswerStatus
+  answerStatus?: AnswerStatus
+  letterStatus:
+    | 'WRITING'
+    | 'SENT'
+    | 'ANSWERED'
+    | 'ADOPTED'
+    | 'MATCHED'
+    | 'EMPTY'
 }
 
 type PostCardProps = {
@@ -33,18 +41,28 @@ type PostCardProps = {
 }
 
 export default function PostCard({
-  post: { tag, title, content, date, likeCount, image, commentCount, status },
+  post: {
+    tag,
+    title,
+    content,
+    date,
+    likeCount,
+    image,
+    commentCount,
+    answerStatus,
+    letterStatus,
+  },
   showStatus,
   showShadow,
   showMeta,
 }: PostCardProps) {
   return (
     <article
-      className={`${showShadow ? 'shadow' : ''} shadow-border relative flex w-full cursor-pointer flex-col items-center gap-4 rounded-10 bg-white p-5`}
+      className={`${showShadow ? 'shadow' : ''} relative flex w-full cursor-pointer flex-col items-center gap-4 rounded-10 bg-white p-5 shadow-border`}
     >
-      {status && showStatus && (
-        <span className="b6 bg-gray-3 absolute -top-4 left-4 rounded-full px-2 py-1 text-black">
-          {LETTER_STATUS_LABEL[status]}
+      {(letterStatus || answerStatus) && showStatus && (
+        <span className="b6 absolute -top-4 left-4 rounded-full bg-gray-3 px-2 py-1 text-black">
+          {LETTER_STATUS_LABEL[answerStatus ? answerStatus : letterStatus]}
         </span>
       )}
 
@@ -63,16 +81,16 @@ export default function PostCard({
         </div>
 
         <Image
-          src={image ?? '/images/test-image.png'}
-          className="shadow-border h-24 w-24 flex-shrink-0 rounded-10 bg-gray-300"
+          src={image ?? '/images/coffee-bean-image.png'}
+          className="h-24 w-24 flex-shrink-0 rounded-10 bg-primary shadow-border"
           width={95}
           height={95}
           alt="게시글 이미지"
         />
       </div>
 
-      <div className="text-gray-5 flex w-full items-center justify-between gap-2">
-        <span className="b9">{date}</span>
+      <div className="flex w-full items-center justify-between gap-2 text-gray-5">
+        <span className="b9">{formatDate(date)}</span>
         {showMeta && (
           <div className="flex gap-2">
             <div className="flex items-center gap-[1px]">

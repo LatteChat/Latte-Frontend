@@ -8,7 +8,11 @@ export default function UserOnBoardingRoleContainer() {
   const memberType = useSignupStore((state) => state.memberType)
 
   const handleClickNextButton = () => {
-    router.push('/latte-chat/user/onboarding/category')
+    if (memberType === 'JUNIOR') {
+      router.push('/latte-chat/user/onboarding/introduce')
+    } else {
+      router.push('/latte-chat/user/onboarding/category')
+    }
   }
 
   return (

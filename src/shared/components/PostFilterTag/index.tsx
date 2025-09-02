@@ -1,6 +1,21 @@
-export default function PostFilterTag({ label }: { label: string }) {
+import { Category } from '@/shared/types/Type'
+
+export default function PostFilterTag({
+  label,
+  selected,
+  value,
+  onClick,
+}: {
+  label: string
+  selected: Category | null
+  value: Category
+  onClick: () => void
+}) {
   return (
-    <span className="b4 shadow-border cursor-pointer whitespace-nowrap rounded-[0.625rem] border-2 border-transparent bg-white px-4 py-2 hover:border-2 hover:border-gray-500">
+    <span
+      onClick={onClick}
+      className={`${selected === value ? 'border-secondary-brown-2 bg-secondary-brown-1' : 'border-transparent bg-white'} b4 shadow-border cursor-pointer whitespace-nowrap rounded-10 border-2 px-4 py-2 text-black`}
+    >
       {label}
     </span>
   )
