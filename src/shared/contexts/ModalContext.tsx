@@ -3,8 +3,10 @@
 import { createContext, useContext, useState, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
+type ModalContent = ReactNode | (() => ReactNode)
+
 type ModalContextType = {
-  openModal: (content: ReactNode) => void
+  openModal: (content: ModalContent) => void
   closeModal: () => void
 }
 
@@ -13,7 +15,7 @@ const ModalContext = createContext<ModalContextType | null>(null)
 export function ModalProvider({ children }: { children: ReactNode }) {
   const [modalContent, setModalContent] = useState<ReactNode | null>(null)
 
-  const openModal = (content: ReactNode) => setModalContent(content)
+  const openModal = (content: ModalContent) => setModalContent(content)
   const closeModal = () => setModalContent(null)
 
   return (
@@ -22,8 +24,10 @@ export function ModalProvider({ children }: { children: ReactNode }) {
       {modalContent &&
         createPortal(
           <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/40 px-5">
-            <div className="w-full rounded-xl bg-white shadow-lg">
-              {modalContent}
+            <div className="w-full overflow-hidden rounded-10 bg-white shadow-lg">
+              {typeof modalContent === 'function'
+                ? (modalContent as () => ReactNode)()
+                : modalContent}
             </div>
           </div>,
           document.getElementById('modal-root')!
