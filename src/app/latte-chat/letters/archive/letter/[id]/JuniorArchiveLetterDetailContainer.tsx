@@ -49,10 +49,7 @@ export default function JuniorArchiveLetterDetailContainer() {
       title={renderTitle()}
       actionButton={
         letterDetail?.letterStatus && (
-          <LetterActionButtonBox
-            letterStatus={letterDetail?.letterStatus}
-            // hasAnswer={(letterDetail.answerResponseDto ?? []).length > 0}
-          />
+          <LetterActionButtonBox letterStatus={letterDetail?.letterStatus} />
         )
       }
     >
@@ -96,7 +93,7 @@ export default function JuniorArchiveLetterDetailContainer() {
       {letterDetail?.letterStatus !== 'WRITING' && (
         <AnswerListContainer
           answers={letterDetail?.answerResponseDto ?? []}
-          isAdopted={true}
+          letterStatus={letterDetail?.letterStatus}
         />
       )}
     </LetterCardLayout>

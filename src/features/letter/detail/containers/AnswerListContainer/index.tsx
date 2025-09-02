@@ -7,15 +7,35 @@ import './customSwiperStyles.css'
 import LetterAnswerCard from '../../components/LetterAnswerCard'
 import { AgeType } from '@/features/user/types/User'
 import { useAnswerAdoptActions } from '@/features/letter/stores/answerAdoptStore'
+import { useEffect, useRef, useState } from 'react'
 
-export default function AnswerListContainer({ answers }: { answers: any[] }) {
+export default function AnswerListContainer({
+  answers,
+  letterStatus,
+}: {
+  answers: any[]
+  letterStatus: any
+}) {
   const { setSelectedAnswer } = useAnswerAdoptActions()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [maxHeight, setMaxHeight] = useState(0)
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const slideEls = containerRef.current.querySelectorAll('.answer-slide')
+      const heights = Array.from(slideEls).map((el) => el.scrollHeight)
+      setMaxHeight(Math.max(...heights))
+    }
+  }, [answers])
 
   console.log('answers:', answers)
   return (
-    <section className="mt-5 flex w-full flex-col items-center overflow-hidden">
+    <section
+      ref={containerRef}
+      className="mt-5 flex w-full flex-col items-center overflow-hidden"
+    >
       <Swiper
-        className="w-full"
+        className="flex h-full w-full"
         modules={[Pagination]}
         spaceBetween={16}
         slidesPerView={1}
@@ -23,6 +43,7 @@ export default function AnswerListContainer({ answers }: { answers: any[] }) {
         onSlideChange={(swiper) => {
           setSelectedAnswer(answers[swiper.activeIndex].answerId)
         }}
+        style={{ height: maxHeight ? `${maxHeight}px` : 'auto' }}
       >
         {answers.map(
           (answer: {
@@ -38,7 +59,10 @@ export default function AnswerListContainer({ answers }: { answers: any[] }) {
               tag: string[]
             }
           }) => (
-            <SwiperSlide key={answer.answerId}>
+            <SwiperSlide
+              key={answer.answerId}
+              className="flex h-full items-stretch"
+            >
               <LetterAnswerCard
                 answer={{
                   user: {
@@ -53,6 +77,7 @@ export default function AnswerListContainer({ answers }: { answers: any[] }) {
                   createdAt: answer.createdAt,
                 }}
                 adopted={answer.answerStatus === 'ADOPTED'}
+                isAdoptedLetter={letterStatus === 'ADOPTED'}
               />
             </SwiperSlide>
           )
