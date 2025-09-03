@@ -11,12 +11,14 @@ export default function CallbackContainer() {
     const token = searchParams.get('token')
     const status = searchParams.get('status')
     const memberId = searchParams.get('memberId')
+    const age = searchParams.get('age')
 
     if (!token) return
 
     localStorage.setItem('accessToken', token)
 
     if (status === 'new') {
+      localStorage.setItem('age', age ?? '')
       localStorage.setItem('memberId', memberId ?? '')
       router.replace('/latte-chat/user/onboarding/welcome')
     } else {

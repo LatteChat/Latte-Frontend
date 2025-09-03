@@ -2,10 +2,12 @@
 
 import StepButton from '@/features/user/onboarding/components/StepButton'
 import StepTitle from '@/features/user/onboarding/components/StepTitle'
+import { useSignupStore } from '@/features/user/stores/signupStore'
 import { useRouter } from 'next/navigation'
 
 export default function UserOnBoardingIntroducePage() {
   const router = useRouter()
+  const setIntroduce = useSignupStore((state) => state.setIntroduce)
 
   const handleClickNextButton = () => {
     router.push(`/latte-chat/user/onboarding/agreements`)
@@ -21,6 +23,7 @@ export default function UserOnBoardingIntroducePage() {
 
       <div className="flex flex-1 flex-col gap-1.5">
         <textarea
+          onChange={(e) => setIntroduce(e.target.value)}
           placeholder="간단한 소개글을 작성해주세요.(선택)"
           className="h-full max-h-96 flex-1 resize-none rounded-10 p-5 shadow-border outline-none placeholder:text-center placeholder:text-gray-6"
         ></textarea>
