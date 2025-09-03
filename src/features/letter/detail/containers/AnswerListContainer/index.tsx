@@ -28,6 +28,12 @@ export default function AnswerListContainer({
     }
   }, [answers])
 
+  useEffect(() => {
+    if (answers && answers.length > 0) {
+      setSelectedAnswer(answers[0].answerId)
+    }
+  }, [answers])
+
   console.log('answers:', answers)
   return (
     <section
