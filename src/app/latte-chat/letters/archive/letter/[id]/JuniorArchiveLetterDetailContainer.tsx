@@ -1,3 +1,7 @@
+import {
+  useChatUserActions,
+  useChatUserState,
+} from '@/features/chat/stores/chatUserStore'
 import LetterActionButtonBox from '@/features/letter/detail/components/junior/LetterActionButtonBox'
 import AnswerListContainer from '@/features/letter/detail/containers/AnswerListContainer'
 import { useGetJuniorLetterDetail } from '@/features/letter/detail/hooks/useGetJuniorLetterDetail'
@@ -15,6 +19,33 @@ export default function JuniorArchiveLetterDetailContainer() {
   const { data: letterDetail } = useGetJuniorLetterDetail({
     letterId,
   })
+  const { junior, senior } = useChatUserState()
+  const { setAll } = useChatUserActions()
+
+  useEffect(() => {
+    if (letterDetail && letterDetail.answerResponseDto.length > 0) {
+      const adoptedAnswer = letterDetail.answerResponseDto.find(
+        (answer) => (answer as any).answerStatus === 'ADOPTED'
+      )
+
+      if (!adoptedAnswer) return
+
+      const seniorId = (adoptedAnswer?.seniorDetailDto as any)?.seniorId
+      const juniorId = (letterDetail.juniorDetailDto as any)?.juniorId
+
+      setAll({
+        senior: {
+          ...senior,
+          id: seniorId,
+        },
+        junior: {
+          ...junior,
+          id: juniorId,
+        },
+      })
+    }
+  }, [letterDetail])
+
   console.log('청년 사연 상세 조회:', letterDetail)
 
   const renderTitle = () => {
