@@ -143,14 +143,25 @@ export const updateComment = async ({
 }
 
 // 사연 댓글 좋아요
-export const saveCommentLike = async ({ commentId }: { commentId: number }) => {
+export const saveCommentLike = async ({
+  commentId,
+  userId,
+  memberType,
+}: {
+  commentId: number
+  userId: number
+  memberType: string
+}) => {
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
 
-  return await httpCSR(`/comment/${commentId}/heart`, {
-    method: 'PATCH',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  return await httpCSR(
+    `/comment/${commentId}/heart?userId=${userId}&memberType=${memberType}`,
+    {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
 }

@@ -5,7 +5,11 @@ export default function useLikeCommentQuery(letterId: number) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (payload: { commentId: number }) => saveCommentLike(payload),
+    mutationFn: (payload: {
+      commentId: number
+      userId: number
+      memberType: 'SENIOR' | 'JUNIOR'
+    }) => saveCommentLike(payload),
     onSuccess: (data) => {
       console.log('댓글 좋아요 완료:', data)
       queryClient.invalidateQueries({

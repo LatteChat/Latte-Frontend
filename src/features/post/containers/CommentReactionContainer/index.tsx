@@ -1,6 +1,7 @@
 import { useParams } from 'next/navigation'
 import useLikeCommentQuery from '../../comment/hooks/useLikeCommentQuery'
 import CountWithIconButton from '../../components/CountWithIconButton'
+import useGetMyInfoQuery from '@/features/user/hooks/useGetMyInfoQuery'
 
 export default function CommentReactionContainer({
   commentId,
@@ -15,12 +16,15 @@ export default function CommentReactionContainer({
 }) {
   const params = useParams<{ id: string }>()
   const letterId = Number(params.id) ?? null
+  const { data: userInfo } = useGetMyInfoQuery()
   const { mutate: likeCommentMutate } = useLikeCommentQuery(letterId)
 
   const handleClickLikeButton = (e: React.FormEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     likeCommentMutate({
       commentId,
+      memberType: userInfo.type,
+      userId: userInfo.juniorId ?? userInfo.seniorId,
     })
   }
 
