@@ -7,12 +7,14 @@ export default function UserInfoBox({
   tags,
   age,
   type,
+  adopt,
 }: {
   name?: string
   image?: string
   tags?: string[]
   age?: AgeType
   type?: 'JUNIOR' | 'SENIOR'
+  adopt?: number
 }) {
   return (
     <section className="flex flex-col items-center pb-4 pt-2">
@@ -24,10 +26,10 @@ export default function UserInfoBox({
       </div>
       <div className="mb-2 mt-2 flex flex-col items-center gap-1">
         <span className="b1">{name ?? '닉네임을 찾을 수 없습니다'}</span>
-        {type && type === 'SENIOR' && (
+        {adopt && type && type === 'SENIOR' && (
           <div className="b10 flex gap-1.5 pb-3 text-gray-6">
             <span>채택 수</span>
-            <span>45</span>
+            <span>{adopt}</span>
           </div>
         )}
       </div>

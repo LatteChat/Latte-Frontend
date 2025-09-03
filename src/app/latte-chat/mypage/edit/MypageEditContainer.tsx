@@ -1,31 +1,37 @@
+import useGetMyInfoQuery from '@/features/user/hooks/useGetMyInfoQuery'
 import useGetTagListQuery from '@/features/user/hooks/useGetTagListQuery'
 import useUpdateJuniorUser from '@/features/user/hooks/useUpdateJuniorUser'
+import useUpdateSeniorUser from '@/features/user/hooks/useUpdateSeniorUser'
 import ProfileUploader from '@/features/user/mypage/container/ProfileUploader'
 import { AgeType } from '@/features/user/types/User'
-import { useUserInfo } from '@/shared/hooks/useUserInfo'
-import { useState } from 'react'
-
-const AGE_CLASS_MAPPING: Record<AgeType, string> = {
-  UNDER_10: "bg-[url('/images/badge/badge-image-1.png')]",
-  TWENTIES: "bg-[url('/images/badge/badge-image-2.png')]",
-  THIRTIES: "bg-[url('/images/badge/badge-image-3.png')]",
-  FORTIES: "bg-[url('/images/badge/badge-image-4.png')]",
-  FIFTIES: "bg-[url('/images/badge/badge-image-5.png')]",
-  SIXTIES_AND_ABOVE: "bg-[url('/images/badge/badge-image-6.png')]",
-} as const
+import { useEffect, useState } from 'react'
 
 export default function MypageEditContainer() {
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const { data: userInfo } = useGetMyInfoQuery()
+
+  console.log(userInfo)
+  const [selectedTags, setSelectedTags] = useState<string[]>(
+    userInfo?.tag ?? []
+  )
+
+  useEffect(() => {
+    if (!userInfo) return
+    setSelectedTags(userInfo.tag ?? [])
+    setNickname(userInfo.name ?? '')
+    setIntroduce(userInfo.introduce ?? '')
+  }, [userInfo])
+
   const [nickname, setNickname] = useState('')
   const [searchTag, setSearchTag] = useState('')
   const [introduce, setIntroduce] = useState('')
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const { mutate: updateJuniorUserMutate } = useUpdateJuniorUser()
+  const { mutate: updateSeniorUserMutate } = useUpdateSeniorUser()
 
-  const { data: userInfo } = useUserInfo()
+  const { data: searchedTags } = useGetTagListQuery({ keyword: searchTag })
 
-  const { data: tags } = useGetTagListQuery({ keyword: searchTag })
+  console.log(searchedTags)
 
   const handleChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value)
@@ -61,8 +67,6 @@ export default function MypageEditContainer() {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!userInfo?.juniorId) return
-
     const formData = new FormData()
 
     selectedTags.forEach((tag) => formData.append('tag', tag))
@@ -73,10 +77,21 @@ export default function MypageEditContainer() {
       formData.append('image', selectedFile)
     }
 
-    updateJuniorUserMutate({
-      juniorId: userInfo?.juniorId,
-      payload: formData,
-    })
+    if (userInfo.type === 'SENIOR') {
+      if (!userInfo?.seniorId) return
+
+      updateSeniorUserMutate({
+        seniorId: userInfo?.seniorId,
+        payload: formData,
+      })
+    } else {
+      if (!userInfo?.juniorId) return
+
+      updateJuniorUserMutate({
+        juniorId: userInfo?.juniorId,
+        payload: formData,
+      })
+    }
   }
 
   return (
@@ -98,7 +113,11 @@ export default function MypageEditContainer() {
 
         <div className="flex flex-col items-center gap-5">
           <div className="flex flex-col items-center gap-1.5">
-            <ProfileUploader onSelectFile={(file) => setSelectedFile(file)} />
+            <ProfileUploader
+              existProfile={userInfo?.image}
+              onSelectFile={(file) => setSelectedFile(file)}
+              age={userInfo.age}
+            />
 
             <div className="flex w-48 gap-1 border-b border-gray-5">
               <input
@@ -128,15 +147,47 @@ export default function MypageEditContainer() {
           </div>
         </div>
 
-        <div className="mb-10 mt-4 flex gap-2 rounded-10 bg-gray-1 px-2">
-          <input
-            placeholder="#검색하거나 직접 태그 추가하기"
-            className="b12 flex-1 bg-transparent py-2.5 outline-none placeholder:text-gray-5"
-            onChange={handleChangeTag}
-            onKeyDown={handleKeyDown}
-            value={searchTag}
-          />
-          <img src="/icons/search-icon.svg" />
+        <div className="relative mb-10 mt-4">
+          <div className="flex gap-2 rounded-10 bg-gray-1 px-2">
+            <input
+              placeholder="#검색하거나 직접 태그 추가하기"
+              className="b12 flex-1 bg-transparent py-2.5 outline-none placeholder:text-gray-5"
+              onChange={handleChangeTag}
+              onKeyDown={handleKeyDown}
+              value={searchTag}
+            />
+            <img src="/icons/search-icon.svg" />
+          </div>
+
+          {searchedTags?.length > 0 && (
+            <ul className="absolute top-12 w-full rounded-10 border bg-white">
+              {searchedTags?.map((searchedTag: string) => {
+                return (
+                  <li className="text-gray-8 flex items-center justify-between border-b border-gray-2 px-5 py-3 last:border-none">
+                    <span className="b6">#{searchedTag}</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newTag = searchedTag.trim()
+
+                        if (!newTag) return
+                        if (selectedTags.includes(newTag)) return
+                        if (selectedTags.length >= 3) {
+                          alert('태그는 최대 3개까지 추가할 수 있습니다.')
+                          return
+                        }
+
+                        setSelectedTags((prev) => [...prev, newTag])
+                        setSearchTag('')
+                      }}
+                    >
+                      <img src="/icons/add-icon.svg" />
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+          )}
         </div>
 
         <div className="flex flex-1 flex-col gap-4">

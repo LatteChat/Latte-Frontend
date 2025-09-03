@@ -82,7 +82,7 @@ export default function MypageContainer() {
     {
       iconUrl: '/icons/present-icon.svg',
       title: '스토어',
-      href: '',
+      href: '/latte-chat/store',
     },
     {
       iconUrl: '/icons/bookmark-icon.svg',
@@ -106,6 +106,7 @@ export default function MypageContainer() {
             tags={userInfo?.tag}
             age={userInfo?.age}
             type={userInfo?.type}
+            adopt={userInfo?.adopt}
           />
 
           <div className="mb-5 flex w-full flex-col rounded-10 border bg-white p-4 shadow">

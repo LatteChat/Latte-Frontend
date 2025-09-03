@@ -12,12 +12,19 @@ const AGE_CLASS_MAPPING: Record<AgeType, string> = {
 } as const
 
 export default function ProfileUploader({
+  existProfile,
   onSelectFile,
+  age,
 }: {
+  existProfile: string
   onSelectFile: (file: File) => void
+  age: AgeType
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  useEffect(() => {
+    if (existProfile) setPreviewUrl(existProfile)
+  }, [existProfile])
 
   const handleClick = () => {
     fileInputRef.current?.click()
@@ -56,7 +63,9 @@ export default function ProfileUploader({
         onClick={handleClick}
       >
         <span
-          className={`absolute right-0 top-0 z-20 inline-block aspect-square w-[40%] rounded-full ${AGE_CLASS_MAPPING['FIFTIES']} bg-cover bg-center bg-no-repeat`}
+          className={`absolute right-0 top-0 z-20 inline-block aspect-square w-[40%] rounded-full ${
+            AGE_CLASS_MAPPING[age]
+          } bg-cover bg-center bg-no-repeat`}
         ></span>
         <div className="absolute bottom-0 left-0 z-10 flex aspect-square w-[93%] items-center justify-center rounded-full bg-black/50">
           <img src="/icons/profile-focus-icon.svg" />
