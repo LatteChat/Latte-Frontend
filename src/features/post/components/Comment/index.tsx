@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import ReplyList from '../ReplyList'
 import CommentReactionContainer from '../../containers/CommentReactionContainer'
 import CommentOptionButton from '../CommentOptionButton'
@@ -10,6 +10,7 @@ import {
   useCommentAction,
   useCommentActionActions,
 } from '../../comment/stores/commentActionStore'
+import { formatDateTime } from '@/shared/utils/formatDate'
 
 type CommentType = 'comment' | 'reply'
 
@@ -114,7 +115,9 @@ export default function Comment({
           <div className="flex flex-col items-start">
             <div className="flex items-end gap-1">
               <span className="b6 text-gray-6">{nickname}</span>
-              <span className="b9 text-gray-4">{createdAt}</span>
+              <span className="b9 text-gray-4">
+                {formatDateTime(createdAt)}
+              </span>
               {isEdit && <span className="b9 text-gray-4">(수정 됨)</span>}
             </div>
 

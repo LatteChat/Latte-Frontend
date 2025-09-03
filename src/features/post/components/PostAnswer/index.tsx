@@ -1,8 +1,8 @@
 import UserProfile from '@/shared/components/UserProfile'
+import { formatDateDefault } from '@/shared/utils/formatDate'
 
 type AgeType =
   | 'UNDER_10'
-  | 'TEENAGER'
   | 'TWENTIES'
   | 'THIRTIES'
   | 'FORTIES'
@@ -29,13 +29,18 @@ export default function PostAnswer({ user, date, content }: PostAnswerProps) {
         <div>
           <div className="flex items-center gap-1.5">
             <div className="relative flex h-10 w-10">
-              <UserProfile profile="/images/test-image.png" />
+              <UserProfile
+                profile={user?.image ?? '/images/coffee-bean-image.png'}
+                age={user?.age}
+              />
             </div>
 
             <div className="flex w-full flex-col gap-1">
               <div className="flex flex-wrap justify-between">
                 <span className="b7 text-black">{user?.name}</span>
-                <span className="b9 text-gray-4">{date}</span>
+                <span className="b9 text-gray-4">
+                  {formatDateDefault(date)}
+                </span>
               </div>
               <div className="flex flex-wrap gap-1">
                 {user?.tag?.map((tag, index) => {

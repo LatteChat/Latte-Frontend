@@ -1,5 +1,5 @@
 import UserProfile from '@/shared/components/UserProfile'
-import { formatDateDefault, formatDateTime } from '@/shared/utils/formatDate'
+import { formatDateDefault } from '@/shared/utils/formatDate'
 
 type AgeType =
   | 'UNDER_10'
@@ -38,7 +38,7 @@ export default function PostHeader({
       <div className="flex w-full flex-col">
         <div className="flex justify-between">
           <span className="b5">{nickname ?? '-'}</span>
-          <span className="b10 text-gray-400">{formatDateTime(date)}</span>
+          <span className="b10 text-gray-400">{formatDateDefault(date)}</span>
         </div>
         <div className="flex gap-2 text-gray-400">
           <div className="flex items-center gap-[1px]">
