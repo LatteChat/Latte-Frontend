@@ -9,19 +9,18 @@ import {
   useCommentActionActions,
 } from '../../comment/stores/commentActionStore'
 import useEditCommentQuery from '../../comment/hooks/useEditCommentQuery'
+import useGetMyInfoQuery from '@/features/user/hooks/useGetMyInfoQuery'
 
 export default function CommentInput() {
   const params = useParams<{ id: string }>()
   const letterId = Number(params.id) ?? null
-  const { data: userInfo } = useUserInfo()
+  const { data: userInfo } = useGetMyInfoQuery()
 
   const [comment, setComment] = useState('')
   const { mutate: saveCommentMutate } = useSaveCommentQuery(letterId)
   const { mutate: editCommentMutate } = useEditCommentQuery(letterId)
   const { cancelSelectedComment, setType } = useCommentActionActions()
   const { type, selectedComment } = useCommentAction()
-
-  console.log(type)
 
   useEffect(() => {
     if (type === 'EDIT') {
@@ -111,9 +110,9 @@ export default function CommentInput() {
         className="flex w-full items-center gap-2 bg-white px-5 py-2 shadow-top-line"
       >
         <Image
-          src="/images/test-image.png"
+          src={userInfo?.image ?? '/images/coffee-bean-image.png'}
           alt="작성자 프로필 이미지"
-          className="object- aspect-square h-9 w-9 self-end rounded-full"
+          className="object- aspect-square h-9 w-9 self-end rounded-full bg-primary"
           width={36}
           height={36}
         />
