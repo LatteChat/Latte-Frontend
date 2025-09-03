@@ -6,6 +6,9 @@ import { useLetterFilterStore } from '@/features/letter/stores/letterFilterStore
 import Link from 'next/link'
 import { Category } from '@/shared/types/Category'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
+import { useState } from 'react'
+import LetterListViewContainer from '@/features/letter/archive/containers/LetterListViewContainer'
+import LetterListDeleteContainer from '@/features/letter/archive/containers/LetterListDeleteContainer'
 
 const CATEGORIES: { label: string; value: Category }[] = [
   { label: '취업 및 회사', value: 'CAREER' },
@@ -33,13 +36,15 @@ export default function LettersArchiveCategoryContainer() {
   const statusFilter = useLetterFilterStore((state) => state.statusFilter)
   const { data: userInfo } = useUserInfo()
 
-  const { data: filteredLetterList } = useGetFilteredJuniorLetterListQuery({
+  const [viewState, setViewState] = useState<'view' | 'delete'>('view')
+
+  const { data: filteredLetters } = useGetFilteredJuniorLetterListQuery({
     juniorId: userInfo?.juniorId!,
     answer: statusFilter,
     category: selectedCategory,
     page: 0,
   })
-  console.log('filteredLetterList:', filteredLetterList)
+  console.log('filteredLetterList:', filteredLetters)
 
   const handleSelectCategory = (category: Category) => {
     if (selectedCategory === category) {
@@ -73,36 +78,16 @@ export default function LettersArchiveCategoryContainer() {
         </nav>
       </header>
 
-      <div className="flex min-h-[calc(100svh-8rem)] flex-col gap-4 bg-white px-5 py-3">
-        <div className="flex justify-end">
+      <div className="flex min-h-[calc(100svh-8rem)] flex-col gap-3 bg-white px-5 py-3">
+        <div className="flex items-center justify-end">
           <LetterStatusFilter />
         </div>
-        <div className="flex flex-col gap-[1.875rem]">
-          {filteredLetterList?.content?.map((letter: any) => {
-            return (
-              <Link
-                key={letter.letterId}
-                href={`/latte-chat/letters/archive/letter/${letter.letterId}`}
-              >
-                <PostCard
-                  post={{
-                    tag: letter.category,
-                    title: letter.title,
-                    content: letter.content,
-                    image: letter.image,
-                    date: letter.createAt,
-                    likeCount: letter.heart,
-                    commentCount: letter.view,
-                    answerStatus: letter.answerStatus,
-                    letterStatus: letter.letterStatus,
-                  }}
-                  showStatus
-                  showShadow
-                />
-              </Link>
-            )
-          })}
-        </div>
+
+        {viewState === 'view' ? (
+          <LetterListViewContainer letters={filteredLetters} />
+        ) : (
+          <LetterListDeleteContainer letters={filteredLetters} />
+        )}
       </div>
     </div>
   )

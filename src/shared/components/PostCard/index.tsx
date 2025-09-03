@@ -24,7 +24,7 @@ type Post = {
   likeCount: number
   commentCount: number
   answerStatus?: AnswerStatus
-  letterStatus?:
+  letterStatus:
     | 'WRITING'
     | 'SENT'
     | 'ANSWERED'
@@ -62,7 +62,7 @@ export default function PostCard({
     >
       {(letterStatus || answerStatus) && showStatus && (
         <span className="b6 absolute -top-4 left-4 rounded-full bg-gray-3 px-2 py-1 text-black">
-          {LETTER_STATUS_LABEL[(answerStatus ? answerStatus : letterStatus)!]}
+          {LETTER_STATUS_LABEL[answerStatus ? answerStatus : letterStatus]}
         </span>
       )}
 
@@ -82,7 +82,7 @@ export default function PostCard({
 
         <Image
           src={image ?? '/images/coffee-bean-image.png'}
-          className="h-24 w-24 flex-shrink-0 rounded-10 bg-primary shadow-border"
+          className="bg-se h-24 w-24 flex-shrink-0 rounded-10 shadow-border"
           width={95}
           height={95}
           alt="게시글 이미지"
