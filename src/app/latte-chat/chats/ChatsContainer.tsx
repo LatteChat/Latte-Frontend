@@ -1,6 +1,10 @@
 import ChatItem from '@/features/chat/components/ChatItem'
+import { useGetChatRoomListQuery } from '@/features/chat/hooks/useGetChatRoomListQuery'
+import { MemberInfo } from '@/features/user/types/User'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
+import Image from 'next/image'
 
 const TOPBAR_ICONS = [
   {
@@ -15,74 +19,20 @@ const TOPBAR_ICONS = [
   },
 ]
 
-const CHATS = [
-  {
-    id: 1,
-    user: {
-      profile: '/images/test-image.png',
-      nickname: '디카풰인',
-    },
-    lastChat: {
-      date: '2025년 8월 14일',
-      content:
-        '어머 정말료? 그래서 저는 어쩌구 저쩌구ㅇㄹㅇㄹ입니다ㅇㄹㅇㄹㄹㅇㄹㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹ',
-    },
-    unreadMessageCount: 2,
-  },
-  {
-    id: 2,
-    user: {
-      profile: '/images/test-image.png',
-      nickname: '디카풰인',
-    },
-    lastChat: {
-      date: '2025년 8월 14일',
-      content:
-        '어머 정말료? 그래서 저는 어쩌구 저쩌구ㅇㄹㅇㄹ입니다ㅇㄹㅇㄹㄹㅇㄹㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹ',
-    },
-    unreadMessageCount: 5,
-  },
-  {
-    id: 3,
-    user: {
-      profile: '/images/test-image.png',
-      nickname: '디카풰인',
-    },
-    lastChat: {
-      date: '2025년 8월 14일',
-      content:
-        '어머 정말료? 그래서 저는 어쩌구 저쩌구ㅇㄹㅇㄹ입니다ㅇㄹㅇㄹㄹㅇㄹㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹ',
-    },
-    unreadMessageCount: 1,
-  },
-  {
-    id: 4,
-    user: {
-      profile: '/images/test-image.png',
-      nickname: '디카풰인',
-    },
-    lastChat: {
-      date: '2025년 8월 14일',
-      content: '어머 정말료? 그래서 저는 어쩌구 ',
-    },
-    unreadMessageCount: 9,
-  },
-  {
-    id: 5,
-    user: {
-      profile: '/images/test-image.png',
-      nickname: '디카풰인',
-    },
-    lastChat: {
-      date: '2025년 8월 14일',
-      content:
-        '어머 정말료? 그래서 저는 어쩌구 저쩌구ㅇㄹㅇㄹ입니다ㅇㄹㅇㄹㄹㅇㄹㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹ',
-    },
-    unreadMessageCount: 15,
-  },
-]
-
 export default function ChatsContainer() {
+  const { data: userInfo } = useUserInfo()
+  console.log(userInfo)
+
+  const { data: chatRooms } = useGetChatRoomListQuery({
+    userId:
+      userInfo?.memberType === 'JUNIOR'
+        ? userInfo?.juniorId
+        : userInfo?.seniorId,
+    memberType: userInfo?.memberType,
+  })
+
+  console.log('채팅방 리스트:', chatRooms)
+
   return (
     <div>
       <div className="sticky top-0 z-10 flex flex-col gap-4 bg-white">
@@ -93,16 +43,51 @@ export default function ChatsContainer() {
       <main className="flex h-auto min-h-[calc(100svh-11rem)] flex-col bg-white py-5">
         <div className="px-5">
           <h1 className="h3">채팅</h1>
-          <div className="bg-gray-1 mb-4 mt-5 flex items-center justify-center rounded-10 py-5">
-            광고
-          </div>
+          <Image
+            src="/images/chat-advertisement-banner.png"
+            width={1340}
+            height={256}
+            alt="라떼챗 배너 광고"
+            className="mb-4 mt-5 flex items-center justify-center rounded-10 bg-gray-1"
+          />
         </div>
 
-        {CHATS.length != 0 ? (
+        {chatRooms && chatRooms?.length !== 0 ? (
           <div>
-            {CHATS.map((chat) => {
-              return <ChatItem chat={chat} key={chat.id} />
-            })}
+            {chatRooms?.map(
+              (chatRoom: {
+                chatRoomId: number
+                chatRoomCondition: string
+                juniorId: number
+                lastMessage: string | null
+                lastMessageAt: string | null
+                seniorId: number
+                unreadCount: number
+                seniorDetailDto: MemberInfo | null
+                juniorDetailDto: MemberInfo | null
+              }) => {
+                return (
+                  <ChatItem
+                    chat={{
+                      chatRoomId: chatRoom?.chatRoomId,
+                      chatRoomCondition: chatRoom?.chatRoomCondition,
+                      lastMessage: chatRoom?.lastMessage ?? '메시지가 없습니다',
+                      unreadCount: chatRoom?.unreadCount,
+                      lastMessageAt: chatRoom?.lastMessageAt ?? '',
+                    }}
+                    user={{
+                      name: chatRoom?.seniorDetailDto
+                        ? chatRoom?.seniorDetailDto.name
+                        : chatRoom?.juniorDetailDto?.name,
+                      profile: chatRoom?.seniorDetailDto
+                        ? chatRoom?.seniorDetailDto.image
+                        : chatRoom?.juniorDetailDto?.image,
+                    }}
+                    key={chatRoom?.chatRoomId}
+                  />
+                )
+              }
+            )}
           </div>
         ) : (
           <div className="h3 mt-[6rem] flex w-full justify-center text-gray-500">

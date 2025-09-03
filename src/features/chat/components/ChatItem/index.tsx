@@ -1,51 +1,60 @@
+import { formatDateTime } from '@/shared/utils/formatDate'
 import Image from 'next/image'
-
-type Chat = {
-  id: number
-  user: {
-    profile: string
-    nickname: string
-  }
-  lastChat: {
-    date: string
-    content: string
-  }
-  unreadMessageCount: number
-}
+import Link from 'next/link'
 
 type ChatItemProps = {
-  chat: Chat
+  chat: {
+    chatRoomId: number
+    chatRoomCondition: string
+    lastMessage: string
+    unreadCount: number
+    lastMessageAt: string
+  }
+  user: {
+    name?: string
+    profile?: string | null
+  }
 }
 
-export default function ChatItem({ chat }: ChatItemProps) {
+export default function ChatItem({
+  chat: { chatRoomId, lastMessage, unreadCount, lastMessageAt },
+  user: { name, profile },
+}: ChatItemProps) {
   return (
-    <div
-      className="flex gap-4 border-b border-gray-300 px-5 py-4"
-      key={chat.id}
+    <Link
+      href={`/latte-chat/chats/${chatRoomId}`}
+      className="flex w-full gap-4 border-b border-gray-300 px-5 py-4"
+      key={chatRoomId}
     >
       <Image
-        src={chat.user.profile}
+        src={profile ?? '/images/coffee-bean-image.png'}
         alt="사용자 프로필 이미지"
         width={44}
         height={44}
-        className="aspect-square h-11 w-11 rounded-full"
+        className="aspect-square h-11 w-11 rounded-full bg-primary p-1"
       />
 
-      <div className="flex w-full items-center gap-5">
-        <div className="flex w-full flex-1 flex-col gap-1">
+      <div className="flex min-w-0 flex-1 items-center gap-5">
+        <div className="flex w-full min-w-0 flex-1 flex-col gap-1">
           <div className="flex flex-wrap items-center gap-1">
-            <span className="b5 text-gray-6">{chat.user.nickname}</span>
-            <span className="b9 text-gray-4">{chat.lastChat.date}</span>
+            <span className="b5 text-gray-6">
+              {name ?? '사용자를 찾을 수 없습니다'}
+            </span>
+            <span className="b9 text-gray-4">
+              {formatDateTime(lastMessageAt)}
+            </span>
           </div>
-          <p className="b6 text-gray-6 line-clamp-2">{chat.lastChat.content}</p>
+          <p className="b6 line-clamp-2 break-words text-gray-6">
+            {lastMessage}
+          </p>
         </div>
 
         <div>
-          <span className="b7 bg-secondary-chat flex aspect-square h-5 w-6 items-center justify-center rounded-full text-white">
-            {chat.unreadMessageCount}
+          <span className="b7 flex aspect-square h-5 w-6 items-center justify-center rounded-full bg-secondary-chat text-white">
+            {unreadCount}
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
