@@ -20,7 +20,7 @@ interface SocketMessage<T> {
 }
 
 interface StompContextType {
-  connectSocket: (roomCode: string | null) => Promise<void>
+  connectSocket: () => Promise<void> | null | undefined
   disconnectSocket: () => void
   isConnect: boolean
   sendMessage: <T extends object>(destination: string, body: T) => void
@@ -55,7 +55,7 @@ export const StompProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const connectSocket = () => {
-    console.log(accessToken)
+    if (!accessToken) return
     return new Promise<void>((resolve, reject) => {
       client.current = new Client({
         webSocketFactory: () => {
@@ -116,6 +116,7 @@ export const StompProvider = ({ children }: { children: ReactNode }) => {
     topic: string,
     callback: <T>(message: SocketMessage<T>) => void
   ) => {
+    console.log('몇번')
     if (!client.current?.connected) {
       console.warn('subscribe에 실패했습니다. 소켓이 연결되지 않았습니다.')
       return
@@ -132,31 +133,34 @@ export const StompProvider = ({ children }: { children: ReactNode }) => {
           queryClient.setQueryData(
             ['/chat', parsed.chatRoomId],
             (oldData: any) => {
+              console.log('oldData:', oldData)
               console.log(userInfoRef.current)
               if (!oldData) return [parsed]
+
+              const exists = oldData.some(
+                (msg: any) => msg.chatId === parsed.chatId
+              )
+              if (exists) return oldData
 
               const createdAt = new Date().toISOString()
               createdAt.replace('Z', '')
 
-              return {
-                chatMessageList: [
-                  ...oldData.chatMessageList,
-                  {
-                    chatId: createdAt,
-                    chatRoomId: parsed.chatRoomId,
-                    content: parsed.content,
-                    createdAt: createdAt,
-                    isProfile: false,
-                    isRead: true,
-                    isShowTime: true,
-                    senderId:
-                      userInfoRef.current?.memberType === 'JUNIOR'
-                        ? userInfoRef.current?.juniorId
-                        : userInfoRef.current?.seniorId,
-                    senderType: userInfoRef.current?.memberType,
-                  },
-                ],
-              }
+              console.log(userInfoRef.current)
+
+              return [
+                ...oldData,
+                {
+                  chatId: createdAt,
+                  chatRoomId: parsed.chatRoomId,
+                  content: parsed.content,
+                  createdAt: createdAt,
+                  isProfile: false,
+                  isRead: true,
+                  isShowTime: true,
+                  senderId: parsed.juniorId ?? parsed.seniorId,
+                  senderType: parsed.memberType,
+                },
+              ]
             }
           )
 
@@ -191,7 +195,10 @@ export const StompProvider = ({ children }: { children: ReactNode }) => {
     }
     connect()
 
-    return disconnectSocket
+    return () => {
+      disconnectSocket()
+      subscriptions.current.clear()
+    }
   }, [accessToken])
 
   return (
