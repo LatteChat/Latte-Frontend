@@ -17,7 +17,7 @@ export default function ChatTopbar({
   nickname: string // 채팅 상대방
 }) {
   return (
-    <header className="sticky top-0 flex w-full justify-between bg-gray-100 p-5">
+    <header className="sticky top-0 flex w-full justify-between bg-white p-5 shadow-bottom-line">
       <FontSizeToggle />
 
       <span className="h2">{nickname}</span>
