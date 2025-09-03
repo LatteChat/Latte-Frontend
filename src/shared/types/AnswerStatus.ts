@@ -1,6 +1,6 @@
 export type AnswerStatus =
   | 'WRITING'
-  | 'SEND'
+  | 'SENT'
   | 'WAITING'
   | 'SAVED'
   | 'ANSWERED'

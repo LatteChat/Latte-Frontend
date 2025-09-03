@@ -79,3 +79,17 @@
     scrollbar-width: none; /* Firefox */
   }
 }
+
+.clamp-with-more {
+  @apply relative line-clamp-6 overflow-hidden; /* 6줄까지만 */
+}
+
+.clamp-with-more::after {
+  content: '...더보기';
+  @apply absolute bottom-0 right-0 cursor-pointer bg-white pl-1 text-black;
+  display: none;
+}
+
+.clamp-with-more.show-more::after {
+  display: inline; /* 넘칠 때만 보이게 */
+}

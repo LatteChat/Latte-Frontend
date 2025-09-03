@@ -6,7 +6,7 @@ import { formatDate } from '@/shared/utils/formatDate'
 
 const LETTER_STATUS_LABEL: Record<AnswerStatus, string> = {
   WRITING: '저장됨',
-  SEND: '답변 대기 중',
+  SENT: '답변 대기 중',
   WAITING: '답변 대기 중',
   SAVED: '저장됨',
   ANSWERED: '답변 완료',
@@ -23,7 +23,14 @@ type Post = {
   date: string
   likeCount: number
   commentCount: number
-  status?: AnswerStatus
+  answerStatus?: AnswerStatus
+  letterStatus:
+    | 'WRITING'
+    | 'SENT'
+    | 'ANSWERED'
+    | 'ADOPTED'
+    | 'MATCHED'
+    | 'EMPTY'
 }
 
 type PostCardProps = {
@@ -34,7 +41,17 @@ type PostCardProps = {
 }
 
 export default function PostCard({
-  post: { tag, title, content, date, likeCount, image, commentCount, status },
+  post: {
+    tag,
+    title,
+    content,
+    date,
+    likeCount,
+    image,
+    commentCount,
+    answerStatus,
+    letterStatus,
+  },
   showStatus,
   showShadow,
   showMeta,
@@ -43,9 +60,9 @@ export default function PostCard({
     <article
       className={`${showShadow ? 'shadow' : ''} relative flex w-full cursor-pointer flex-col items-center gap-4 rounded-10 bg-white p-5 shadow-border`}
     >
-      {status && showStatus && (
+      {(letterStatus || answerStatus) && showStatus && (
         <span className="b6 absolute -top-4 left-4 rounded-full bg-gray-3 px-2 py-1 text-black">
-          {LETTER_STATUS_LABEL[status]}
+          {LETTER_STATUS_LABEL[answerStatus ? answerStatus : letterStatus]}
         </span>
       )}
 
@@ -64,8 +81,8 @@ export default function PostCard({
         </div>
 
         <Image
-          src={image ?? '/images/test-image.png'}
-          className="h-24 w-24 flex-shrink-0 rounded-10 bg-gray-300 shadow-border"
+          src={image ?? '/images/coffee-bean-image.png'}
+          className="h-24 w-24 flex-shrink-0 rounded-10 bg-primary shadow-border"
           width={95}
           height={95}
           alt="게시글 이미지"

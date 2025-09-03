@@ -8,7 +8,6 @@ export type UserInfo = {
 
 export type AgeType =
   | 'UNDER_10'
-  | 'TEENAGER'
   | 'TWENTIES'
   | 'THIRTIES'
   | 'FORTIES'

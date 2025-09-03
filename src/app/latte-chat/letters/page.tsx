@@ -9,7 +9,7 @@ export default function LettersPage() {
 
   return (
     <>
-      {userInfo?.memberType !== 'SENIOR' ? (
+      {userInfo?.memberType === 'SENIOR' ? (
         <SeniorLettersContainer />
       ) : (
         <JuniorLettersContainer />

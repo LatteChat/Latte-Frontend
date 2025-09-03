@@ -1,13 +1,24 @@
-import { AnswerStatus } from '@/shared/types/AnswerStatus'
+import useSaveLetterImageQuery from '@/features/letter/hooks/useSaveLetterImageQuery'
+import ImageGeneratingModal from '@/features/modal/components/ImageGeneratingModal'
+import { useModal } from '@/shared/contexts/ModalContext'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function LetterActionSection({
+  selectedLetterId,
   type,
   href,
 }: {
-  type: AnswerStatus
+  selectedLetterId: number
+  type: 'WRITING' | 'SENT' | 'ANSWERED' | 'ADOPTED' | 'MATCHED' | 'EMPTY'
   href?: string
 }) {
+  const router = useRouter()
+  const { openModal } = useModal()
+
+  const { mutate: saveLetterImageMutate } =
+    useSaveLetterImageQuery(selectedLetterId)
+
   const renderActionButton = () => {
     switch (type) {
       case 'EMPTY':
@@ -16,7 +27,7 @@ export default function LetterActionSection({
           <>
             <Link
               href={href}
-              className="h4 bg-secondary-brown-2 text-secondary-brown-1 flex w-full items-center justify-center rounded-2xl py-4"
+              className="h4 flex w-full items-center justify-center rounded-2xl bg-secondary-brown-2 py-4 text-secondary-brown-1"
             >
               사연 쓰기
             </Link>
@@ -27,7 +38,24 @@ export default function LetterActionSection({
         // 사연 보내기 button을 컨테이너로 만들기
         return (
           <>
-            <button className="h4 bg-secondary-brown-2 text-secondary-brown-1 flex w-full items-center justify-center rounded-2xl py-4">
+            <button
+              onClick={() => {
+                openModal(<ImageGeneratingModal />)
+                saveLetterImageMutate(
+                  {
+                    letterId: selectedLetterId,
+                  },
+                  {
+                    onSuccess: () => {
+                      router.push(
+                        `/latte-chat/letters/archive/letter/${selectedLetterId}/generate`
+                      )
+                    },
+                  }
+                )
+              }}
+              className="h4 flex w-full items-center justify-center rounded-2xl bg-secondary-brown-2 py-4 text-secondary-brown-1"
+            >
               사연 보내기
             </button>
             <p className="b6 text-gray-5">
@@ -39,9 +67,9 @@ export default function LetterActionSection({
         // 전송됨을 나타내는 버튼은 딱히 버튼으로 만들 필요가 없음.
         return (
           <>
-            <button className="h4 bg-secondary-brown-2 text-secondary-brown-1 flex w-full items-center justify-center rounded-2xl py-4">
+            <div className="h4 flex w-full items-center justify-center rounded-2xl bg-secondary-brown-4 py-4 text-white">
               전송됨
-            </button>
+            </div>
             <p className="b6 text-gray-5">사연이 보내졌어요</p>
           </>
         )

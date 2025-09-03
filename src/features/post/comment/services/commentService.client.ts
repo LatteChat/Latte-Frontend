@@ -120,3 +120,38 @@ export const deleteComment = async ({ commentId }: { commentId: number }) => {
     },
   })
 }
+
+// 사연 댓글 수정
+export const updateComment = async ({
+  commentId,
+  payload,
+}: {
+  commentId: number
+  payload: {
+    comment: string
+  }
+}) => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/comment/${commentId}/modify`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  })
+}
+
+// 사연 댓글 좋아요
+export const saveCommentLike = async ({ commentId }: { commentId: number }) => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
+
+  return await httpCSR(`/comment/${commentId}/heart`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}

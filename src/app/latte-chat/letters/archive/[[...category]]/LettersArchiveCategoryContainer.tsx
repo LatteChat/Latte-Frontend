@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useLetterFilterStore } from '@/features/letter/stores/letterFilterStore'
 import Link from 'next/link'
 import { Category } from '@/shared/types/Category'
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
 
 const CATEGORIES: { label: string; value: Category }[] = [
   { label: '취업 및 회사', value: 'CAREER' },
@@ -30,14 +31,15 @@ export default function LettersArchiveCategoryContainer() {
   const params = useParams()
   const selectedCategory = params.category?.[0] ?? null
   const statusFilter = useLetterFilterStore((state) => state.statusFilter)
+  const { data: userInfo } = useUserInfo()
 
   const { data: filteredLetterList } = useGetFilteredJuniorLetterListQuery({
-    juniorId: 7,
+    juniorId: userInfo?.juniorId!,
     answer: statusFilter,
     category: selectedCategory,
     page: 0,
   })
-  console.log(filteredLetterList)
+  console.log('filteredLetterList:', filteredLetterList)
 
   const handleSelectCategory = (category: Category) => {
     if (selectedCategory === category) {
@@ -60,7 +62,7 @@ export default function LettersArchiveCategoryContainer() {
                 <li key={index}>
                   <button
                     onClick={() => handleSelectCategory(category.value)}
-                    className={`${selectedCategory === category.value ? 'border-secondary-brown-2 bg-secondary-brown-1' : 'border-transparent bg-white'} b4 text-secondary-brown-5 flex h-full w-full flex-1 whitespace-nowrap rounded-10 border-2 px-4 py-2`}
+                    className={`${selectedCategory === category.value ? 'border-secondary-brown-2 bg-secondary-brown-1' : 'border-transparent bg-white'} b4 flex h-full w-full flex-1 whitespace-nowrap rounded-10 border-2 px-4 py-2 text-secondary-brown-5`}
                   >
                     {category.label}
                   </button>
@@ -76,9 +78,12 @@ export default function LettersArchiveCategoryContainer() {
           <LetterStatusFilter />
         </div>
         <div className="flex flex-col gap-[1.875rem]">
-          {filteredLetterList?.content?.map((letter, index) => {
+          {filteredLetterList?.content?.map((letter: any) => {
             return (
-              <Link key={index} href={`/latte-chat/letters/${letter.letterId}`}>
+              <Link
+                key={letter.letterId}
+                href={`/latte-chat/letters/archive/letter/${letter.letterId}`}
+              >
                 <PostCard
                   post={{
                     tag: letter.category,
@@ -88,7 +93,8 @@ export default function LettersArchiveCategoryContainer() {
                     date: letter.createAt,
                     likeCount: letter.heart,
                     commentCount: letter.view,
-                    status: letter.answerStatus,
+                    answerStatus: letter.answerStatus,
+                    letterStatus: letter.letterStatus,
                   }}
                   showStatus
                   showShadow
