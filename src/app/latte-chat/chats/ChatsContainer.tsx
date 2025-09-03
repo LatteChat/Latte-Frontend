@@ -71,9 +71,13 @@ export default function ChatsContainer() {
                     chat={{
                       chatRoomId: chatRoom?.chatRoomId,
                       chatRoomCondition: chatRoom?.chatRoomCondition,
-                      lastMessage: chatRoom?.lastMessage ?? '메시지가 없습니다',
+                      lastMessage:
+                        (chatRoom?.lastMessage ?? chatRoom?.seniorDetailDto)
+                          ? '멘토 신청이 왔습니다'
+                          : '멘토 요청을 기다리고 있어요',
                       unreadCount: chatRoom?.unreadCount,
                       lastMessageAt: chatRoom?.lastMessageAt ?? '',
+                      chatRoomStatus: chatRoom.chatRoomCondition,
                     }}
                     user={{
                       name: chatRoom?.seniorDetailDto
