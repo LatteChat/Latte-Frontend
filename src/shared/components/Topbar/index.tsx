@@ -20,6 +20,7 @@ export default function Topbar({ icons }: { icons: TopbarIcons }) {
           if (!userInfo && index === 0) {
             return (
               <Link
+                key={icon.alt}
                 href={`${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/kakao`}
               >
                 <img src="/icons/login-icon.svg" alt="로그인" className="h-6" />
