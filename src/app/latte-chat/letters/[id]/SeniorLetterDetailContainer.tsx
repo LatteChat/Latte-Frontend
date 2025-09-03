@@ -1,6 +1,8 @@
 import LetterAnswerCard from '@/features/letter/detail/components/LetterAnswerCard'
-import LetterActionButtonBox from '@/features/letter/detail/components/senior/LetterActionButtonBox'
 import { useGetSeniorLetterDetail } from '@/features/letter/detail/hooks/useGetSeniorLetterDetail'
+import useGetSeniorSelectedLetterCountQuery from '@/features/letter/hooks/useGetSeniorSelectedLetterCountQuery'
+import useSelectLetterQuery from '@/features/letter/hooks/useSelectLetterQuery'
+import Button from '@/shared/components/Button'
 import LetterCardLayout from '@/shared/components/LetterCardLayout'
 import UserProfile from '@/shared/components/UserProfile'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
@@ -8,7 +10,7 @@ import { CATEGORIES_MAP } from '@/shared/types/Category'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 
-export default function SeniorArchiveLetterDetailContainer() {
+export default function SeniorLetterDetailContainer() {
   const params = useParams()
   const letterId = params.id ? Number(params.id) : null
 
@@ -21,6 +23,22 @@ export default function SeniorArchiveLetterDetailContainer() {
   })
   console.log('중장년 사연 상세 조회:', letterDetail)
 
+  const { data: selectedLetterCount } = useGetSeniorSelectedLetterCountQuery(
+    userInfo
+      ? {
+          seniorId: userInfo.seniorId!,
+        }
+      : undefined
+  )
+  const { mutate: selectLetterMutate } = useSelectLetterQuery({ letterId })
+
+  const handleSelectLetter = () => {
+    selectLetterMutate({
+      letterId: letterId,
+      seniorId: userInfo?.seniorId!,
+    })
+  }
+
   const renderTitle = () => {
     if (
       letterDetail?.letterStatus === 'ADOPTED' ||
@@ -30,7 +48,7 @@ export default function SeniorArchiveLetterDetailContainer() {
     } else if (letterDetail?.letterStatus === 'ANSWERED') {
       return '내가 답변을 쓴 사연'
     } else if (letterDetail?.letterStatus === 'SENT') {
-      return '답변 대기 중인 사연'
+      return '사연 보기'
     } else {
       return ''
     }
@@ -41,26 +59,27 @@ export default function SeniorArchiveLetterDetailContainer() {
       title={renderTitle()}
       actionButton={
         letterDetail?.letterStatus && (
-          <LetterActionButtonBox letterStatus={letterDetail?.letterStatus} />
+          <div className="mt-10 flex flex-col items-center gap-5">
+            <p className="b6 whitespace-pre-line text-center text-gray-6">{`선택한 사연은 2일 동안 유지되며,\n그 안에 답변이 없으면 다른 분께 넘어가요.`}</p>
+            <Button
+              buttonText={`선택하기 (${selectedLetterCount}/5)`}
+              onClick={handleSelectLetter}
+            />
+          </div>
         )
       }
     >
-      <div className="flex items-center justify-between">
-        <div className="mb-5 flex items-center gap-1.5">
-          <div className="flex aspect-square h-9 w-9">
-            <UserProfile
-              profile={
-                letterDetail?.juniorDetailDto.image ??
-                '/images/coffee-bean-image.png'
-              }
-              age={letterDetail?.juniorDetailDto.age}
-            />
-          </div>
-          <span className="b5">{letterDetail?.juniorDetailDto.name}</span>
+      <div className="mb-5 flex items-center gap-1.5">
+        <div className="flex aspect-square h-9 w-9">
+          <UserProfile
+            profile={
+              letterDetail?.juniorDetailDto.image ??
+              '/images/coffee-bean-image.png'
+            }
+            age={letterDetail?.juniorDetailDto.age}
+          />
         </div>
-        <span className="b10 text-gray-5">
-          유효기간: {letterDetail?.daysLeft}일
-        </span>
+        <span className="b5">{letterDetail?.juniorDetailDto.name}</span>
       </div>
 
       <div className="flex flex-col items-start gap-2">
@@ -90,30 +109,6 @@ export default function SeniorArchiveLetterDetailContainer() {
       </figure>
 
       <p className="b1 line-clamp-6 text-gray-7">{letterDetail?.content}</p>
-
-      {letterDetail?.answerResponseDto?.answerStatus !== 'WAITING' && (
-        <div className="mt-5">
-          <LetterAnswerCard
-            answer={{
-              user: {
-                name: letterDetail?.answerResponseDto?.seniorDetailDto?.name,
-                image:
-                  letterDetail?.answerResponseDto?.seniorDetailDto?.image ??
-                  '/images/coffee-bean-image.png',
-                tag:
-                  letterDetail?.answerResponseDto?.seniorDetailDto?.tag ?? [],
-                age: letterDetail?.answerResponseDto?.seniorDetailDto?.age,
-              },
-              content: letterDetail?.answerResponseDto?.content,
-              createdAt: letterDetail?.answerResponseDto?.createdAt,
-            }}
-            isAdoptedLetter={letterDetail?.letterStatus === 'ADOPTED'}
-            adopted={
-              letterDetail?.answerResponseDto?.answerStatus === 'ADOPTED'
-            }
-          />
-        </div>
-      )}
     </LetterCardLayout>
   )
 }

@@ -72,17 +72,17 @@ export default function AnswerListContainer({
               <LetterAnswerCard
                 answer={{
                   user: {
-                    name: answer.seniorDetailDto.name,
+                    name: answer?.seniorDetailDto?.name,
                     image:
-                      answer.seniorDetailDto.image ??
+                      answer?.seniorDetailDto?.image ??
                       '/images/coffee-bean-image.png',
-                    tag: answer.seniorDetailDto.tag,
-                    age: answer.seniorDetailDto.age,
+                    tag: answer?.seniorDetailDto?.tag,
+                    age: answer?.seniorDetailDto?.age,
                   },
-                  content: answer.content,
-                  createdAt: answer.createdAt,
+                  content: answer?.content,
+                  createdAt: answer?.createdAt,
                 }}
-                adopted={answer.answerStatus === 'ADOPTED'}
+                adopted={answer?.answerStatus === 'ADOPTED'}
                 isAdoptedLetter={letterStatus === 'ADOPTED'}
               />
             </SwiperSlide>

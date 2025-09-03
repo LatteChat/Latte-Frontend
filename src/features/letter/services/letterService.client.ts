@@ -113,6 +113,7 @@ export type LetterDetailResponseDto = {
   content: string
   letterStatus: AnswerStatus
   answerResponseDto: AnswerResponse[]
+  answerType: string[]
 }
 
 // 사연 전송

@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useChatUserActions } from '../../stores/chatUserStore'
 import { useChatStatusActions } from '../../stores/chatStatusStore'
+import { userInfo } from 'os'
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
 
 type ChatItemProps = {
   chat: {
@@ -16,14 +18,17 @@ type ChatItemProps = {
   user: {
     nickname?: string
     profile?: string | null
+    seniorId?: number
+    juniorId?: number
   }
 }
 
 export default function ChatItem({
   chat: { chatRoomId, lastMessage, unreadCount, lastMessageAt, chatRoomStatus },
-  user: { nickname, profile },
+  user: { nickname, profile, juniorId, seniorId },
 }: ChatItemProps) {
-  const { setReceiver } = useChatUserActions()
+  const { data: userInfo } = useUserInfo()
+  const { setReceiver, setJunior, setSenior } = useChatUserActions()
   const { setStatus } = useChatStatusActions()
 
   return (
@@ -33,6 +38,18 @@ export default function ChatItem({
       key={chatRoomId}
       onClick={() => {
         if (!nickname || profile === undefined) return
+        let nSeniorId = seniorId ?? userInfo?.seniorId!
+        let nJuniorId = juniorId ?? userInfo?.juniorId!
+        setJunior({
+          id: nJuniorId,
+          nickname: null,
+          profile: null,
+        })
+        setSenior({
+          id: nSeniorId,
+          nickname: null,
+          profile: null,
+        })
         setReceiver({
           id: null,
           nickname,

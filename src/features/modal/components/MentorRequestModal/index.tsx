@@ -35,11 +35,14 @@ export default function MentorRequestModal({
         <div className="flex w-full gap-2">
           <button
             onClick={() => {
-              // setModalStatus('SUCCESS')
               console.log('요청', chatUser)
 
               if (chatUser) {
-                sendMessage(`/pub/request`, chatUser)
+                sendMessage(`/pub/request`, {
+                  juniorId: chatUser.junior.id,
+                  seniorId: chatUser.senior.id,
+                })
+                setModalStatus('SUCCESS')
               }
             }}
             className="b4 w-full rounded-10 bg-secondary-brown-2 py-2.5 text-white"

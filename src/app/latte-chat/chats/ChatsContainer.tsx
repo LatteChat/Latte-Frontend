@@ -63,8 +63,8 @@ export default function ChatsContainer() {
                 lastMessageAt: string | null
                 seniorId: number
                 unreadCount: number
-                seniorDetailDto: MemberInfo | null
-                juniorDetailDto: MemberInfo | null
+                seniorDetailDto: any | null
+                juniorDetailDto: any | null
               }) => {
                 let lastMessage = chatRoom.lastMessage
 
@@ -102,11 +102,13 @@ export default function ChatsContainer() {
                     }}
                     user={{
                       nickname: chatRoom?.seniorDetailDto
-                        ? chatRoom?.seniorDetailDto.name
+                        ? chatRoom?.seniorDetailDto?.name
                         : chatRoom?.juniorDetailDto?.name,
                       profile: chatRoom?.seniorDetailDto
-                        ? chatRoom?.seniorDetailDto.image
+                        ? chatRoom?.seniorDetailDto?.image
                         : chatRoom?.juniorDetailDto?.image,
+                      seniorId: chatRoom?.seniorDetailDto?.seniorId,
+                      juniorId: chatRoom?.juniorDetailDto?.juniorId,
                     }}
                     key={chatRoom?.chatRoomId}
                   />

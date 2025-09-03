@@ -190,7 +190,9 @@ export const StompProvider = ({ children }: { children: ReactNode }) => {
         console.error('자동 소켓 연결 실패:', err)
       }
     }
-    connect()
+    if (accessToken) {
+      connect()
+    }
 
     return () => {
       disconnectSocket()

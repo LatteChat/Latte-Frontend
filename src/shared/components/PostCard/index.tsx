@@ -82,7 +82,7 @@ export default function PostCard({
 
         <Image
           src={image ?? '/images/coffee-bean-image.png'}
-          className="bg-se h-24 w-24 flex-shrink-0 rounded-10 shadow-border"
+          className="bg-se h-24 w-24 flex-shrink-0 rounded-10 bg-primary shadow-border"
           width={95}
           height={95}
           alt="게시글 이미지"

@@ -10,6 +10,7 @@ import {
 import { useParams } from 'next/navigation'
 import useUpdateAnswerQuery from '@/features/letter/hooks/useUpdateAnswerQuery'
 import { useGetSeniorLetterDetail } from '@/features/letter/detail/hooks/useGetSeniorLetterDetail'
+import { CATEGORIES_MAP } from '@/shared/types/Category'
 
 export default function LetterAnswerEditContainer() {
   const params = useParams()
@@ -60,7 +61,9 @@ export default function LetterAnswerEditContainer() {
           </figure>
 
           <div className="mb-2 flex w-full items-end justify-between gap-3 pl-2 pr-3">
-            <span className="b10 text-gray-5">유효기간: 2일</span>
+            <span className="b10 text-gray-5">
+              유효기간: {letterDetail?.daysLeft}일
+            </span>
 
             <span className="b10 flex items-center gap-1 text-gray-5">
               임시 저장 중...
@@ -73,6 +76,16 @@ export default function LetterAnswerEditContainer() {
           >
             {isEditorFocus ? (
               <div className="h-full w-full flex-1 pt-5">
+                {letterDetail?.category && (
+                  <div className="flex gap-2">
+                    <span className="b9 mb-4 ml-5 inline-block rounded bg-secondary-brown-2 px-2 py-0.5 text-secondary-brown-1">
+                      {CATEGORIES_MAP[letterDetail?.category]}
+                    </span>
+                    <span className="b9 border-main mb-4 inline-block rounded border bg-white px-2 py-0.5 text-secondary-brown-2">
+                      {letterDetail?.answerType}
+                    </span>
+                  </div>
+                )}
                 <AnswerEditor />
                 <button
                   className="b3 absolute bottom-5 left-1/2 -translate-x-1/2 rounded-10 bg-secondary-brown-2 px-7 py-2 text-secondary-brown-1"

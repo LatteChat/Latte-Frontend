@@ -38,10 +38,11 @@ export default function CommentInput() {
 
     if (type === 'COMMENT') {
       if (!letterId) return
+      console.log(userInfo)
       saveCommentMutate({
         letterId: letterId,
         body: {
-          memberType: userInfo?.memberType,
+          memberType: userInfo?.type,
           seniorId: userInfo.seniorId,
           juniorId: userInfo.juniorId,
           parentId: null,

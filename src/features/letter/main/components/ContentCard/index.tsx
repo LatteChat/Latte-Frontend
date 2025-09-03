@@ -2,6 +2,7 @@ import useGetSeniorSelectedLetterCountQuery from '@/features/letter/hooks/useGet
 import useSelectLetterQuery from '@/features/letter/hooks/useSelectLetterQuery'
 import CoffeeBeanIcon from '@/shared/assets/icons/coffee-bean-icon.svg'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
+import { CATEGORIES_MAP } from '@/shared/types/Category'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -30,7 +31,7 @@ export default function ContentCard({
         }
       : undefined
   )
-  const { mutate: selectLetterMutate } = useSelectLetterQuery()
+  const { mutate: selectLetterMutate } = useSelectLetterQuery({ letterId })
 
   const handleSelectLetter = () => {
     selectLetterMutate({
@@ -56,7 +57,7 @@ export default function ContentCard({
         </div>
         <div className="flex gap-2">
           <span className="b9 rounded border-transparent bg-secondary-brown-2 px-1.5 py-0.5 text-white">
-            {category}
+            {CATEGORIES_MAP[category]}
           </span>
           <span className="b9 rounded border border-primary bg-white px-1.5 py-0.5 text-secondary-brown-2">
             {writeStyle}
@@ -71,7 +72,7 @@ export default function ContentCard({
         </div>
         <div className="flex w-full gap-4">
           <Link
-            href={`${pathname}/1`}
+            href={`${pathname}/${letterId}`}
             className="b4 flex-1 rounded-10 bg-gray-3 py-2 text-center text-black"
           >
             사연 보기

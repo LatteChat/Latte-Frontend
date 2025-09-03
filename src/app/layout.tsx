@@ -3,6 +3,7 @@ import '@/shared/styles/globals.css'
 import '@/shared/styles/fonts.css'
 import ReactQueryProvider from '@/shared/providers/ReactQueryProvider'
 import { ModalProvider } from '@/shared/contexts/ModalContext'
+import { StompProvider } from '@/shared/contexts/SocketContext'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,9 +19,11 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <ReactQueryProvider>
-          <ModalProvider>
-            <div className="flex justify-center">{children}</div>
-          </ModalProvider>
+          <StompProvider>
+            <ModalProvider>
+              <div className="flex justify-center">{children}</div>
+            </ModalProvider>
+          </StompProvider>
         </ReactQueryProvider>
       </body>
     </html>
