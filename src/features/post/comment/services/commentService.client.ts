@@ -70,14 +70,8 @@ export const fetchCommentList = async ({
   page: number
   sort: string // createdAt | heart
 }): Promise<CommentListResponse> => {
-  const token = localStorage.getItem('accessToken')
-  if (!token) throw new Error('토큰이 없습니다.')
-
   return await httpCSR(`/main/${letterId}/comments?page=${page}&sort=${sort}`, {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   })
 }
 

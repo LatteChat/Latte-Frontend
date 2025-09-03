@@ -76,9 +76,6 @@ export const fetchPostList = async ({
   userId: number
   memberType: string
 }): Promise<PostListResponse> => {
-  const token = localStorage.getItem('accessToken')
-  if (!token) throw new Error('토큰이 없습니다.')
-
   const query = new URLSearchParams({
     ...(category ? { category } : {}),
     page: String(page),
@@ -89,9 +86,6 @@ export const fetchPostList = async ({
 
   return await httpCSR(`/main/list?${query.toString()}`, {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   })
 }
 
@@ -106,12 +100,7 @@ type BaristaListResponse = Barista[]
 
 // 이달의 바리스타 조회
 export const fetchBaristaList = async (): Promise<BaristaListResponse> => {
-  const token = localStorage.getItem('accessToken')
-  if (!token) throw new Error('토큰이 없습니다.')
   return await httpCSR(`/main/best/senior`, {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   })
 }
