@@ -1,4 +1,6 @@
+import { useLetterStateActions } from '@/features/letter/stores/letterStateStore'
 import { motion } from 'framer-motion'
+import { useEffect } from 'react'
 
 export default function PreviewCard({
   offset,
@@ -23,6 +25,14 @@ export default function PreviewCard({
   isCenter: boolean
   letterType: 'NORMAL' | 'BONUS'
 }) {
+  const { setStatusState } = useLetterStateActions()
+
+  useEffect(() => {
+    if (isCenter) {
+      setStatusState(letterType)
+    }
+  }, [letterType, isCenter, setStatusState])
+
   return (
     <motion.div
       className={`${letterType === 'BONUS' ? 'bg-latte-gradient-3 p-[4px]' : 'bg-white'} absolute flex aspect-square w-full rounded-2xl shadow-border`}
@@ -35,7 +45,7 @@ export default function PreviewCard({
       transition={{ type: 'spring', stiffness: 200, damping: 20 }}
     >
       {letterType === 'BONUS' && isCenter && (
-        <span className="bg-latte-gradient-4 h2 absolute -top-10 left-1/2 -translate-x-1/2 bg-clip-text text-transparent">
+        <span className="bg-latte-gradient-5 h2 absolute -top-10 left-1/2 -translate-x-1/2 bg-clip-text text-transparent">
           보너스 사연
         </span>
       )}

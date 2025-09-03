@@ -1,3 +1,4 @@
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import Link from 'next/link'
 
 type TopbarIcon = {
@@ -9,11 +10,23 @@ type TopbarIcon = {
 type TopbarIcons = TopbarIcon[]
 
 export default function Topbar({ icons }: { icons: TopbarIcons }) {
+  const { data: userInfo } = useUserInfo()
+
   return (
-    <header className="shadow-bottom-line flex justify-between bg-white px-5 py-3">
-      <span className="inline-block w-20 bg-gray-300">로고</span>
+    <header className="flex justify-between bg-white px-5 py-3 shadow-bottom-line">
+      <img src="/images/lattechat-logo.svg" />
       <div className="flex gap-3">
-        {icons.map((icon) => {
+        {icons.map((icon, index) => {
+          if (!userInfo && index === 0) {
+            return (
+              <Link
+                key={icon.alt}
+                href={`${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/kakao`}
+              >
+                <img src="/icons/login-icon.svg" alt="로그인" className="h-6" />
+              </Link>
+            )
+          }
           return (
             <Link key={icon.alt} href={icon.href}>
               <img

@@ -1,5 +1,5 @@
 import UserProfile from '@/shared/components/UserProfile'
-import { formatDateDefault, formatDateTime } from '@/shared/utils/formatDate'
+import { formatDateDefault } from '@/shared/utils/formatDate'
 
 type AgeType =
   | 'UNDER_10'
@@ -11,6 +11,7 @@ type AgeType =
 
 type PostHeaderProps = {
   user: {
+    juniorId: number
     nickname: string
     age?: AgeType
     profile: string
@@ -21,7 +22,7 @@ type PostHeaderProps = {
 }
 
 export default function PostHeader({
-  user: { nickname, age, profile },
+  user: { juniorId, nickname, age, profile },
   date,
   likeCount,
   commentCount,
@@ -32,13 +33,15 @@ export default function PostHeader({
         <UserProfile
           profile={profile ?? '/images/coffee-bean-image.png'}
           age={age}
+          isView={true}
+          juniorId={juniorId}
         />
       </div>
 
       <div className="flex w-full flex-col">
         <div className="flex justify-between">
           <span className="b5">{nickname ?? '-'}</span>
-          <span className="b10 text-gray-400">{formatDateTime(date)}</span>
+          <span className="b10 text-gray-400">{formatDateDefault(date)}</span>
         </div>
         <div className="flex gap-2 text-gray-400">
           <div className="flex items-center gap-[1px]">

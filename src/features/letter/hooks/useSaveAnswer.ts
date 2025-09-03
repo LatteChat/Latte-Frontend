@@ -1,9 +1,11 @@
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { saveAnswer } from '../services/letterService.senior.client'
+import { useAnswerCreateActions } from '../stores/answerCreateStore'
 
 export default function useSaveAnswer({ letterId }: { letterId: number }) {
   const router = useRouter()
+  const { reset } = useAnswerCreateActions()
 
   return useMutation({
     mutationFn: ({
@@ -19,6 +21,7 @@ export default function useSaveAnswer({ letterId }: { letterId: number }) {
     }) => saveAnswer({ letterId, seniorId }, body),
     onSuccess: (data) => {
       console.log('답변 등록 성공:', data)
+      reset()
       router.replace(`/latte-chat/letters/archive/letter/${letterId}/answer`)
     },
     onError: (error) => {

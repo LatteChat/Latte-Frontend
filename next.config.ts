@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  reactStrictMode: false,
   images: {
     domains: ['d2e9ojs4st7ryw.cloudfront.net'],
   },

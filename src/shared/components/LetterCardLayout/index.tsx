@@ -15,11 +15,12 @@ export default function LetterCardLayout({
   const router = useRouter()
 
   const handleBack = () => {
-    if (document.referrer) {
-      router.back()
-    } else {
-      router.push('/latte-chat/letters/archive') // fallback
-    }
+    router.back()
+    // if (document.referrer) {
+    //   router.back()
+    // } else {
+    //   router.push('/latte-chat/letters/archive') // fallback
+    // }
   }
 
   return (

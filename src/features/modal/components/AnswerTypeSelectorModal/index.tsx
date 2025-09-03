@@ -43,7 +43,7 @@ export default function AnswerTypeSelectorModal() {
           <CategoryTag
             key={answerType}
             label={answerType}
-            isSelected={selectedAnswerType === answerType}
+            isSelected={selectedAnswerType[0] === answerType}
             onClick={() => {
               setAnswerType(answerType)
               closeModal()

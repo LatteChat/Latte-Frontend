@@ -1,6 +1,7 @@
 import { useSignupStore } from '@/features/user/stores/signupStore'
 import { AgeType, MemberType } from '@/features/user/types/User'
 import Image from 'next/image'
+import { useEffect } from 'react'
 
 export default function AgeSelector({
   imgUrl,
@@ -17,15 +18,24 @@ export default function AgeSelector({
   const setAge = useSignupStore((state) => state.setAge)
   const setMemberType = useSignupStore((state) => state.setMemberType)
 
-  const handleSelectAge = (age: AgeType) => {
-    setAge(age)
-    setMemberType(role.value)
-  }
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const existAge = localStorage.getItem('age')
+      if (existAge && ages.some((a) => a.value === existAge)) {
+        setAge(existAge as AgeType)
+        setMemberType(role.value)
+      }
+    }
+  }, [])
+  // const handleSelectAge = (age: AgeType) => {
+  //   setAge(age)
+  //   setMemberType(role.value)
+  // }
 
   return (
     <section className="flex flex-col gap-5">
       <div className="flex items-center gap-5">
-        <div className="bg-gray-1 flex w-full shrink-0 items-center gap-4 rounded-10 p-3">
+        <div className="flex w-full shrink-0 items-center gap-4 rounded-10 bg-gray-1 p-3">
           <Image
             src={imgUrl}
             width={66}
@@ -44,8 +54,8 @@ export default function AgeSelector({
           return (
             <button
               key={index}
-              className={`${selectedAge === age.value ? 'border-secondary-brown-2 bg-secondary-brown-1 text-black' : 'text-gray-5 shadow-border border-transparent bg-white'} flex flex-1 items-center justify-center rounded-[0.625rem] border-2 py-[0.875rem]`}
-              onClick={() => handleSelectAge(age.value)}
+              className={`${selectedAge === age.value ? 'border-secondary-brown-2 bg-secondary-brown-1 text-black' : 'border-transparent bg-white text-gray-5 shadow-border'} flex flex-1 items-center justify-center rounded-[0.625rem] border-2 py-[0.875rem]`}
+              // onClick={() => handleSelectAge(age.value)}
             >
               <span className="b1">{age.label}</span>
             </button>

@@ -9,6 +9,7 @@ import { useGetLetterListQuery } from '@/features/letter/hooks/useGetLetterListQ
 import useGetSeniorSelectedLetterCountQuery from '@/features/letter/hooks/useGetSeniorSelectedLetterCountQuery'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import useSelectLetterQuery from '@/features/letter/hooks/useSelectLetterQuery'
 
 export default function SeniorLetterPreviewCardListContainer() {
   const pathname = usePathname()
@@ -31,6 +32,18 @@ export default function SeniorLetterPreviewCardListContainer() {
 
   const [index, setIndex] = useState(0)
   const [page, setPage] = useState(0)
+
+  const { mutate: selectLetterMutate } = useSelectLetterQuery({
+    letterId: (letters?.length ?? 0 > 0) && letters[index].letterId,
+  })
+
+  const handleSelectLetter = () => {
+    if (!letters || (letters?.content?.length ?? 0) <= 0) return
+    selectLetterMutate({
+      letterId: letters?.content[index]?.letterId,
+      seniorId: userInfo?.seniorId!,
+    })
+  }
 
   const fetchCards = async (pageNum: number) => {
     if ((letters?.content?.length ?? 0) > 0 && pageNum <= page) return
@@ -85,7 +98,7 @@ export default function SeniorLetterPreviewCardListContainer() {
               <PrevIcon color={index === 0 ? '#D9D9D9' : '#6E4F36'} />
             </button>
             <h2
-              className={` ${letters?.content[index]?.letterType === 'BONUS' ? 'bg-latte-gradient-4 bg-clip-text text-transparent' : 'text-black'} h3 line-clamp-1 w-[15.3rem] flex-1 text-center`}
+              className={` ${letters?.content[index]?.letterType === 'BONUS' ? 'bg-latte-gradient-5 bg-clip-text text-transparent' : 'text-black'} h3 line-clamp-1 w-[15.3rem] flex-1 text-center`}
             >
               {letters?.content[index]?.title}
             </h2>
@@ -103,7 +116,7 @@ export default function SeniorLetterPreviewCardListContainer() {
             </button>
           </div>
           <span
-            className={`${letters?.content[index]?.letterType === 'BONUS' ? 'bg-latte-gradient-4 bg-clip-text text-transparent' : 'text-gray-7'} b6`}
+            className={`${letters?.content[index]?.letterType === 'BONUS' ? 'bg-latte-gradient-5 bg-clip-text text-transparent' : 'text-gray-7'} b6`}
           >
             {letters?.content[index]?.juniorName}
           </span>
@@ -113,12 +126,15 @@ export default function SeniorLetterPreviewCardListContainer() {
       <div className="mt-8 flex flex-col items-center gap-2">
         <div className="flex w-full gap-4">
           <Link
-            href={`${pathname}/1`}
+            href={`${pathname}/${letters?.content[index]?.letterId}`}
             className="flex-1 rounded-10 bg-gray-3 py-3 text-center text-black"
           >
             사연 보기
           </Link>
-          <button className="flex-1 rounded-10 bg-secondary-brown-2 py-3 text-white">
+          <button
+            onClick={handleSelectLetter}
+            className="flex-1 rounded-10 bg-secondary-brown-2 py-3 text-white"
+          >
             {`선택하기 (${selectedLetterCount}/5)`}
           </button>
         </div>

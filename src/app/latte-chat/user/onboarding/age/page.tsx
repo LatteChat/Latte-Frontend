@@ -25,12 +25,12 @@ export default function UserOnBoardingAgePage() {
 
   const handleClickNextButton = () => {
     if (!memberType) return
-    router.push(`/latte-chat/user/onboarding/certification`)
+    router.push(`/latte-chat/user/onboarding/role`)
   }
 
   return (
     <div className="relative min-h-main space-y-8 bg-white px-5 py-10 pb-32">
-      <StepTitle title={'연령대를 선택해주세요'} activeIndex={1} />
+      <StepTitle title={'연령대를 확인해주세요'} activeIndex={1} />
 
       <div className="flex flex-col gap-7">
         <AgeSelector

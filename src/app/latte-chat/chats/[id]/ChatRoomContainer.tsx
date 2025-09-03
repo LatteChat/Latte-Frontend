@@ -36,8 +36,7 @@ export default function ChatRoomContainer() {
   const { data: userInfo } = useUserInfo()
   const chatUser = useChatUserState()
 
-  const seniorId = chatUser.senior.id
-  const isRequester = seniorId === userInfo?.seniorId
+  const isRequester = !!userInfo?.juniorId
 
   const { mutate: enterChatRoomMutate } = useEnterChatRoomQuery()
   const { mutate: leaveChatRoomMutate } = useLeaveChatRoomQuery()
@@ -56,14 +55,14 @@ export default function ChatRoomContainer() {
         return (
           <div className="px-5">
             {isRequester ? (
-              <MentorRequestMessageContainer />
-            ) : (
               <div className="flex flex-col items-center gap-5">
                 <p className="b10 flex w-full items-center justify-center rounded-10 bg-gray-1 py-2 text-black">
                   멘토 요청을 기다리고 있어요
                 </p>
                 <img src="/icons/comment-more-icon.svg" className="w-12" />
               </div>
+            ) : (
+              <MentorRequestMessageContainer />
             )}
           </div>
         )

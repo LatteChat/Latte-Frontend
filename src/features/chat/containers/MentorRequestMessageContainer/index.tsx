@@ -12,7 +12,11 @@ export default function MentorRequestMessageContainer() {
   const { setStatus } = useChatStatusActions()
 
   const handleAcceptMetor = () => {
-    sendMessage(`/pub/accept`, { ...chatUser, chatRoomId })
+    sendMessage(`/pub/accept`, {
+      seniorId: chatUser.senior.id,
+      juniorId: chatUser.junior.id,
+      chatRoomId,
+    })
     setStatus('ACTIVE')
   }
 

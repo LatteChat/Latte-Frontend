@@ -1,7 +1,7 @@
 'use client'
 
 import { httpCSR } from '@/shared/apis/http'
-import { JuniorInfo, UserInfo } from '../types/User'
+import { UserInfo } from '../types/User'
 
 // 청년층 정보 등록
 export const saveJuniorUser = async (
@@ -55,7 +55,7 @@ export const fetchJuniorUser = async ({
   juniorId,
 }: {
   juniorId: number
-}): Promise<JuniorInfo> => {
+}): Promise<any> => {
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
 

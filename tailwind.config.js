@@ -59,6 +59,15 @@ module.exports = {
         'bottom-line': '0 1px 0 0 #F3F3F3',
         'top-line': '0 -1px 0 0 #F3F3F3',
       },
+      keyframes: {
+        twinkle: {
+          '0%, 100%': { opacity: '0.5' },
+          '50%': { opacity: '1' },
+        },
+      },
+      animation: {
+        twinkle: 'twinkle 1.5s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

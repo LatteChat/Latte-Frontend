@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useModal } from '@/shared/contexts/ModalContext'
 import DeleteCommentConfirmModal from '@/features/modal/components/DeleteCommentConfirmModal'
 import { useCommentActionActions } from '../../comment/stores/commentActionStore'
-import { useGetMyInfoQuery } from '@/features/user/hooks/useGetMyInfoQuery'
+import useGetMyInfoQuery from '@/features/user/hooks/useGetMyInfoQuery'
 
 export default function CommentOptionButton({
   commentId,

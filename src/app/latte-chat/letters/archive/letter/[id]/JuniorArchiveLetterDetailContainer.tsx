@@ -1,7 +1,12 @@
+import {
+  useChatUserActions,
+  useChatUserState,
+} from '@/features/chat/stores/chatUserStore'
 import LetterActionButtonBox from '@/features/letter/detail/components/junior/LetterActionButtonBox'
 import AnswerListContainer from '@/features/letter/detail/containers/AnswerListContainer'
 import { useGetJuniorLetterDetail } from '@/features/letter/detail/hooks/useGetJuniorLetterDetail'
 import LetterCardLayout from '@/shared/components/LetterCardLayout'
+import { CATEGORIES_MAP } from '@/shared/types/Category'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
@@ -15,6 +20,33 @@ export default function JuniorArchiveLetterDetailContainer() {
   const { data: letterDetail } = useGetJuniorLetterDetail({
     letterId,
   })
+  const { junior, senior } = useChatUserState()
+  const { setAll } = useChatUserActions()
+
+  useEffect(() => {
+    if (letterDetail && letterDetail.answerResponseDto.length > 0) {
+      const adoptedAnswer = letterDetail.answerResponseDto.find(
+        (answer) => (answer as any).answerStatus === 'ADOPTED'
+      )
+
+      if (!adoptedAnswer) return
+
+      const seniorId = (adoptedAnswer?.seniorDetailDto as any)?.seniorId
+      const juniorId = (letterDetail.juniorDetailDto as any)?.juniorId
+
+      setAll({
+        senior: {
+          ...senior,
+          id: seniorId,
+        },
+        junior: {
+          ...junior,
+          id: juniorId,
+        },
+      })
+    }
+  }, [letterDetail])
+
   console.log('청년 사연 상세 조회:', letterDetail)
 
   const renderTitle = () => {
@@ -55,12 +87,16 @@ export default function JuniorArchiveLetterDetailContainer() {
     >
       <div className="flex flex-col items-start gap-2">
         <div className="flex gap-2">
-          <span className="b9 inline-block rounded bg-secondary-brown-2 px-2 py-0.5 text-white">
-            {letterDetail?.category}
-          </span>
-          <span className="b9 inline-block rounded border border-primary bg-white px-2 py-0.5 text-secondary-brown-2">
-            현실적인
-          </span>
+          {letterDetail?.category && (
+            <span className="b9 inline-block rounded bg-secondary-brown-2 px-2 py-0.5 text-white">
+              {CATEGORIES_MAP[letterDetail?.category]}
+            </span>
+          )}
+          {(letterDetail?.answerType?.length ?? 0) > 0 && (
+            <span className="b9 inline-block rounded border border-primary bg-white px-2 py-0.5 text-secondary-brown-2">
+              {letterDetail?.answerType[0]}
+            </span>
+          )}
         </div>
         <h2 className="h3 mb-5 text-black">{letterDetail?.title}</h2>
       </div>

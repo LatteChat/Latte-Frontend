@@ -40,7 +40,9 @@ export default function PostDetailContainer() {
         }
       : undefined
   )
-  const { mutate: likePostMutate } = useLikePostQuery()
+  const { mutate: likePostMutate } = useLikePostQuery({
+    letterId,
+  })
 
   const handleClickLikeButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
@@ -75,6 +77,7 @@ export default function PostDetailContainer() {
         <section className="px-5 pb-5 pt-10">
           <PostHeader
             user={{
+              juniorId: postDetail?.juniorDetailDto.juniorId!,
               nickname: postDetail?.juniorDetailDto.name ?? '-',
               age: postDetail?.juniorDetailDto.age,
               profile:

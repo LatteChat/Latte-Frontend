@@ -106,7 +106,7 @@ export default function MypageContainer() {
             tags={userInfo?.tag}
             age={userInfo?.age}
             type={userInfo?.type}
-            adopt={userInfo?.adopt}
+            adopt={userInfo?.adopt ?? 0}
           />
 
           <div className="mb-5 flex w-full flex-col rounded-10 border bg-white p-4 shadow">

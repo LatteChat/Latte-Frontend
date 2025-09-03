@@ -24,7 +24,9 @@ export default function PopularPostCard({
   rank,
 }: PopularPostCardProps) {
   const { data: userInfo } = useUserInfo()
-  const { mutate: likePostMutate } = useLikePostQuery()
+  const { mutate: likePostMutate } = useLikePostQuery({
+    letterId,
+  })
 
   const handleClickLikeButton = (e: React.MouseEvent<SVGSVGElement>) => {
     e.stopPropagation()

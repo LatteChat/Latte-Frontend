@@ -1,3 +1,4 @@
+import { CATEGORIES_MAP } from '@/shared/types/Category'
 import Image from 'next/image'
 
 export default function PostContent({
@@ -26,7 +27,7 @@ export default function PostContent({
         <div>
           {category && (
             <span className="b9 rounded bg-secondary-brown-2 px-1 py-[2px] text-white">
-              {category}
+              {CATEGORIES_MAP[category]}
             </span>
           )}
         </div>

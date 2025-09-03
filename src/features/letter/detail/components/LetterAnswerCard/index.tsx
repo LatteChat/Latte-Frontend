@@ -1,5 +1,6 @@
 import { AgeType } from '@/features/user/types/User'
 import UserProfile from '@/shared/components/UserProfile'
+import { formatDateDefault } from '@/shared/utils/formatDate'
 
 export type Member = {
   name: string
@@ -32,7 +33,7 @@ export default function LetterAnswerCard({
       )}
       <div className="flex flex-col items-center">
         <div className="mb-2.5 ml-1 flex aspect-square h-10 w-10">
-          <UserProfile profile="/images/coffee-bean-image.png" age={user.age} />
+          <UserProfile profile={user.image} age={user.age} />
         </div>
         <span className="b7 mb-1">{user.name}</span>
         <div className="flex flex-wrap justify-center gap-1">
@@ -49,9 +50,11 @@ export default function LetterAnswerCard({
         </div>
       </div>
 
-      <p className="b4 flex-grow text-gray-7">{content}</p>
+      <p className="b4 flex-grow whitespace-pre-line text-gray-7">{content}</p>
 
-      <time className="b9 self-end text-gray-5">{createdAt}</time>
+      <time className="b9 self-end text-gray-5">
+        {formatDateDefault(createdAt)}
+      </time>
     </section>
   )
 }

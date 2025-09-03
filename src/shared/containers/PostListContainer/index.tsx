@@ -1,4 +1,5 @@
 import { useGetPostListQuery } from '@/features/home/hooks/useGetPostListQuery'
+import { usePostFilterStore } from '@/features/post/stores/postFilterStore'
 import PostCard from '@/shared/components/PostCard'
 import PostFilterContainer from '@/shared/containers/PostFilterContainer'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
@@ -9,12 +10,13 @@ import { useState } from 'react'
 export default function PostListContainer() {
   const { data: userInfo } = useUserInfo()
   const [selected, setSelected] = useState<Category | null>(null)
+  const { statusFilter } = usePostFilterStore()
 
   const { data: postListByCategory } = useGetPostListQuery(
     userInfo
       ? {
           page: 0,
-          filter: 'all',
+          filter: statusFilter,
           category: selected,
           userId:
             userInfo.memberType === 'JUNIOR'
@@ -33,6 +35,7 @@ export default function PostListContainer() {
 
       <main className="flex flex-col gap-3.5 px-5">
         {postListByCategory?.content.map((post, index) => {
+          console.log(post)
           return (
             <Link
               key={post.letterId}
@@ -43,10 +46,10 @@ export default function PostListContainer() {
                   title: post.title,
                   content: post.content,
                   commentCount: post.countComments,
+                  image: post.image,
                   likeCount: post.heart,
                   date: post.createAt,
                   tag: post.category,
-                  status: post.answerStatus,
                 }}
                 showMeta
               />

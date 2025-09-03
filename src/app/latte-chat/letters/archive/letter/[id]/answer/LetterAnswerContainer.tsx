@@ -2,6 +2,7 @@ import useSendAnswerQuery from '@/features/letter/answer/hooks/useSendAnswerQuer
 import { useGetSeniorLetterDetail } from '@/features/letter/detail/hooks/useGetSeniorLetterDetail'
 import LetterCardLayout from '@/shared/components/LetterCardLayout'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
+import { CATEGORIES_MAP } from '@/shared/types/Category'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -18,7 +19,7 @@ export default function LetterAnswerContainer({
     letterId,
     seniorId: userInfo?.seniorId!,
   })
-  const { mutate: sendAnswerMutate } = useSendAnswerQuery()
+  const { mutate: sendAnswerMutate } = useSendAnswerQuery({ letterId })
 
   console.log(letterDetail)
 
@@ -65,16 +66,16 @@ export default function LetterAnswerContainer({
           {isLetterOpen && (
             <article className="rounded-10 border border-secondary-brown-2 bg-secondary-brown-1 px-4 py-5">
               <header className="flex flex-col items-start gap-2">
-                <div className="flex gap-2">
+                <div className="flex items-start gap-2">
                   <span className="b9 inline-block rounded bg-secondary-brown-2 px-2 py-0.5 text-white">
-                    {letterDetail.category}
+                    {CATEGORIES_MAP[letterDetail?.category]}
                   </span>
-                  <span className="b9 inline-block rounded border border-primary bg-white px-2 py-0.5 text-secondary-brown-2">
-                    현실적인
+                  <span className="b9 border-main mb-4 inline-block rounded border bg-white px-2 py-0.5 text-secondary-brown-2">
+                    {letterDetail?.answerType}
                   </span>
                 </div>
 
-                <h2 className="h3 text-black">{letterDetail.title}</h2>
+                <h2 className="h3 text-black">{letterDetail?.title}</h2>
               </header>
 
               <figure className="px-5 pt-5">

@@ -4,7 +4,6 @@ import { httpCSR } from '@/shared/apis/http'
 
 type AgeType =
   | 'UNDER_10'
-  | 'TEENAGER'
   | 'TWENTIES'
   | 'THIRTIES'
   | 'FORTIES'
@@ -71,14 +70,8 @@ export const fetchCommentList = async ({
   page: number
   sort: string // createdAt | heart
 }): Promise<CommentListResponse> => {
-  const token = localStorage.getItem('accessToken')
-  if (!token) throw new Error('토큰이 없습니다.')
-
   return await httpCSR(`/main/${letterId}/comments?page=${page}&sort=${sort}`, {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   })
 }
 
@@ -98,6 +91,8 @@ export const saveComment = async ({
 }) => {
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
+
+  console.log(letterId, body)
 
   return await httpCSR(`/comment/${letterId}/comment`, {
     method: 'POST',
@@ -144,14 +139,25 @@ export const updateComment = async ({
 }
 
 // 사연 댓글 좋아요
-export const saveCommentLike = async ({ commentId }: { commentId: number }) => {
+export const saveCommentLike = async ({
+  commentId,
+  userId,
+  memberType,
+}: {
+  commentId: number
+  userId: number
+  memberType: string
+}) => {
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
 
-  return await httpCSR(`/comment/${commentId}/heart`, {
-    method: 'PATCH',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  return await httpCSR(
+    `/comment/${commentId}/heart?userId=${userId}&memberType=${memberType}`,
+    {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
 }
