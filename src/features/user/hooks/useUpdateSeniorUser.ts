@@ -1,24 +1,24 @@
 import { useMutation } from '@tanstack/react-query'
-import { updateJuniorUser } from '../services/userService.client'
+import { updateSeniorUser } from '../services/userService.client'
 import { useRouter } from 'next/navigation'
 
-export default function useUpdateJuniorUser() {
+export default function useUpdateSeniorUser() {
   const router = useRouter()
 
   return useMutation({
     mutationFn: ({
-      juniorId,
+      seniorId,
       payload,
     }: {
-      juniorId: number
+      seniorId: number
       payload: FormData
-    }) => updateJuniorUser({ juniorId, payload }),
+    }) => updateSeniorUser({ seniorId, payload }),
     onSuccess: (data) => {
-      console.log('Junior 수정 성공:', data)
+      console.log('senior 수정 성공:', data)
       router.replace(`/latte-chat/mypage`)
     },
     onError: (error) => {
-      console.error('Junior 수정 실패:', error)
+      console.error('senior 수정 실패:', error)
     },
   })
 }

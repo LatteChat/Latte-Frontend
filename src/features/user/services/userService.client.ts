@@ -114,12 +114,6 @@ export const updateJuniorUser = async ({
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
 
-  for (const [key, value] of payload.entries()) {
-    console.log(key, value)
-  }
-
-  console.log(juniorId)
-
   return await httpCSR(`/junior/${juniorId}/mypage/detail`, {
     method: 'PATCH',
     headers: {
@@ -130,18 +124,21 @@ export const updateJuniorUser = async ({
 }
 
 // 중장년 정보 수정
-// export const updateSeniorUser = async ({
-//   keyword,
-// }: {
-//   keyword: string
-// }): Promise<any> => {
-//   const token = localStorage.getItem('accessToken')
-//   if (!token) throw new Error('토큰이 없습니다.')
+export const updateSeniorUser = async ({
+  seniorId,
+  payload,
+}: {
+  seniorId: number
+  payload: FormData
+}): Promise<any> => {
+  const token = localStorage.getItem('accessToken')
+  if (!token) throw new Error('토큰이 없습니다.')
 
-//   return await httpCSR(`/junior/tags/search?keyword=${keyword}`, {
-//     method: 'PATCH',
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   })
-// }
+  return await httpCSR(`/senior/${seniorId}/mypage/detail`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: payload,
+  })
+}
