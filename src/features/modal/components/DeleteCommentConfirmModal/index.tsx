@@ -13,7 +13,7 @@ export default function DeleteCommentConfirmModal({
   const { mutate: deleteCommentMutate } = useDeleteCommentQuery(letterId)
 
   return (
-    <div className="flex w-full flex-col items-center gap-5 bg-white">
+    <div className="flex w-full flex-col items-center gap-5 bg-white px-5 py-10">
       <div className="flex flex-col items-center gap-2">
         <h1 className="h2 text-black">댓글을 삭제할까요?</h1>
         <p className="b6 text-gray-5">해당 댓글을 완전히 삭제할까요?</p>
