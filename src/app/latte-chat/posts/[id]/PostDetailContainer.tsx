@@ -40,7 +40,9 @@ export default function PostDetailContainer() {
         }
       : undefined
   )
-  const { mutate: likePostMutate } = useLikePostQuery()
+  const { mutate: likePostMutate } = useLikePostQuery({
+    letterId,
+  })
 
   const handleClickLikeButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
