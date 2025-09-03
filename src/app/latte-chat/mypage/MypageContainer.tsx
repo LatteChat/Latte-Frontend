@@ -56,12 +56,13 @@ const FOOTER_CONTENT2 = [
 
 export default function MypageContainer() {
   const { data: userInfo } = useGetMyInfoQuery()
+  console.log(userInfo)
 
   const MENU_ICONS = [
     {
       iconUrl: '/icons/edit-icon.svg',
       title: '프로필 수정',
-      href: '',
+      href: '/latte-chat/mypage/edit',
     },
     {
       iconUrl: '/icons/comment-rectangle-icon.svg',
@@ -148,7 +149,7 @@ export default function MypageContainer() {
           </div>
 
           <div className="rounded-10 bg-latte-gradient-3 p-0.5">
-            <div className="bg-latte-gradient-4 flex w-full items-center justify-between rounded-lg px-5 pb-4 pt-5">
+            <div className="flex w-full items-center justify-between rounded-lg bg-latte-gradient-4 px-5 pb-4 pt-5">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-1">
                   <span className="h4 text-secondary-brown-4">라떼챗</span>
