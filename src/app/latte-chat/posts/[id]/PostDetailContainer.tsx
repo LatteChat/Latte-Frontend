@@ -75,6 +75,7 @@ export default function PostDetailContainer() {
         <section className="px-5 pb-5 pt-10">
           <PostHeader
             user={{
+              juniorId: postDetail?.juniorDetailDto.juniorId!,
               nickname: postDetail?.juniorDetailDto.name ?? '-',
               age: postDetail?.juniorDetailDto.age,
               profile:

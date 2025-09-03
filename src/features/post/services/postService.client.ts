@@ -28,15 +28,15 @@ interface MemberDetailDto {
 }
 
 interface AnswerResponseDto {
-  seniorDetailDto: MemberDetailDto
+  seniorDetailDto: MemberDetailDto & { seniorId: number }
   createdAt: string
   content: string
 }
 
 interface CommentResponseDto {
   commentId: number
-  juniorDetailDto: MemberDetailDto
-  seniorDetailDto: MemberDetailDto
+  juniorDetailDto: MemberDetailDto & { juniorId: number }
+  seniorDetailDto: MemberDetailDto & { seniorId: number }
   comment: string
   heart: number
   replyCount: number
@@ -45,7 +45,7 @@ interface CommentResponseDto {
 }
 
 interface PostDetailResponse {
-  juniorDetailDto: MemberDetailDto
+  juniorDetailDto: MemberDetailDto & { juniorId: number }
   createdAt: string
   view: number
   heart: number

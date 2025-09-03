@@ -11,6 +11,7 @@ type AgeType =
 
 type PostAnswerProps = {
   user?: {
+    seniorId: number
     name: string
     image: string | null
     tag: string[] | null
@@ -32,6 +33,8 @@ export default function PostAnswer({ user, date, content }: PostAnswerProps) {
               <UserProfile
                 profile={user?.image ?? '/images/coffee-bean-image.png'}
                 age={user?.age}
+                isView={true}
+                seniorId={user?.seniorId}
               />
             </div>
 

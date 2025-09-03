@@ -11,6 +11,7 @@ type AgeType =
 
 type PostHeaderProps = {
   user: {
+    juniorId: number
     nickname: string
     age?: AgeType
     profile: string
@@ -21,7 +22,7 @@ type PostHeaderProps = {
 }
 
 export default function PostHeader({
-  user: { nickname, age, profile },
+  user: { juniorId, nickname, age, profile },
   date,
   likeCount,
   commentCount,
@@ -32,6 +33,8 @@ export default function PostHeader({
         <UserProfile
           profile={profile ?? '/images/coffee-bean-image.png'}
           age={age}
+          isView={true}
+          juniorId={juniorId}
         />
       </div>
 
