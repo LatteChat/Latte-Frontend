@@ -4,10 +4,12 @@ export default async function baseHttp<T>(
 ): Promise<T> {
   const { revalidate, ...rest } = options || {}
 
+  const isFormData = rest.body instanceof FormData
+
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${url}`, {
     ...rest,
     headers: {
-      'Content-Type': 'application/json',
+      ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
       ...(rest.headers || {}),
     },
     credentials: 'include',

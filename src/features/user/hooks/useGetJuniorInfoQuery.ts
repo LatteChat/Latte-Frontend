@@ -1,15 +1,23 @@
 import { useQuery } from '@tanstack/react-query'
 import { fetchJuniorUser } from '../services/userService.client'
 
-export const useGetJuniorInfoQuery = ({
+export default function useGetJuniorInfoQuery({
   juniorId,
 }: {
-  juniorId?: number | null
-}) => {
+  juniorId: number
+}) {
   return useQuery({
     queryKey: ['/junior/detail', { juniorId }],
     queryFn: () => fetchJuniorUser({ juniorId: juniorId! }),
     retry: 2,
-    enabled: juniorId !== null,
+    select: (data) => {
+      const newData = {
+        ...data,
+        type: 'JUNIOR',
+      }
+
+      return newData
+    },
+    enabled: !!juniorId,
   })
 }
