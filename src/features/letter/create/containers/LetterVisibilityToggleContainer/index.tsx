@@ -16,7 +16,7 @@ export default function LetterVisibilityToggleContainer() {
       width={'6rem'}
       onClick={handleToggle}
       isChecked={isOpen}
-      offColor="bg-gray-4 text-black"
+      offColor="bg-gray-3 text-black"
       onColor="bg-secondary-brown-4 text-white"
     />
   )

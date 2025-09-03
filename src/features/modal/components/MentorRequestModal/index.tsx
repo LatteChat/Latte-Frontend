@@ -1,3 +1,7 @@
+import { useChatUserState } from '@/features/chat/stores/chatUserStore'
+import { useSocket } from '@/shared/contexts/SocketContext'
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
+
 export default function MentorRequestModal({
   modalStatus,
   setModalStatus,
@@ -11,6 +15,11 @@ export default function MentorRequestModal({
   closeModal: () => void
   isPremium: boolean
 }) {
+  const { data: userInfo } = useUserInfo()
+  const { sendMessage } = useSocket()
+
+  const chatUser = useChatUserState()
+
   console.log(modalStatus)
   if (modalStatus === 'REQUEST') {
     return (
@@ -26,8 +35,12 @@ export default function MentorRequestModal({
         <div className="flex w-full gap-2">
           <button
             onClick={() => {
-              setModalStatus('SUCCESS')
-              console.log('요청')
+              // setModalStatus('SUCCESS')
+              console.log('요청', chatUser)
+
+              if (chatUser) {
+                sendMessage(`/pub/request`, chatUser)
+              }
             }}
             className="b4 w-full rounded-10 bg-secondary-brown-2 py-2.5 text-white"
           >

@@ -21,7 +21,7 @@ export default function Toggle({
     <button
       type="button"
       onClick={onClick}
-      className={`relative flex items-center rounded-full bg-gray-300 px-1 py-1 ${isChecked ? onColor : offColor}`}
+      className={`relative flex items-center rounded-full px-1 py-1 ${isChecked ? onColor : offColor}`}
       style={{ width }}
     >
       <span>&nbsp;</span>

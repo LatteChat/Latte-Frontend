@@ -23,7 +23,7 @@ export default function useSaveLetterQuery() {
     onSuccess: (data) => {
       console.log('사연 등록 성공:', data)
       reset()
-      router.back()
+      router.replace('/latte-chat/letters')
     },
     onError: (error) => {
       console.error('사연 등록 실패:', error)

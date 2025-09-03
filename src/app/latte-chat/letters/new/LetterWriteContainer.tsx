@@ -3,14 +3,16 @@ import LetterVisibilityToggleContainer from '@/features/letter/create/containers
 import TitleHeader from '@/shared/components/TitleHeader'
 import Image from 'next/image'
 import useSaveLetterQuery from '@/features/letter/hooks/userSaveLetterQuery'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
+  useLetterCreateActions,
   useLetterCreateState,
   useLetterCreateStore,
 } from '@/features/letter/stores/letterCreateStore'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useModal } from '@/shared/contexts/ModalContext'
 import CategorySelectorModal from '@/features/modal/components/CategorySelectorModal'
+import { CATEGORIES_MAP } from '@/shared/types/Category'
 
 export default function LetterWriteContainer() {
   const { data: userInfo } = useUserInfo() // 추후 여기서 juniorId 추출해서 API에 적용
@@ -18,10 +20,15 @@ export default function LetterWriteContainer() {
 
   const [isEditorFocus, setIsEditorFocus] = useState(false)
 
-  const category = useLetterCreateStore((state) => state.category)
+  const { category, answerType } = useLetterCreateState()
+  const { reset } = useLetterCreateActions()
 
   const letterCreateState = useLetterCreateState()
   const { mutate: saveLetterMutate } = useSaveLetterQuery()
+
+  useEffect(() => {
+    return () => reset()
+  }, [])
 
   return (
     <>
@@ -35,10 +42,10 @@ export default function LetterWriteContainer() {
               type="button"
               className="h4 flex items-center gap-3 rounded-10 bg-white px-3 py-2 text-black shadow-border"
             >
-              오늘의 주제는
+              카테고리 선택
               {category && (
                 <span className="b4 inline-block rounded-10 bg-secondary-brown-2 px-4 py-[0.375rem] text-secondary-brown-1">
-                  {category}
+                  {CATEGORIES_MAP[category]}
                 </span>
               )}
               <img
@@ -72,11 +79,18 @@ export default function LetterWriteContainer() {
           >
             {isEditorFocus ? (
               <div className="h-full w-full flex-1 pt-5">
-                {category && (
-                  <span className="b9 mb-4 ml-5 inline-block rounded-md bg-secondary-brown-2 px-2 py-[1px] text-secondary-brown-1">
-                    취업 및 회사
-                  </span>
-                )}
+                <div className="mb-4 ml-5 flex items-start gap-2">
+                  {category && (
+                    <span className="b9 inline-block rounded bg-secondary-brown-2 px-2 py-[1px] text-secondary-brown-1">
+                      {CATEGORIES_MAP[category]}
+                    </span>
+                  )}
+                  {answerType.length > 0 && (
+                    <span className="b9 rounded border border-primary bg-white px-1.5 py-0.5 text-secondary-brown-2">
+                      {answerType[0]}
+                    </span>
+                  )}
+                </div>
                 <Editor />
                 <button
                   className="b3 absolute bottom-5 left-1/2 -translate-x-1/2 rounded-10 bg-secondary-brown-2 px-7 py-2 text-secondary-brown-1"
@@ -97,14 +111,18 @@ export default function LetterWriteContainer() {
                 className="flex h-full w-full flex-1 justify-center pt-5"
                 onClick={() => setIsEditorFocus(true)}
               >
-                <p className="b1 text-gray-6">
-                  카테고리 선택 후, 사연을 작성해보세요
+                <p className="b1 whitespace-pre-line text-center text-gray-6">
+                  {`카테고리 선택 후,\n여기를 눌러 사연을 작성해보세요`}
                 </p>
                 <button
                   className="b3 absolute bottom-5 rounded-10 bg-secondary-brown-2 px-7 py-2 text-secondary-brown-1 shadow-border"
-                  onClick={() =>
-                    saveLetterMutate({ juniorId: 7, body: letterCreateState })
-                  }
+                  onClick={() => {
+                    if (!userInfo?.juniorId) return
+                    saveLetterMutate({
+                      juniorId: userInfo?.juniorId,
+                      body: letterCreateState,
+                    })
+                  }}
                 >
                   저장하기
                 </button>
