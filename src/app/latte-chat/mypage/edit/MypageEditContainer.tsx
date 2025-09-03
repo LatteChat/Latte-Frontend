@@ -3,7 +3,6 @@ import useGetTagListQuery from '@/features/user/hooks/useGetTagListQuery'
 import useUpdateJuniorUser from '@/features/user/hooks/useUpdateJuniorUser'
 import useUpdateSeniorUser from '@/features/user/hooks/useUpdateSeniorUser'
 import ProfileUploader from '@/features/user/mypage/container/ProfileUploader'
-import { AgeType } from '@/features/user/types/User'
 import { useEffect, useState } from 'react'
 
 export default function MypageEditContainer() {
@@ -116,7 +115,7 @@ export default function MypageEditContainer() {
             <ProfileUploader
               existProfile={userInfo?.image}
               onSelectFile={(file) => setSelectedFile(file)}
-              age={userInfo.age}
+              age={userInfo?.age}
             />
 
             <div className="flex w-48 gap-1 border-b border-gray-5">
