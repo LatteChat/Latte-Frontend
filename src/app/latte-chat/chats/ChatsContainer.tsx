@@ -57,7 +57,7 @@ export default function ChatsContainer() {
             {chatRooms?.map(
               (chatRoom: {
                 chatRoomId: number
-                chatRoomCondition: string
+                chatRoomCondition: 'WAITING' | 'ACTIVE' | 'INACTIVE'
                 juniorId: number
                 lastMessage: string | null
                 lastMessageAt: string | null
@@ -66,21 +66,42 @@ export default function ChatsContainer() {
                 seniorDetailDto: MemberInfo | null
                 juniorDetailDto: MemberInfo | null
               }) => {
+                let lastMessage = chatRoom.lastMessage
+
+                if (!chatRoom.lastMessage) {
+                  if (chatRoom.chatRoomCondition === 'WAITING') {
+                    if (chatRoom?.seniorDetailDto) {
+                      lastMessage = '멘토 요청을 기다리고 있어요'
+                    } else {
+                      lastMessage = '멘토 신청이 왔습니다'
+                    }
+                  } else if (chatRoom.chatRoomCondition === 'ACTIVE') {
+                    lastMessage = '첫 메시지를 보내보세요'
+                  } else if (chatRoom.chatRoomCondition === 'INACTIVE') {
+                    lastMessage = '아쉽지만, 멘토 멘티가 되지 못했어요'
+                  } else {
+                    lastMessage = ''
+                  }
+                }
+
+                if (chatRoom?.seniorDetailDto) {
+                  if (chatRoom.chatRoomCondition === 'WAITING') {
+                  }
+                } else if (chatRoom?.juniorDetailDto) {
+                }
+
                 return (
                   <ChatItem
                     chat={{
                       chatRoomId: chatRoom?.chatRoomId,
                       chatRoomCondition: chatRoom?.chatRoomCondition,
-                      lastMessage:
-                        (chatRoom?.lastMessage ?? chatRoom?.seniorDetailDto)
-                          ? '멘토 신청이 왔습니다'
-                          : '멘토 요청을 기다리고 있어요',
+                      lastMessage: lastMessage!,
                       unreadCount: chatRoom?.unreadCount,
                       lastMessageAt: chatRoom?.lastMessageAt ?? '',
                       chatRoomStatus: chatRoom.chatRoomCondition,
                     }}
                     user={{
-                      name: chatRoom?.seniorDetailDto
+                      nickname: chatRoom?.seniorDetailDto
                         ? chatRoom?.seniorDetailDto.name
                         : chatRoom?.juniorDetailDto?.name,
                       profile: chatRoom?.seniorDetailDto
