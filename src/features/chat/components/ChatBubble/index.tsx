@@ -6,12 +6,13 @@ import VoiceCallStartBubble from '../VoiceCallStartBubble'
 import { formatTime } from '../../utils/formatDateTime'
 import { Message } from '../../types/Chat'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
+import { useChatUserState } from '../../stores/chatUserStore'
 
 export default function ChatBubble({
   message,
   isProfile,
   isShowTime,
-  type,
+  type = 'message',
 }: {
   message: Message
   isProfile: boolean
@@ -22,20 +23,21 @@ export default function ChatBubble({
   const d = new Date(message.createdAt)
   const isMe = message.senderType === userInfo?.memberType
 
+  const { receiver } = useChatUserState()
+
   const renderBubble = () => {
-    return <MessageBubble isMe={isMe} message={message.content} />
-    // switch (type) {
-    //   case 'message':
-    //     return <MessageBubble isMe={isMe} message={message.content} />
-    //   case 'videoCallRequest':
-    //     return <VoiceCallRequestBubble />
-    //   case 'videoCallStart':
-    //     return <VoiceCallStartBubble isMe={isMe} />
-    //   case 'videoCallEnd':
-    //     return <VoiceCallEndBubble isMe={isMe} /> // duration
-    //   default:
-    //     return null
-    // }
+    switch (type) {
+      case 'message':
+        return <MessageBubble isMe={isMe} message={message.content} />
+      case 'videoCallRequest':
+        return <VoiceCallRequestBubble />
+      case 'videoCallStart':
+        return <VoiceCallStartBubble isMe={isMe} />
+      case 'videoCallEnd':
+        return <VoiceCallEndBubble isMe={isMe} /> // duration
+      default:
+        return null
+    }
   }
 
   return (
@@ -47,11 +49,11 @@ export default function ChatBubble({
           <div className="aspect-square h-[1.875rem] w-[1.875rem] shrink-0">
             {isProfile && (
               <Image
-                src="/images/test-image.png"
+                src={receiver?.profile ?? '/images/coffee-bean-image.png'}
                 alt="상대 유저 프로필"
                 width={30}
                 height={30}
-                className="h-full w-full rounded-full"
+                className="h-full w-full rounded-full bg-primary"
               />
             )}
           </div>

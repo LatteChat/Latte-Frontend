@@ -1,9 +1,12 @@
 import { useSocket } from '@/shared/contexts/SocketContext'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useState } from 'react'
+import { useChatUserState } from '../../stores/chatUserStore'
 
-export default function ChatInput() {
+export default function ChatInput({ chatRoomId }: { chatRoomId: number }) {
   const { data: userInfo } = useUserInfo()
+  const chatUser = useChatUserState()
+
   const { sendMessage } = useSocket()
   const [content, setContent] = useState('')
 
@@ -12,9 +15,9 @@ export default function ChatInput() {
     if (!content.trim()) return
 
     sendMessage(`/pub/message`, {
-      chatRoomId: 1,
-      juniorId: userInfo?.juniorId,
-      seniorId: userInfo?.seniorId,
+      chatRoomId,
+      juniorId: chatUser.junior.id,
+      seniorId: chatUser.senior.id,
       memberType: userInfo?.memberType,
       content: content,
     })

@@ -116,7 +116,6 @@ export const StompProvider = ({ children }: { children: ReactNode }) => {
     topic: string,
     callback: <T>(message: SocketMessage<T>) => void
   ) => {
-    console.log('몇번')
     if (!client.current?.connected) {
       console.warn('subscribe에 실패했습니다. 소켓이 연결되지 않았습니다.')
       return
@@ -144,8 +143,6 @@ export const StompProvider = ({ children }: { children: ReactNode }) => {
 
               const createdAt = new Date().toISOString()
               createdAt.replace('Z', '')
-
-              console.log(userInfoRef.current)
 
               return [
                 ...oldData,

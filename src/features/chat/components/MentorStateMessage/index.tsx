@@ -17,7 +17,7 @@ export default function MentorStateMessage({
           src="/images/coffee-bean-image.png"
           width={46}
           height={46}
-          className="aspect-square h-12 w-12 rounded-full bg-primary p-1"
+          className="aspect-square h-12 w-12 rounded-full bg-primary"
           alt="멘토 거절 아이콘"
         />
 

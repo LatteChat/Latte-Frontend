@@ -16,8 +16,8 @@ export const useGetChatListQuery = ({
       const output: any[] = []
       let lastDate = ''
 
-      for (let idx = 0; idx < data.chatMessageList.length; idx++) {
-        const msg = data.chatMessageList[idx]
+      for (let idx = 0; idx < data.length; idx++) {
+        const msg = data[idx]
         const formattedDate = formatDate(new Date(msg.createdAt))
 
         // 날짜 divider
@@ -27,15 +27,12 @@ export const useGetChatListQuery = ({
         }
 
         // 프로필 표시 여부
-        const prevItem = idx > 0 ? data.chatMessageList[idx - 1] : null
+        const prevItem = idx > 0 ? data[idx - 1] : null
         let isProfile =
           idx === 0 || (prevItem && prevItem.senderType !== msg.senderType)
 
         // 시간 표시 여부
-        const nextItem =
-          idx < data.chatMessageList.length - 1
-            ? data.chatMessageList[idx + 1]
-            : null
+        const nextItem = idx < data.length - 1 ? data[idx + 1] : null
         let isShowTime = true
         if (
           nextItem &&

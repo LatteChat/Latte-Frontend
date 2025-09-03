@@ -14,7 +14,7 @@ export type AgeType =
   | 'FIFTIES'
   | 'SIXTIES_AND_ABOVE'
 
-export type JuniorInfo = {
+export type MemberInfo = {
   name: string
   image: string
   tag: string[]
