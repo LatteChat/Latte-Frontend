@@ -33,6 +33,7 @@ export default function PostListContainer() {
 
       <main className="flex flex-col gap-3.5 px-5">
         {postListByCategory?.content.map((post, index) => {
+          console.log(post)
           return (
             <Link
               key={post.letterId}
@@ -43,10 +44,10 @@ export default function PostListContainer() {
                   title: post.title,
                   content: post.content,
                   commentCount: post.countComments,
+                  image: post.image,
                   likeCount: post.heart,
                   date: post.createAt,
                   tag: post.category,
-                  status: post.answerStatus,
                 }}
                 showMeta
               />

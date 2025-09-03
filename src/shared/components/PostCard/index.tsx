@@ -24,7 +24,7 @@ type Post = {
   likeCount: number
   commentCount: number
   answerStatus?: AnswerStatus
-  letterStatus:
+  letterStatus?:
     | 'WRITING'
     | 'SENT'
     | 'ANSWERED'
@@ -62,7 +62,7 @@ export default function PostCard({
     >
       {(letterStatus || answerStatus) && showStatus && (
         <span className="b6 absolute -top-4 left-4 rounded-full bg-gray-3 px-2 py-1 text-black">
-          {LETTER_STATUS_LABEL[answerStatus ? answerStatus : letterStatus]}
+          {LETTER_STATUS_LABEL[(answerStatus ? answerStatus : letterStatus)!]}
         </span>
       )}
 
