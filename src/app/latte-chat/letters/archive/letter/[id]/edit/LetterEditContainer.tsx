@@ -14,6 +14,7 @@ import { useParams } from 'next/navigation'
 import { useGetJuniorLetterDetail } from '@/features/letter/detail/hooks/useGetJuniorLetterDetail'
 import useUpdateLetterQuery from '@/features/letter/hooks/useUpdateLetterQuery'
 import { CATEGORIES_MAP } from '@/shared/types/Category'
+import RightArrowIcon from '@/shared/assets/icons/right-arrow-icon.svg'
 
 export default function LetterEditContainer() {
   const params = useParams()
@@ -66,9 +67,9 @@ export default function LetterEditContainer() {
                   {CATEGORIES_MAP[category]}
                 </span>
               )}
-              <img
-                src="/icons/right-arrow-icon.svg"
+              <RightArrowIcon
                 className="aspect-square h-6 w-6"
+                color={'#000000'}
               />
             </button>
           </div>

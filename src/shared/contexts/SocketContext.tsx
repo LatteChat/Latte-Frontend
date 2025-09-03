@@ -32,7 +32,7 @@ const StompContext = createContext<StompContextType | null>(null)
 
 export const StompProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = useQueryClient()
-  const url = `http://localhost:8080/connection`
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}}/connection`
   const client = useRef<Client | null>(null)
   const [isConnect, setIsConnected] = useState(false)
   const subscriptions = useRef<Map<string, StompSubscription>>(new Map())
