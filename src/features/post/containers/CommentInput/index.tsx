@@ -54,7 +54,7 @@ export default function CommentInput() {
       saveCommentMutate({
         letterId: letterId,
         body: {
-          memberType: userInfo?.memberType,
+          memberType: userInfo?.type,
           seniorId: userInfo.seniorId,
           juniorId: userInfo.juniorId,
           parentId: selectedComment.id,
