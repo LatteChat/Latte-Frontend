@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { useGetPostListQuery } from '../../hooks/useGetPostListQuery'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import RightArrowIcon from '@/shared/assets/icons/right-arrow-icon.svg'
+import EmptyPopularPostList from './EmptyPopularPostList'
 
 export default function PopularPostListContainer() {
   const { data: userInfo } = useUserInfo()
@@ -24,7 +25,7 @@ export default function PopularPostListContainer() {
   })
 
   return (
-    <section className="w-full space-y-4">
+    <section className="min-h-56 w-full space-y-4">
       <header className="flex justify-between px-5">
         <h1 className="h3">인기 게시글</h1>
         <Link
@@ -37,33 +38,37 @@ export default function PopularPostListContainer() {
       </header>
 
       <main className="flex w-full flex-col items-center gap-4 overflow-hidden px-5">
-        <Swiper
-          className="w-full"
-          modules={[Pagination, Autoplay]}
-          spaceBetween={16}
-          slidesPerView={1.05}
-          pagination={{ clickable: true }}
-          autoplay={{
-            delay: 4000,
-            disableOnInteraction: false,
-          }}
-        >
-          {popularPostList?.content.slice(0, 3).map((post, index) => (
-            <SwiperSlide key={post.letterId}>
-              <PopularPostCard
-                post={{
-                  letterId: post.letterId,
-                  title: post.title,
-                  content: post.content,
-                  imageUrl: post.image,
-                  isLike: post.liked,
-                }}
-                user={{ name: post.juniorName }}
-                rank={index + 1}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {popularPostList?.content?.length === 0 ? (
+          <EmptyPopularPostList />
+        ) : (
+          <Swiper
+            className="w-full"
+            modules={[Pagination, Autoplay]}
+            spaceBetween={16}
+            slidesPerView={1.05}
+            pagination={{ clickable: true }}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+            }}
+          >
+            {popularPostList?.content.slice(0, 3).map((post, index) => (
+              <SwiperSlide key={post.letterId}>
+                <PopularPostCard
+                  post={{
+                    letterId: post.letterId,
+                    title: post.title,
+                    content: post.content,
+                    imageUrl: post.image,
+                    isLike: post.liked,
+                  }}
+                  user={{ name: post.juniorName }}
+                  rank={index + 1}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </main>
     </section>
   )
