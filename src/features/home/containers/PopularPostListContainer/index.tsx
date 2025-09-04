@@ -12,20 +12,16 @@ import RightArrowIcon from '@/shared/assets/icons/right-arrow-icon.svg'
 
 export default function PopularPostListContainer() {
   const { data: userInfo } = useUserInfo()
-  const { data: popularPostList } = useGetPostListQuery(
-    userInfo
-      ? {
-          page: 0,
-          filter: 'view',
-          category: null,
-          userId:
-            userInfo.memberType === 'JUNIOR'
-              ? userInfo.juniorId
-              : userInfo.seniorId,
-          memberType: userInfo.memberType,
-        }
-      : undefined
-  )
+  const { data: popularPostList } = useGetPostListQuery({
+    page: 0,
+    filter: 'view',
+    category: null,
+    userId:
+      userInfo?.memberType === 'JUNIOR'
+        ? userInfo?.juniorId
+        : userInfo?.seniorId,
+    memberType: userInfo?.memberType,
+  })
 
   return (
     <section className="w-full space-y-4">

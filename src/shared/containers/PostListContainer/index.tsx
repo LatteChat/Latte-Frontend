@@ -12,20 +12,16 @@ export default function PostListContainer() {
   const [selected, setSelected] = useState<Category | null>(null)
   const { statusFilter } = usePostFilterStore()
 
-  const { data: postListByCategory } = useGetPostListQuery(
-    userInfo
-      ? {
-          page: 0,
-          filter: statusFilter,
-          category: selected,
-          userId:
-            userInfo.memberType === 'JUNIOR'
-              ? userInfo.juniorId
-              : userInfo.seniorId,
-          memberType: userInfo.memberType,
-        }
-      : undefined
-  )
+  const { data: postListByCategory } = useGetPostListQuery({
+    page: 0,
+    filter: statusFilter,
+    category: selected,
+    userId:
+      userInfo?.memberType === 'JUNIOR'
+        ? userInfo?.juniorId
+        : userInfo?.seniorId,
+    memberType: userInfo?.memberType,
+  })
 
   console.log('postListByCategory:', postListByCategory)
 
