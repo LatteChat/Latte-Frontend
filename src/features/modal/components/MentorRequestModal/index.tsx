@@ -1,10 +1,11 @@
 import { useChatUserState } from '@/features/chat/stores/chatUserStore'
+import { useModal } from '@/shared/contexts/ModalContext'
 import { useSocket } from '@/shared/contexts/SocketContext'
-import { useUserInfo } from '@/shared/hooks/useUserInfo'
+import { useEffect } from 'react'
+import MentorSuccessModal from '../MentorSuccessModal'
 
 export default function MentorRequestModal({
   modalStatus,
-  setModalStatus,
   closeModal,
   isPremium,
 }: {
@@ -15,10 +16,34 @@ export default function MentorRequestModal({
   closeModal: () => void
   isPremium: boolean
 }) {
-  const { data: userInfo } = useUserInfo()
-  const { sendMessage } = useSocket()
+  const { sendMessage, connectSocket, disconnectSocket, subscribe } =
+    useSocket()
+  const { openModal } = useModal()
 
   const chatUser = useChatUserState()
+
+  console.log(chatUser)
+
+  const requestMentor = () => {
+    console.log('멘토 요청', chatUser)
+    if (chatUser) {
+      sendMessage(`/pub/request`, {
+        juniorId: chatUser.junior.id,
+        seniorId: chatUser.senior.id,
+      })
+      openModal(<MentorSuccessModal />)
+    }
+  }
+
+  useEffect(() => {
+    const setup = async () => {
+      await connectSocket()
+    }
+    setup()
+    return () => {
+      disconnectSocket()
+    }
+  }, [])
 
   console.log(modalStatus)
   if (modalStatus === 'REQUEST') {
@@ -34,17 +59,7 @@ export default function MentorRequestModal({
         </div>
         <div className="flex w-full gap-2">
           <button
-            onClick={() => {
-              console.log('요청', chatUser)
-
-              if (chatUser) {
-                sendMessage(`/pub/request`, {
-                  juniorId: chatUser.junior.id,
-                  seniorId: chatUser.senior.id,
-                })
-                setModalStatus('SUCCESS')
-              }
-            }}
+            onClick={requestMentor}
             className="b4 w-full rounded-10 bg-secondary-brown-2 py-2.5 text-white"
           >
             요청하기
@@ -59,6 +74,7 @@ export default function MentorRequestModal({
       </div>
     )
   }
+
   if (modalStatus === 'SUCCESS') {
     return (
       <div className="flex w-full flex-col items-center gap-5 bg-white px-5 py-10">

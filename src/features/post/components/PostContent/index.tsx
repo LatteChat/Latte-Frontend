@@ -16,7 +16,7 @@ export default function PostContent({
     <div className="mb-5 mt-4 flex flex-col gap-5 bg-white">
       <div className="space-y-4">
         {imageUrl && (
-          <Image
+          <img
             src={imageUrl}
             alt="사연 AI 이미지"
             className="aspect-square w-full rounded-10 object-cover"

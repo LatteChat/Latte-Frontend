@@ -18,7 +18,7 @@ export default function UserOnBoardingRoleContainer() {
   return (
     <div className="relative flex h-auto min-h-main flex-1 flex-col space-y-8 bg-white px-5 py-10 pb-32 pt-0">
       <main className="flex flex-col items-center gap-5 pt-[13vh]">
-        <Image
+        <img
           src={
             memberType === 'SENIOR'
               ? '/images/milk-image.png'

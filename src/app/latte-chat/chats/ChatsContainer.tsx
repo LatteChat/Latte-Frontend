@@ -3,6 +3,7 @@ import { useGetChatRoomListQuery } from '@/features/chat/hooks/useGetChatRoomLis
 import { MemberInfo } from '@/features/user/types/User'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
+import { useSocket } from '@/shared/contexts/SocketContext'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import Image from 'next/image'
 
@@ -22,6 +23,7 @@ const TOPBAR_ICONS = [
 export default function ChatsContainer() {
   const { data: userInfo } = useUserInfo()
   console.log(userInfo)
+  const { connectSocket } = useSocket()
 
   const { data: chatRooms } = useGetChatRoomListQuery({
     userId:

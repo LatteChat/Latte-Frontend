@@ -37,7 +37,7 @@ export default function UserProfile({
       }}
       className="relative aspect-square h-full w-full shrink-0 rounded-full"
     >
-      <Image
+      <img
         src={profile}
         alt="작성자 프로필 이미지"
         className={`${isView ? 'cursor-pointer' : ''} absolute bottom-0 left-0 aspect-square w-[93%] rounded-full bg-primary object-cover`}

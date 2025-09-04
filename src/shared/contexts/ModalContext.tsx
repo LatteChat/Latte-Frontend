@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useState, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { StompProvider } from './SocketContext'
 
 type ModalContent = ReactNode | (() => ReactNode)
 
@@ -20,7 +19,6 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   const closeModal = () => setModalContent(null)
 
   return (
-    // <StompProvider>
     <ModalContext.Provider value={{ openModal, closeModal }}>
       {children}
       {modalContent &&
@@ -35,7 +33,6 @@ export function ModalProvider({ children }: { children: ReactNode }) {
           document.getElementById('modal-root')!
         )}
     </ModalContext.Provider>
-    // </StompProvider>
   )
 }
 

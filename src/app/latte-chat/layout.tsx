@@ -1,5 +1,4 @@
 import BottomNavigationBar from '@/shared/components/BottomNavigationBar'
-import { StompProvider } from '@/shared/contexts/SocketContext'
 
 export default function LatteChatLayout({
   children,

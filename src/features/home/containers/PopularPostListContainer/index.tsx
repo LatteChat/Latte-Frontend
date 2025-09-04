@@ -8,23 +8,20 @@ import PopularPostCard from '../../components/PopularPostCard'
 import Link from 'next/link'
 import { useGetPostListQuery } from '../../hooks/useGetPostListQuery'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
+import RightArrowIcon from '@/shared/assets/icons/right-arrow-icon.svg'
 
 export default function PopularPostListContainer() {
   const { data: userInfo } = useUserInfo()
-  const { data: popularPostList } = useGetPostListQuery(
-    userInfo
-      ? {
-          page: 0,
-          filter: 'view',
-          category: null,
-          userId:
-            userInfo.memberType === 'JUNIOR'
-              ? userInfo.juniorId
-              : userInfo.seniorId,
-          memberType: userInfo.memberType,
-        }
-      : undefined
-  )
+  const { data: popularPostList } = useGetPostListQuery({
+    page: 0,
+    filter: 'view',
+    category: null,
+    userId:
+      userInfo?.memberType === 'JUNIOR'
+        ? userInfo?.juniorId
+        : userInfo?.seniorId,
+    memberType: userInfo?.memberType,
+  })
 
   return (
     <section className="w-full space-y-4">
@@ -35,11 +32,7 @@ export default function PopularPostListContainer() {
           className="flex cursor-pointer items-center gap-1"
         >
           <span className="b6">더보기</span>
-          <img
-            src="/icons/right-arrow-icon.svg"
-            alt="더보기 아이콘"
-            className="aspect-square h-6 w-6"
-          />
+          <RightArrowIcon className="#000000 h-6 w-6" />
         </Link>
       </header>
 
