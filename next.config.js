@@ -1,14 +1,19 @@
-import type { NextConfig } from 'next'
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+})
 
-const nextConfig: NextConfig = {
-  reactStrictMode: false,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
   images: {
     domains: ['d2e9ojs4st7ryw.cloudfront.net'],
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find(
-      (rule: { test?: RegExp | ((str: string) => boolean) }) =>
-        rule.test instanceof RegExp && rule.test.test('.svg')
+      (rule) => rule.test instanceof RegExp && rule.test.test('.svg')
     )
     if (fileLoaderRule) {
       fileLoaderRule.exclude = /\.svg$/i
@@ -24,4 +29,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+module.exports = withPWA(nextConfig)
