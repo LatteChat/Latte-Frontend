@@ -84,7 +84,7 @@ export default function SeniorArchiveLetterDetailContainer() {
       </div>
 
       <figure className="p-5">
-        <Image
+        <img
           src={letterDetail?.image ?? '/images/test-image.png'}
           alt="사연 이미지"
           className="aspect-square w-full rounded-10 object-cover shadow-border"

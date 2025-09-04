@@ -63,6 +63,7 @@ export default function ChatRoomContainer() {
     const setup = async () => {
       await connectSocket()
       subscribe(`/sub/chat/room/${chatRoomId}`, (msg: any) => {
+        console.log(msg)
         queryClient.setQueryData(['/chat', msg.chatRoomId], (oldData: any) => {
           if (!oldData) {
             return [
@@ -70,9 +71,9 @@ export default function ChatRoomContainer() {
                 chatId: msg.chatId ?? new Date().toISOString(),
                 chatRoomId: msg.chatRoomId,
                 content: msg.content,
-                createdAt: msg.createdAt ?? new Date().toISOString(),
+                createdAt: new Date().toISOString(),
                 isProfile: false,
-                isRead: true,
+                isRead: false,
                 isShowTime: true,
                 senderId: msg.juniorId ?? msg.seniorId,
                 senderType: msg.memberType,
@@ -83,15 +84,13 @@ export default function ChatRoomContainer() {
           const exists = oldData.some((m: any) => m.chatId === msg.chatId)
           if (exists) return oldData
 
-          const createdAt = new Date().toISOString().replace('Z', '')
-
           return [
             ...oldData,
             {
-              chatId: msg.chatId ?? createdAt,
+              chatId: msg.chatId ?? new Date().toISOString(),
               chatRoomId: msg.chatRoomId,
               content: msg.content,
-              createdAt: msg.createdAt ?? createdAt,
+              createdAt: msg.createdAt ?? new Date().toISOString(),
               isProfile: false,
               isRead: true,
               isShowTime: true,

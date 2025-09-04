@@ -76,7 +76,7 @@ export default function PopularPostCard({
           </div>
         </div>
 
-        <Image
+        <img
           src={imageUrl}
           alt="게시글 이미지"
           width={115}

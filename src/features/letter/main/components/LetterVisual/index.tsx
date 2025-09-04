@@ -39,7 +39,7 @@ export default function LetterVisual({
       </Link>
 
       <div className="relative flex items-start justify-center">
-        <Image
+        <img
           src={
             LETTER_STATUS_JUNIOR_LABEL[selectedLetter?.letterStatus ?? 'EMPTY']
               .image

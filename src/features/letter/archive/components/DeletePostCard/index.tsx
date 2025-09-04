@@ -60,7 +60,7 @@ export default function DeletePostCard({
             </div>
           </div>
 
-          <Image
+          <img
             src={image ?? '/images/coffee-bean-image.png'}
             className="bg-se h-24 w-24 flex-shrink-0 rounded-10 shadow-border"
             width={95}
