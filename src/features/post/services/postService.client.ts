@@ -71,7 +71,7 @@ export const fetchPostDetail = async ({
   memberType: string // SENIOR, JUNIOR
 }): Promise<PostDetailResponse> => {
   return await httpCSR(
-    `/main/${letterId}/${userId}/detail/all?memberType=${memberType}`,
+    `/main/${letterId}/detail/all?memberType=${memberType}`,
     {
       method: 'GET',
     }
