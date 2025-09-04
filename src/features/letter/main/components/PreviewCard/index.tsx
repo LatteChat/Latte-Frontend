@@ -53,7 +53,7 @@ export default function PreviewCard({
         {isCenter && (
           <div className="b6 absolute -top-3 right-4 flex gap-1 rounded-md bg-white px-2 py-1">
             <img src="/icons/coffee-bean-icon.svg" className="h-4 w-4" />
-            300콩
+            {letterType === 'NORMAL' ? 300 : 500}콩
           </div>
         )}
         {!isCenter && (

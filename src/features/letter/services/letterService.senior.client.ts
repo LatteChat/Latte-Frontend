@@ -29,7 +29,6 @@ export const fetchLetterList = async ({
   page: number
   seniorId: number
 }): Promise<any> => {
-  console.log(seniorId)
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
 
