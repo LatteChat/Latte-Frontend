@@ -36,7 +36,7 @@ export default function AgeSelector({
     <section className="flex flex-col gap-5">
       <div className="flex items-center gap-5">
         <div className="flex w-full shrink-0 items-center gap-4 rounded-10 bg-gray-1 p-3">
-          <Image
+          <img
             src={imgUrl}
             width={66}
             height={66}

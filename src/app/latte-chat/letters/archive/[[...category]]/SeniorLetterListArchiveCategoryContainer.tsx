@@ -84,7 +84,7 @@ export default function SeniorLetterListArchiveCategoryContainer() {
               <Link
                 key={index}
                 href={
-                  letter.answerStatus === 'SAVED'
+                  letter?.answerStatus === 'SAVED'
                     ? `archive/letter/${letter.letterId}/answer`
                     : `archive/letter/${letter.letterId}`
                 }
