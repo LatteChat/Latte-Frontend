@@ -1,0 +1,21 @@
+{
+  "short_name": "LatteChat",
+  "name": "LatteChat",
+  "icons": [
+    {
+      "src": "latte-chat-logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "latte-chat-logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary"
+}
