@@ -8,7 +8,6 @@ const withPWA = require('next-pwa')({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     domains: ['d2e9ojs4st7ryw.cloudfront.net'],
   },
