@@ -22,15 +22,17 @@ export default function SeniorArchiveLetterDetailContainer() {
   console.log('중장년 사연 상세 조회:', letterDetail)
 
   const renderTitle = () => {
-    if (
+    if (letterDetail?.answerResponseDto?.answerStatus === 'ANSWERED') {
+      return '내가 답변을 쓴 사연'
+    } else if (letterDetail?.answerResponseDto?.answerStatus === 'WAITING') {
+      return '답변 대기 중인 사연'
+    } else if (letterDetail?.answerResponseDto?.answerStatus === 'SAVED') {
+      return '저장된 답변'
+    } else if (
       letterDetail?.letterStatus === 'ADOPTED' ||
       letterDetail?.letterStatus === 'MATCHED'
     ) {
       return '채택 완료된 사연'
-    } else if (letterDetail?.letterStatus === 'ANSWERED') {
-      return '내가 답변을 쓴 사연'
-    } else if (letterDetail?.letterStatus === 'SENT') {
-      return '답변 대기 중인 사연'
     } else {
       return ''
     }
@@ -41,7 +43,9 @@ export default function SeniorArchiveLetterDetailContainer() {
       title={renderTitle()}
       actionButton={
         letterDetail?.letterStatus && (
-          <LetterActionButtonBox letterStatus={letterDetail?.letterStatus} />
+          <LetterActionButtonBox
+            answerStatus={letterDetail?.answerResponseDto?.answerStatus}
+          />
         )
       }
     >

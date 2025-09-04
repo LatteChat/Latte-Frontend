@@ -45,10 +45,6 @@ export default function SeniorLetterDetailContainer() {
       letterDetail?.letterStatus === 'MATCHED'
     ) {
       return '채택 완료된 사연'
-    } else if (letterDetail?.letterStatus === 'ANSWERED') {
-      return '내가 답변을 쓴 사연'
-    } else if (letterDetail?.letterStatus === 'SENT') {
-      return '사연 보기'
     } else {
       return ''
     }

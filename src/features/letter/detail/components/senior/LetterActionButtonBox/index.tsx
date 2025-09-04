@@ -3,17 +3,17 @@ import AnswerLetterButtonContainer from '../../../containers/senior/AnswerLetter
 import GoPostButton from '../../junior/GoPostButton'
 
 export default function LetterActionButtonBox({
-  letterStatus,
+  answerStatus,
 }: {
-  letterStatus: AnswerStatus
+  answerStatus: AnswerStatus
 }) {
   let description = ''
   let buttons: React.ReactNode[] = []
 
-  if (letterStatus === 'SENT') {
+  if (answerStatus === 'WAITING') {
     description = '답변하시겠어요?'
     buttons = [<AnswerLetterButtonContainer key="answer" />]
-  } else if (letterStatus === 'ADOPTED') {
+  } else if (answerStatus === 'ADOPTED') {
     description = '커뮤니티에 게시되었어요.'
     buttons = [<GoPostButton key="adopt" />]
   }
