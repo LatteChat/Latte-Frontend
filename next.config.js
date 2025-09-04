@@ -1,14 +1,12 @@
-import type { NextConfig } from 'next'
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: false,
   images: {
     domains: ['d2e9ojs4st7ryw.cloudfront.net'],
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find(
-      (rule: { test?: RegExp | ((str: string) => boolean) }) =>
-        rule.test instanceof RegExp && rule.test.test('.svg')
+      (rule) => rule.test instanceof RegExp && rule.test.test('.svg')
     )
     if (fileLoaderRule) {
       fileLoaderRule.exclude = /\.svg$/i
@@ -24,4 +22,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+module.exports = nextConfig
