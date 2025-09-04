@@ -22,7 +22,6 @@ const TOPBAR_ICONS = [
 
 export default function ChatsContainer() {
   const { data: userInfo } = useUserInfo()
-  console.log(userInfo)
   const { connectSocket } = useSocket()
 
   const { data: chatRooms } = useGetChatRoomListQuery({
@@ -32,8 +31,6 @@ export default function ChatsContainer() {
         : userInfo?.seniorId,
     memberType: userInfo?.memberType,
   })
-
-  console.log('채팅방 리스트:', chatRooms)
 
   return (
     <div>

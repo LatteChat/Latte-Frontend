@@ -21,8 +21,6 @@ export default function LetterAnswerContainer({
   })
   const { mutate: sendAnswerMutate } = useSendAnswerQuery({ letterId })
 
-  console.log(letterDetail)
-
   return (
     <LetterCardLayout
       title="저장된 답변"

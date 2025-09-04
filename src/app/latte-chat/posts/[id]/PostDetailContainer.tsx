@@ -65,8 +65,6 @@ export default function PostDetailContainer() {
     })
   }
 
-  console.log('게시글 상세 내용:', postDetail)
-
   return (
     <div>
       <div className="flex flex-col gap-4">

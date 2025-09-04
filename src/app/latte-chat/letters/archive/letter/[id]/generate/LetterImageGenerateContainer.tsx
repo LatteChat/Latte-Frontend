@@ -37,8 +37,6 @@ export default function LetterImageGenerateContainer() {
     letterId,
   })
 
-  console.log(letterDetail)
-
   return (
     <div className="bg-secondary-brown-1">
       <div className="sticky top-0 z-10 flex flex-col gap-4 bg-white">

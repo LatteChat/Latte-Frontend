@@ -63,7 +63,6 @@ export default function ChatRoomContainer() {
     const setup = async () => {
       await connectSocket()
       subscribe(`/sub/chat/room/${chatRoomId}`, (msg: any) => {
-        console.log(msg)
         queryClient.setQueryData(['/chat', msg.chatRoomId], (oldData: any) => {
           if (!oldData) {
             return [

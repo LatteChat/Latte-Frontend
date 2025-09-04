@@ -21,7 +21,6 @@ export default function SeniorLetterDetailContainer() {
     letterId,
     seniorId: userInfo?.seniorId,
   })
-  console.log('중장년 사연 상세 조회:', letterDetail)
 
   const { data: selectedLetterCount } = useGetSeniorSelectedLetterCountQuery(
     userInfo

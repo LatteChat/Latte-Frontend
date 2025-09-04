@@ -14,8 +14,6 @@ export default function SeniorLetterContentCardListContainer() {
       : undefined
   )
 
-  console.log('letters:', letters)
-
   return (
     <div className="flex flex-col gap-8">
       {letters?.content.map((letter: any) => {

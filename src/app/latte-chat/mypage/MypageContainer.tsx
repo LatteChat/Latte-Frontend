@@ -57,7 +57,6 @@ const FOOTER_CONTENT2 = [
 
 export default function MypageContainer() {
   const { data: userInfo } = useGetMyInfoQuery()
-  console.log(userInfo)
 
   const MENU_ICONS = [
     {

@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react'
 export default function MypageEditContainer() {
   const { data: userInfo } = useGetMyInfoQuery()
 
-  console.log(userInfo)
   const [selectedTags, setSelectedTags] = useState<string[]>(
     userInfo?.tag ?? []
   )
@@ -29,8 +28,6 @@ export default function MypageEditContainer() {
   const { mutate: updateSeniorUserMutate } = useUpdateSeniorUser()
 
   const { data: searchedTags } = useGetTagListQuery({ keyword: searchTag })
-
-  console.log(searchedTags)
 
   const handleChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value)
@@ -153,6 +150,7 @@ export default function MypageEditContainer() {
               className="b12 flex-1 bg-transparent py-2.5 outline-none placeholder:text-gray-5"
               onChange={handleChangeTag}
               onKeyDown={handleKeyDown}
+              enterKeyHint="done"
               value={searchTag}
             />
             <img src="/icons/search-icon.svg" />

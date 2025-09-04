@@ -76,7 +76,6 @@ export const fetchPostList = async ({
   userId: number
   memberType: string
 }): Promise<PostListResponse> => {
-  console.log('전체 글 조회')
   const query = new URLSearchParams({
     ...(category ? { category } : {}),
     ...(userId ? { userId: String(userId) } : {}),
@@ -84,8 +83,6 @@ export const fetchPostList = async ({
     page: String(page),
     filter: String(filter),
   })
-
-  console.log(query)
 
   return await httpCSR(`/main/list?${query.toString()}`, {
     method: 'GET',

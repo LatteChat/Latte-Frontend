@@ -22,10 +22,7 @@ export default function MentorRequestModal({
 
   const chatUser = useChatUserState()
 
-  console.log(chatUser)
-
   const requestMentor = () => {
-    console.log('멘토 요청', chatUser)
     if (chatUser) {
       sendMessage(`/pub/request`, {
         juniorId: chatUser.junior.id,
@@ -45,7 +42,6 @@ export default function MentorRequestModal({
     }
   }, [])
 
-  console.log(modalStatus)
   if (modalStatus === 'REQUEST') {
     return (
       <div className="flex w-full flex-col items-center gap-5 bg-white px-5 py-10">

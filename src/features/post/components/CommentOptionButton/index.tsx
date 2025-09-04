@@ -20,8 +20,6 @@ export default function CommentOptionButton({
   const { setType, setSelectedComment } = useCommentActionActions()
   const { cancelSelectedComment } = useCommentActionActions()
 
-  console.log('??:', userInfo)
-
   const OPTIONS = [
     {
       id: 'delete',

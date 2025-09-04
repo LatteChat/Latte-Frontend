@@ -19,7 +19,6 @@ export default function SeniorArchiveLetterDetailContainer() {
     letterId,
     seniorId: userInfo?.seniorId,
   })
-  console.log('중장년 사연 상세 조회:', letterDetail)
 
   const renderTitle = () => {
     if (letterDetail?.answerResponseDto?.answerStatus === 'ANSWERED') {

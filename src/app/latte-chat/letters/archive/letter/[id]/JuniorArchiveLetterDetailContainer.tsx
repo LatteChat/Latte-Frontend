@@ -47,8 +47,6 @@ export default function JuniorArchiveLetterDetailContainer() {
     }
   }, [letterDetail])
 
-  console.log('청년 사연 상세 조회:', letterDetail)
-
   const renderTitle = () => {
     if (letterDetail?.letterStatus === 'WRITING') {
       return '저장된 사연'

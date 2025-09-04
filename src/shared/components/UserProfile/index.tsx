@@ -30,7 +30,6 @@ export default function UserProfile({
   return (
     <div
       onClick={() => {
-        console.log(isView)
         if (!juniorId && !seniorId) return
         if (!isView) return
         openModal(<UserProfileModal juniorId={juniorId} seniorId={seniorId} />)

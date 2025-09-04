@@ -93,7 +93,6 @@ export default function LetterWriteContainer() {
                   className="b3 absolute bottom-5 left-1/2 -translate-x-1/2 rounded-10 bg-secondary-brown-2 px-7 py-2 text-secondary-brown-1"
                   onClick={() => {
                     if (!userInfo?.juniorId) return
-                    console.log(letterCreateState)
                     saveLetterMutate({
                       juniorId: userInfo?.juniorId,
                       body: letterCreateState,

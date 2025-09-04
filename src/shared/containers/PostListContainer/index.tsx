@@ -23,15 +23,12 @@ export default function PostListContainer() {
     memberType: userInfo?.memberType,
   })
 
-  console.log('postListByCategory:', postListByCategory)
-
   return (
     <section className="flex flex-col">
       <PostFilterContainer selected={selected} setSelected={setSelected} />
 
       <main className="flex flex-col gap-3.5 px-5">
         {postListByCategory?.content.map((post, index) => {
-          console.log(post)
           return (
             <Link
               key={post.letterId}
