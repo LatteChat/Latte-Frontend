@@ -1,9 +1,8 @@
-import PostCard from '@/shared/components/PostCard'
+'use client'
+
 import LetterStatusFilter from '@/features/letter/archive/components/LetterStatusFilter'
-import { useGetFilteredJuniorLetterListQuery } from '@/features/letter/hooks/useGetFilteredJuniorLetterListQuery'
 import { useParams, useRouter } from 'next/navigation'
 import { useLetterFilterStore } from '@/features/letter/stores/letterFilterStore'
-import Link from 'next/link'
 import { Category } from '@/shared/types/Category'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useState } from 'react'
@@ -38,14 +37,6 @@ export default function LettersArchiveCategoryContainer() {
 
   const [viewState, setViewState] = useState<'view' | 'delete'>('view')
 
-  const { data: filteredLetters } = useGetFilteredJuniorLetterListQuery({
-    juniorId: userInfo?.juniorId!,
-    answer: statusFilter,
-    category: selectedCategory,
-    page: 0,
-  })
-  console.log('filteredLetterList:', filteredLetters)
-
   const handleSelectCategory = (category: Category) => {
     if (selectedCategory === category) {
       router.replace('/latte-chat/letters/archive')
@@ -67,7 +58,11 @@ export default function LettersArchiveCategoryContainer() {
                 <li key={index}>
                   <button
                     onClick={() => handleSelectCategory(category.value)}
-                    className={`${selectedCategory === category.value ? 'border-secondary-brown-2 bg-secondary-brown-1' : 'border-transparent bg-white'} b4 flex h-full w-full flex-1 whitespace-nowrap rounded-10 border-2 px-4 py-2 text-secondary-brown-5`}
+                    className={`${
+                      selectedCategory === category.value
+                        ? 'border-secondary-brown-2 bg-secondary-brown-1'
+                        : 'border-transparent bg-white'
+                    } b4 flex h-full w-full flex-1 whitespace-nowrap rounded-10 border-2 px-4 py-2 text-secondary-brown-5`}
                   >
                     {category.label}
                   </button>
@@ -84,9 +79,17 @@ export default function LettersArchiveCategoryContainer() {
         </div>
 
         {viewState === 'view' ? (
-          <LetterListViewContainer letters={filteredLetters} />
+          <LetterListViewContainer
+            juniorId={userInfo?.juniorId!}
+            answer={statusFilter}
+            category={selectedCategory}
+          />
         ) : (
-          <LetterListDeleteContainer letters={filteredLetters} />
+          <LetterListDeleteContainer
+            juniorId={userInfo?.juniorId!}
+            answer={statusFilter}
+            category={selectedCategory}
+          />
         )}
       </div>
     </div>

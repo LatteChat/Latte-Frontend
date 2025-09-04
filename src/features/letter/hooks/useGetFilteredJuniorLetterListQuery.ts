@@ -1,27 +1,30 @@
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { fetchFilteredJuniorLetterList } from '../services/letterService.client'
 
 export const useGetFilteredJuniorLetterListQuery = ({
   juniorId,
   answer,
   category,
-  page,
 }: {
   juniorId: number
   category: string | null
   answer: 0 | 1 | 2 | 3 | 4
-  page: number
 }) => {
-  return useQuery({
-    queryKey: ['/junior/letter/list', { juniorId, answer, category, page }],
-    queryFn: () =>
+  return useInfiniteQuery({
+    queryKey: ['/junior/letter/list', { juniorId, answer, category }],
+    queryFn: ({ pageParam = 0 }) =>
       fetchFilteredJuniorLetterList({
         juniorId,
         answer,
         category,
-        page,
+        page: pageParam,
       }),
-    retry: 2,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.last) return undefined
+      return lastPage.number + 1
+    },
+    initialPageParam: 0,
     enabled: !!juniorId,
+    retry: 2,
   })
 }
