@@ -3,12 +3,12 @@
 import { httpCSR } from '@/shared/apis/http'
 
 type AgeType =
-  | 'UNDER_10'
+  | 'TEENAGER'
   | 'TWENTIES'
   | 'THIRTIES'
   | 'FORTIES'
   | 'FIFTIES'
-  | 'SIXTIES_AND_ABOVE'
+  | 'SIXTIES'
 
 interface MemberDetailDto {
   name: string

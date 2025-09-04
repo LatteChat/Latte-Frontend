@@ -7,12 +7,12 @@ export type UserInfo = {
 }
 
 export type AgeType =
-  | 'UNDER_10'
+  | 'TEENAGER'
   | 'TWENTIES'
   | 'THIRTIES'
   | 'FORTIES'
   | 'FIFTIES'
-  | 'SIXTIES_AND_ABOVE'
+  | 'SIXTIES'
 
 export type MemberInfo = {
   name: string

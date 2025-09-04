@@ -8,7 +8,7 @@ import { AgeType } from '@/features/user/types/User'
 import { useRouter } from 'next/navigation'
 
 const MENTEE_AGE_TYPE: { label: string; value: AgeType }[] = [
-  { label: '10대 ↓', value: 'UNDER_10' },
+  { label: '10대 ↓', value: 'TEENAGER' },
   { label: '20대', value: 'TWENTIES' },
   { label: '30대', value: 'THIRTIES' },
 ]
@@ -16,7 +16,7 @@ const MENTEE_AGE_TYPE: { label: string; value: AgeType }[] = [
 const MENTOR_AGE_TYPE: { label: string; value: AgeType }[] = [
   { label: '40대', value: 'FORTIES' },
   { label: '50대', value: 'FIFTIES' },
-  { label: '60대 ↑', value: 'SIXTIES_AND_ABOVE' },
+  { label: '60대 ↑', value: 'SIXTIES' },
 ]
 
 export default function UserOnBoardingAgePage() {
@@ -25,7 +25,7 @@ export default function UserOnBoardingAgePage() {
 
   const handleClickNextButton = () => {
     if (!memberType) return
-    router.push(`/latte-chat/user/onboarding/role`)
+    router.push(`/latte-chat/user/onboarding/certification`)
   }
 
   return (

@@ -1,7 +1,6 @@
 import { useSignupStore } from '@/features/user/stores/signupStore'
 import { AgeType, MemberType } from '@/features/user/types/User'
 import Image from 'next/image'
-import { useEffect } from 'react'
 
 export default function AgeSelector({
   imgUrl,
@@ -18,19 +17,10 @@ export default function AgeSelector({
   const setAge = useSignupStore((state) => state.setAge)
   const setMemberType = useSignupStore((state) => state.setMemberType)
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const existAge = localStorage.getItem('age')
-      if (existAge && ages.some((a) => a.value === existAge)) {
-        setAge(existAge as AgeType)
-        setMemberType(role.value)
-      }
-    }
-  }, [])
-  // const handleSelectAge = (age: AgeType) => {
-  //   setAge(age)
-  //   setMemberType(role.value)
-  // }
+  const handleSelectAge = (age: AgeType) => {
+    setAge(age)
+    setMemberType(role.value)
+  }
 
   return (
     <section className="flex flex-col gap-5">
@@ -55,7 +45,7 @@ export default function AgeSelector({
             <button
               key={index}
               className={`${selectedAge === age.value ? 'border-secondary-brown-2 bg-secondary-brown-1 text-black' : 'border-transparent bg-white text-gray-5 shadow-border'} flex flex-1 items-center justify-center rounded-[0.625rem] border-2 py-[0.875rem]`}
-              // onClick={() => handleSelectAge(age.value)}
+              onClick={() => handleSelectAge(age.value)}
             >
               <span className="b1">{age.label}</span>
             </button>
