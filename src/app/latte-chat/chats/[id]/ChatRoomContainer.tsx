@@ -12,6 +12,8 @@ import useEnterChatRoomQuery from '@/features/chat/hooks/useEnterChatRoomQuery'
 import { useParams } from 'next/navigation'
 import useLeaveChatRoomQuery from '@/features/chat/hooks/useLeaveChatRoomQuery'
 import { useChatStatusState } from '@/features/chat/stores/chatStatusStore'
+import { useSocket } from '@/shared/contexts/SocketContext'
+import { useQueryClient } from '@tanstack/react-query'
 
 const TOPBAR_ICONS = [
   {
@@ -29,6 +31,14 @@ const TOPBAR_ICONS = [
 export default function ChatRoomContainer() {
   const params = useParams()
   const chatRoomId = Number(params.id) ?? null
+  const {
+    connectSocket,
+    disconnectSocket,
+    subscribe,
+    unsubscribe,
+    sendMessage,
+  } = useSocket()
+  const queryClient = useQueryClient()
 
   const { receiver } = useChatUserState()
   const { status: chatRoomStatus } = useChatStatusState()
@@ -48,6 +58,57 @@ export default function ChatRoomContainer() {
     return () =>
       leaveChatRoomMutate({ chatRoomId, memberType: userInfo?.memberType })
   }, [])
+
+  useEffect(() => {
+    const setup = async () => {
+      await connectSocket()
+      subscribe(`/sub/chat/room/${chatRoomId}`, (msg: any) => {
+        queryClient.setQueryData(['/chat', msg.chatRoomId], (oldData: any) => {
+          if (!oldData) {
+            return [
+              {
+                chatId: msg.chatId ?? new Date().toISOString(),
+                chatRoomId: msg.chatRoomId,
+                content: msg.content,
+                createdAt: msg.createdAt ?? new Date().toISOString(),
+                isProfile: false,
+                isRead: true,
+                isShowTime: true,
+                senderId: msg.juniorId ?? msg.seniorId,
+                senderType: msg.memberType,
+              },
+            ]
+          }
+
+          const exists = oldData.some((m: any) => m.chatId === msg.chatId)
+          if (exists) return oldData
+
+          const createdAt = new Date().toISOString().replace('Z', '')
+
+          return [
+            ...oldData,
+            {
+              chatId: msg.chatId ?? createdAt,
+              chatRoomId: msg.chatRoomId,
+              content: msg.content,
+              createdAt: msg.createdAt ?? createdAt,
+              isProfile: false,
+              isRead: true,
+              isShowTime: true,
+              senderId: msg.juniorId ?? msg.seniorId,
+              senderType: msg.memberType,
+            },
+          ]
+        })
+      })
+    }
+    setup()
+
+    return () => {
+      unsubscribe(`/sub/chat/room/${chatRoomId}`)
+      disconnectSocket()
+    }
+  }, [chatRoomId])
 
   const renderMentorApplicationBubble = () => {
     switch (chatRoomStatus) {
