@@ -7,7 +7,7 @@ export default function ImageGeneratingModal() {
   return (
     <div className="flex flex-col items-center rounded-lg pb-10 text-center">
       <motion.div
-        animate={{ y: [0, -20, 0] }}
+        animate={{ y: [40, 20, 40] }}
         transition={{
           duration: 2,
           repeat: Infinity,
