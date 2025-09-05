@@ -83,8 +83,8 @@ export default function SeniorLetterListArchiveCategoryContainer() {
                 key={index}
                 href={
                   letter?.answerStatus === 'SAVED'
-                    ? `archive/letter/${letter.letterId}/answer`
-                    : `archive/letter/${letter.letterId}`
+                    ? `/latte-chat/letters/archive/letter/${letter.letterId}/answer`
+                    : `/latte-chat/letters/archive/letter/${letter.letterId}`
                 }
               >
                 <PostCard
