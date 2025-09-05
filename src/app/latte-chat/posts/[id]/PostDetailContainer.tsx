@@ -7,6 +7,8 @@ import useGetPostDetailQuery from '@/features/post/hooks/useGetPostDetailQuery'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useParams } from 'next/navigation'
 import useLikePostQuery from '@/features/post/hooks/useLikePostQuery'
+import { useCommentActionActions } from '@/features/post/comment/stores/commentActionStore'
+import { useEffect } from 'react'
 
 const TOPBAR_ICONS = [
   {
@@ -40,6 +42,8 @@ export default function PostDetailContainer() {
         }
       : undefined
   )
+  const { cancelSelectedComment } = useCommentActionActions()
+
   const { mutate: likePostMutate } = useLikePostQuery({
     letterId,
   })
@@ -64,6 +68,12 @@ export default function PostDetailContainer() {
       memberType: userInfo.memberType,
     })
   }
+
+  useEffect(() => {
+    return () => {
+      cancelSelectedComment()
+    }
+  }, [])
 
   return (
     <div>
