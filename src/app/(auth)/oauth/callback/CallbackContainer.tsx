@@ -18,7 +18,7 @@ export default function CallbackContainer() {
 
     if (status === 'new') {
       localStorage.setItem('memberId', memberId ?? '')
-      router.replace('/latte-chat/user/onboarding/welcome')
+      router.replace('/latte-chat/user/onboarding?step=1')
     } else {
       router.replace('/latte-chat')
     }
