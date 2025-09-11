@@ -1,47 +1,37 @@
 import { useRef, useState, useEffect } from 'react'
-import UserProfile from '@/shared/components/UserProfile'
+import UserProfile, { AGE_CLASS_MAPPING } from '@/shared/components/UserProfile'
 import { AgeType } from '@/features/user/types/User'
-
-const AGE_CLASS_MAPPING: Record<AgeType, string> = {
-  TEENAGER: "bg-[url('/images/badge/badge-image-1.png')]",
-  TWENTIES: "bg-[url('/images/badge/badge-image-2.png')]",
-  THIRTIES: "bg-[url('/images/badge/badge-image-3.png')]",
-  FORTIES: "bg-[url('/images/badge/badge-image-4.png')]",
-  FIFTIES: "bg-[url('/images/badge/badge-image-5.png')]",
-  SIXTIES: "bg-[url('/images/badge/badge-image-6.png')]",
-} as const
 
 export default function ProfileUploader({
   existProfile,
-  onSelectFile,
+  setProfileImage,
   age,
 }: {
   existProfile: string
-  onSelectFile: (file: File) => void
+  setProfileImage: React.Dispatch<React.SetStateAction<File | null>>
   age: AgeType
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
-  useEffect(() => {
-    if (existProfile) setPreviewUrl(existProfile)
-  }, [existProfile])
 
-  const handleClick = () => {
+  const handleClickProfile = () => {
     fileInputRef.current?.click()
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0]
-      onSelectFile(file)
+      setProfileImage(file)
 
-      // 미리보기 URL 생성
       const url = URL.createObjectURL(file)
       setPreviewUrl(url)
     }
   }
 
-  // 컴포넌트 unmount 시 blob url 해제
+  useEffect(() => {
+    if (existProfile) setPreviewUrl(existProfile)
+  }, [existProfile])
+
   useEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl)
@@ -55,12 +45,12 @@ export default function ProfileUploader({
         type="file"
         accept="image/*"
         className="hidden"
-        onChange={handleChange}
+        onChange={handleChangeFile}
       />
 
       <div
         className="relative aspect-square h-20 w-20 cursor-pointer"
-        onClick={handleClick}
+        onClick={handleClickProfile}
       >
         <span
           className={`absolute right-0 top-0 z-20 inline-block aspect-square w-[40%] rounded-full ${

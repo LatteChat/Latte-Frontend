@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query'
-import { updateJuniorUser } from '../services/userService.client'
 import { useRouter } from 'next/navigation'
+import { updateJuniorUser } from '../services/mypageEditService.client'
 
-export default function useUpdateJuniorUser() {
+export default function useUpdateJuniorUserMutation() {
   const router = useRouter()
 
   return useMutation({

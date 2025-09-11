@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchJuniorTagList } from '../services/userService.client'
+import { fetchJuniorTagList } from '../services/mypageEditService.client'
 
 export default function useGetTagListQuery({ keyword }: { keyword: string }) {
   return useQuery({
