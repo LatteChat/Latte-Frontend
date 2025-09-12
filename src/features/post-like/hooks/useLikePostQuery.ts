@@ -1,7 +1,11 @@
-import { savePostLike } from '@/features/letter/services/letterService.client'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { savePostLike } from '../services/postLikeService.client'
 
-export default function useLikePostQuery({ letterId }: { letterId: number }) {
+export default function useLikePostQuery({
+  letterId,
+}: {
+  letterId?: number | null
+}) {
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -12,10 +16,10 @@ export default function useLikePostQuery({ letterId }: { letterId: number }) {
     }) => savePostLike(payload),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ['/main/list', 0, 'view', null],
+        queryKey: ['/main/list', 0, 'view'],
       })
       queryClient.invalidateQueries({
-        queryKey: ['/main/detail/all', letterId],
+        queryKey: ['/post/detail', letterId],
       })
     },
     onError: (error) => {

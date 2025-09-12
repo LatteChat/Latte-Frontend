@@ -1,9 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import HeartIcon from '@/shared/assets/icons/heart-icon.svg'
-import useLikePostQuery from '@/features/post/hooks/useLikePostQuery'
-import { useUserInfo } from '@/shared/hooks/useUserInfo'
+import { PostLikeHeartButtonFeature } from '@/features/post-like'
 
 type PopularPostCardProps = {
   post: {
@@ -24,32 +22,6 @@ export default function PopularPostCard({
   user: { name },
   rank,
 }: PopularPostCardProps) {
-  const { data: userInfo } = useUserInfo()
-  const { mutate: likePostMutate } = useLikePostQuery({
-    letterId,
-  })
-
-  const handleClickLikeButton = (e: React.MouseEvent<SVGSVGElement>) => {
-    e.stopPropagation()
-    e.preventDefault()
-
-    if (!userInfo) {
-      console.warn('로그인이 필요합니다')
-      return
-    }
-
-    const userId =
-      userInfo.memberType === 'JUNIOR' ? userInfo.juniorId : userInfo.seniorId
-
-    if (userId == null) return
-
-    likePostMutate({
-      letterId,
-      userId,
-      memberType: userInfo.memberType,
-    })
-  }
-
   return (
     <Link href={`/latte-chat/posts/${letterId}`}>
       <div className="flex w-full flex-shrink-0 items-center gap-4 rounded-10 bg-white px-5 py-5 shadow-border">
@@ -58,10 +30,9 @@ export default function PopularPostCard({
             <span className="b7 flex h-4 items-center justify-center whitespace-nowrap rounded-[1.25rem] bg-secondary-brown-4 px-[0.625rem] text-white">
               {rank}위
             </span>
-            <HeartIcon
-              onClick={handleClickLikeButton}
-              color={isLike ? '#ED1C24' : '#D9D9D9'}
-              className="h-6 w-6"
+            <PostLikeHeartButtonFeature
+              letterId={letterId}
+              initialLike={isLike}
             />
           </div>
 
