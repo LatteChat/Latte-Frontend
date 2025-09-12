@@ -1,3 +1,5 @@
+'use client'
+
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import Link from 'next/link'
 

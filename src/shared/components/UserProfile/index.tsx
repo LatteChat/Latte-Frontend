@@ -1,3 +1,5 @@
+'use client'
+
 import UserProfileModal from '@/features/modal/components/UserProfileModal'
 import { AgeType } from '@/features/user/types/User'
 import { useModal } from '@/shared/contexts/ModalContext'
