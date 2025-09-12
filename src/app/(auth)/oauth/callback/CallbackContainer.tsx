@@ -8,6 +8,8 @@ export default function CallbackContainer() {
   const router = useRouter()
 
   useEffect(() => {
+    if (!searchParams) return
+
     const token = searchParams.get('token')
     const status = searchParams.get('status')
     const memberId = searchParams.get('memberId')

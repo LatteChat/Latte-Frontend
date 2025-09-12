@@ -12,7 +12,7 @@ export default function NotFound() {
       <div className="relative flex h-full w-full flex-col overflow-auto">
         <div className="flex flex-1 flex-col items-center justify-center gap-4 px-5 py-5">
           <h1 className="text-6xl font-bold text-gray-2">404</h1>
-          <p className="b4 whitespace-pre-line text-black">
+          <p className="b4 whitespace-pre-line text-center text-black">
             {`요청하신 페이지를 찾을 수가 없습니다.\n홈으로 이동해 다양한 콘텐츠를 만나보세요.`}
           </p>
         </div>
