@@ -1,11 +1,12 @@
 import PostDetailPage from '@/pages/latte-chat/posts/detail/ui'
 
-export default function PostDetailRoute({
+export default async function PostDetailRoute({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
-  if (!params.id) return null
+  const { id } = await params
+  const letterId = Number(id)
 
-  return <PostDetailPage letterId={Number(params.id)} />
+  return <PostDetailPage letterId={letterId} />
 }
