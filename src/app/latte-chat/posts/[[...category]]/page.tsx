@@ -1,6 +1,6 @@
 import PostListContainer from '@/features/post-list/containers/PostListContainer'
+import PostStatusFilter from '@/features/post-list/containers/PostStatusFilter'
 import { fetchPostListServer } from '@/features/post-popular-list/services/postPopularListService.server'
-import PostStatusFilter from '@/features/post/containers/PostStatusFilter'
 import { getUserServer } from '@/features/user/services/userService.server'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'

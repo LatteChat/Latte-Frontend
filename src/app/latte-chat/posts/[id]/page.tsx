@@ -1,7 +1,11 @@
-'use client'
+import PostDetailPage from '@/pages/latte-chat/posts/detail/ui'
 
-import PostDetailContainer from './PostDetailContainer'
+export default function PostDetailRoute({
+  params,
+}: {
+  params: { id: string }
+}) {
+  if (!params.id) return null
 
-export default function PostDetailPage() {
-  return <PostDetailContainer />
+  return <PostDetailPage letterId={Number(params.id)} />
 }

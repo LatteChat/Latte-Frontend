@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchPostDetail } from '../services/postService.client'
+import { fetchPostDetail } from '../services/postDetailService.client'
 
 export default function useGetPostDetailQuery(payload?: {
   letterId: number
@@ -7,7 +7,7 @@ export default function useGetPostDetailQuery(payload?: {
   memberType: string
 }) {
   return useQuery({
-    queryKey: ['/main/detail/all', payload?.letterId],
+    queryKey: ['/post/detail', payload?.letterId],
     queryFn: () =>
       fetchPostDetail({
         letterId: payload?.letterId!,

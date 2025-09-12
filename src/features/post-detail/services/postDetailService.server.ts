@@ -1,4 +1,4 @@
-import { httpCSR } from '@/shared/apis/http'
+import { httpSSR } from '@/shared/apis/http'
 
 type AgeType =
   | 'TEENAGER'
@@ -61,17 +61,17 @@ interface PostDetailResponse {
 }
 
 // 게시글 상세 조회
-export const fetchPostDetail = async ({
+export const fetchPostDetailServer = async ({
   letterId,
   userId,
   memberType,
 }: {
   letterId: number
-  userId: number
-  memberType: string // SENIOR, JUNIOR
+  userId?: number | null
+  memberType?: string | null // SENIOR, JUNIOR
 }): Promise<PostDetailResponse> => {
-  return await httpCSR(
-    `/main/${letterId}/detail/all?memberType=${memberType}`,
+  return await httpSSR(
+    `/main/${letterId}/detail/all?userId=${userId}&memberType=${memberType}`,
     {
       method: 'GET',
     }
