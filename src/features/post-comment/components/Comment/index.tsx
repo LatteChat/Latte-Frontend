@@ -9,7 +9,7 @@ import { AgeType } from '@/features/user/types/User'
 import {
   useCommentAction,
   useCommentActionActions,
-} from '../../comment/stores/commentActionStore'
+} from '../../stores/commentActionStore'
 import { formatDateTime } from '@/shared/utils/formatDate'
 
 type CommentType = 'comment' | 'reply'
@@ -95,7 +95,7 @@ export default function Comment({
 
   return (
     <div
-      className={`${type === 'reply' ? 'pl-10' : 'ml-0'} w-full ${selectedComment?.id === commentId ? 'rounded-10 bg-gray-1 p-2' : ''}`}
+      className={` ${type === 'reply' ? 'pl-10' : 'ml-0 p-2'} w-full ${selectedComment?.id === commentId ? 'rounded-10 bg-gray-1' : ''}`} //  p-2
     >
       <div
         onClick={handleSelectComment}
@@ -111,7 +111,6 @@ export default function Comment({
         </div>
 
         <div className="flex w-full items-start justify-between gap-5">
-          {/* 댓글 본문 */}
           <div className="flex flex-col items-start">
             <div className="flex items-end gap-1">
               <span className="b6 text-gray-6">{nickname}</span>

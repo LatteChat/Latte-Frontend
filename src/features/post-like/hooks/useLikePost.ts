@@ -1,7 +1,9 @@
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import useLikePostQuery from './useLikePostQuery'
+import { useRouter } from 'next/navigation'
 
 export default function useLikePost({ letterId }: { letterId: number }) {
+  const router = useRouter()
   const { data: user } = useUserInfo()
   const { mutate: likePostMutate } = useLikePostQuery({
     letterId,
@@ -12,7 +14,7 @@ export default function useLikePost({ letterId }: { letterId: number }) {
     e.preventDefault()
 
     if (!user) {
-      console.warn('로그인이 필요합니다')
+      router.push('/login')
       return
     }
 

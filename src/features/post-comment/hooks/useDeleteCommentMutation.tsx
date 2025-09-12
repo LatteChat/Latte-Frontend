@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteComment } from '../services/commentService.client'
 import { useModal } from '@/shared/contexts/ModalContext'
-import DeleteCommentSuccessModal from '@/features/modal/components/DeleteCommentSuccessModal'
+import DeleteCommentSuccessModal from '../components/DeleteCommentSuccessModal'
 
-export default function useDeleteCommentQuery(letterId: number) {
+export default function useDeleteCommentMutation(letterId: number) {
   const queryClient = useQueryClient()
   const { openModal } = useModal()
 

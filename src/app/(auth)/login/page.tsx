@@ -25,7 +25,7 @@ export default function LoginPage() {
             bgColor="bg-gray-3"
             textColor="text-black"
             onClick={() => {
-              router.replace('/latte-chat')
+              router.back()
             }}
           ></Button>
           <Link

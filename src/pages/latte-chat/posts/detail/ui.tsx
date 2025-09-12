@@ -4,6 +4,7 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { getUserServer } from '@/features/user/services/userService.server'
 import { fetchPostDetailServer } from '@/features/post-detail/services/postDetailService.server'
 import ReactQueryHydrate from '@/shared/libs/ReactQueryHydrate'
+import { CommentFeature } from '@/features/post-comment'
 
 const TOPBAR_ICONS = [
   {
@@ -51,7 +52,7 @@ export default async function PostDetailPage({
 
         <hr className="h-[0.3rem] w-full border-0 bg-gray-300" />
 
-        {/* <CommentListContainer letterId={letterId} /> */}
+        <CommentFeature letterId={letterId} />
       </main>
     </div>
   )

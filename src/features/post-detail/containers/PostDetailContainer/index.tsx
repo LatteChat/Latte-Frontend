@@ -3,10 +3,10 @@
 import PostHeader from '../../components/PostHeader'
 import PostAnswer from '../../components/PostAnswer'
 import PostContent from '../../components/PostContent'
-import { useCommentActionActions } from '@/features/post/comment/stores/commentActionStore'
 import { useEffect } from 'react'
 import useGetPostDetailQuery from '../../hooks/useGetPostDetailQuery'
 import { PostLikeButtonFeature } from '@/features/post-like'
+import { useCommentActionActions } from '@/features/post-comment/stores/commentActionStore'
 
 export default function PostDetailContainer({
   letterId,
@@ -17,8 +17,8 @@ export default function PostDetailContainer({
 }) {
   const { data: post } = useGetPostDetailQuery({
     letterId,
-    userId: user.memberType === 'JUNIOR' ? user.juniorId : user.seniorId,
-    memberType: user.memberType,
+    userId: user?.memberType === 'JUNIOR' ? user?.juniorId : user?.seniorId,
+    memberType: user?.memberType,
   })
   const { cancelSelectedComment } = useCommentActionActions()
 
@@ -32,11 +32,11 @@ export default function PostDetailContainer({
     <section className="px-5 pb-5 pt-10">
       <PostHeader
         user={{
-          juniorId: post?.juniorDetailDto.juniorId!,
-          nickname: post?.juniorDetailDto.name ?? '-',
-          age: post?.juniorDetailDto.age,
+          juniorId: post?.juniorDetailDto?.juniorId!,
+          nickname: post?.juniorDetailDto?.name ?? '-',
+          age: post?.juniorDetailDto?.age,
           profile:
-            post?.juniorDetailDto.image ?? '/images/coffee-bean-image.png',
+            post?.juniorDetailDto?.image ?? '/images/coffee-bean-image.png',
         }}
         date={post?.createdAt ?? ''}
         likeCount={post?.heart ?? 0}
@@ -50,9 +50,9 @@ export default function PostDetailContainer({
       />
       {post?.answerResponseDto && (
         <PostAnswer
-          user={post?.answerResponseDto.seniorDetailDto}
-          date={post?.answerResponseDto.createdAt}
-          content={post?.answerResponseDto.content}
+          user={post?.answerResponseDto?.seniorDetailDto}
+          date={post?.answerResponseDto?.createdAt}
+          content={post?.answerResponseDto?.content}
         />
       )}
 

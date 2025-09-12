@@ -1,7 +1,7 @@
 'use client'
 
+import { usePostFilterStore } from '@/features/post-list/stores/postFilterStore'
 import useGetPostListQuery from '@/features/post-popular-list/hooks/useGetPostListQuery'
-import { usePostFilterStore } from '@/features/post/stores/postFilterStore'
 import PostCard from '@/shared/components/PostCard'
 import PostFilterContainer from '@/shared/containers/PostFilterContainer'
 import { Category } from '@/shared/types/Type'

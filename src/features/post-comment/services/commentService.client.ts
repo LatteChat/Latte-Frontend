@@ -65,12 +65,23 @@ export const fetchCommentList = async ({
   letterId,
   page,
   sort,
+  userId,
+  memberType,
 }: {
   letterId: number
   page: number
   sort: string // createdAt | heart
+  userId?: number | null
+  memberType?: 'SENIOR' | 'JUNIOR' | null // SENIOR, JUNIOR
 }): Promise<CommentListResponse> => {
-  return await httpCSR(`/main/${letterId}/comments?page=${page}&sort=${sort}`, {
+  const query = new URLSearchParams({
+    ...(userId ? { userId: String(userId) } : {}),
+    ...(memberType ? { memberType } : {}),
+    page: String(page),
+    sort: String(sort),
+  })
+
+  return await httpCSR(`/main/${letterId}/comments?${query.toString()}`, {
     method: 'GET',
   })
 }

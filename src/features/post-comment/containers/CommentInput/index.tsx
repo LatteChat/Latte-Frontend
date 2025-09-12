@@ -1,24 +1,23 @@
 import AutoResizeTextarea from '@/shared/components/AutoResizeTextarea'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import useSaveCommentQuery from '../../comment/hooks/useSaveCommentQuery'
-import { useUserInfo } from '@/shared/hooks/useUserInfo'
-import { useParams } from 'next/navigation'
+import useSaveCommentMutation from '../../hooks/useSaveCommentMutation'
+import { useParams, useRouter } from 'next/navigation'
 import {
   useCommentAction,
   useCommentActionActions,
-} from '../../comment/stores/commentActionStore'
-import useEditCommentQuery from '../../comment/hooks/useEditCommentQuery'
+} from '../../stores/commentActionStore'
+import useEditCommentMutation from '../../hooks/useEditCommentMutation'
 import useGetMyInfoQuery from '@/features/user/hooks/useGetMyInfoQuery'
 
 export default function CommentInput() {
+  const router = useRouter()
   const params = useParams<{ id: string }>()
-  const letterId = Number(params.id) ?? null
-  const { data: userInfo } = useGetMyInfoQuery()
+  const letterId = Number(params?.id) ?? null
+  const { data: user } = useGetMyInfoQuery()
 
   const [comment, setComment] = useState('')
-  const { mutate: saveCommentMutate } = useSaveCommentQuery(letterId)
-  const { mutate: editCommentMutate } = useEditCommentQuery(letterId)
+  const { mutate: saveCommentMutate } = useSaveCommentMutation(letterId)
+  const { mutate: editCommentMutate } = useEditCommentMutation(letterId)
   const { cancelSelectedComment, setType } = useCommentActionActions()
   const { type, selectedComment } = useCommentAction()
 
@@ -33,7 +32,10 @@ export default function CommentInput() {
   const handleSubmitComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (!userInfo) return
+    if (!user) {
+      router.push('/login')
+      return
+    }
     if (comment.length === 0) return
 
     if (type === 'COMMENT') {
@@ -41,9 +43,9 @@ export default function CommentInput() {
       saveCommentMutate({
         letterId: letterId,
         body: {
-          memberType: userInfo?.type,
-          seniorId: userInfo.seniorId,
-          juniorId: userInfo.juniorId,
+          memberType: user?.type,
+          seniorId: user.seniorId,
+          juniorId: user.juniorId,
           parentId: null,
           comment: comment,
         },
@@ -54,9 +56,9 @@ export default function CommentInput() {
       saveCommentMutate({
         letterId: letterId,
         body: {
-          memberType: userInfo?.type,
-          seniorId: userInfo.seniorId,
-          juniorId: userInfo.juniorId,
+          memberType: user?.type,
+          seniorId: user.seniorId,
+          juniorId: user.juniorId,
           parentId: selectedComment.id,
           comment: comment,
         },
@@ -110,7 +112,7 @@ export default function CommentInput() {
         className="flex w-full items-center gap-2 bg-white px-5 py-2 shadow-top-line"
       >
         <img
-          src={userInfo?.image ?? '/images/coffee-bean-image.png'}
+          src={user?.image ?? '/images/coffee-bean-image.png'}
           alt="작성자 프로필 이미지"
           className="object- aspect-square h-9 w-9 self-end rounded-full bg-primary"
           width={36}

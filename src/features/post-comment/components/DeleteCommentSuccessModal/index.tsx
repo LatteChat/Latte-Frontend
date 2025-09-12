@@ -12,7 +12,7 @@ export default function DeleteCommentSuccessModal() {
       <div className="flex w-full gap-2">
         <button
           onClick={closeModal}
-          className="w-full rounded-10 bg-gray-3 py-2.5 text-black"
+          className="b4 w-full rounded-10 bg-gray-3 py-2.5 text-black"
         >
           닫기
         </button>

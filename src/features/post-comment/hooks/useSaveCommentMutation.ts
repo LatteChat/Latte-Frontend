@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { saveComment } from '../services/commentService.client'
 
-export default function useSaveCommentQuery(letterId: number) {
+export default function useSaveCommentMutation(letterId: number) {
   const queryClient = useQueryClient()
 
   return useMutation({

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { updateComment } from '../services/commentService.client'
 
-export default function useEditCommentQuery(letterId: number) {
+export default function useEditCommentMutation(letterId: number) {
   const queryClient = useQueryClient()
 
   return useMutation({

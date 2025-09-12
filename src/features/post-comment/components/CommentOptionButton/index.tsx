@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { useModal } from '@/shared/contexts/ModalContext'
-import DeleteCommentConfirmModal from '@/features/modal/components/DeleteCommentConfirmModal'
-import { useCommentActionActions } from '../../comment/stores/commentActionStore'
+import { useCommentActionActions } from '../../stores/commentActionStore'
 import useGetMyInfoQuery from '@/features/user/hooks/useGetMyInfoQuery'
+import DeleteCommentConfirmModal from '../../components/DeleteCommentConfirmModal'
 
 export default function CommentOptionButton({
   commentId,
@@ -26,6 +26,7 @@ export default function CommentOptionButton({
       value: '삭제',
       onClick: (e: React.MouseEvent<HTMLLIElement>) => {
         e.stopPropagation()
+        setIsShow(false)
         openModal(<DeleteCommentConfirmModal commentId={commentId} />)
         cancelSelectedComment()
       },
@@ -35,6 +36,7 @@ export default function CommentOptionButton({
       value: '수정',
       onClick: (e: React.MouseEvent<HTMLLIElement>) => {
         e.stopPropagation()
+        setIsShow(false)
         setSelectedComment({
           id: commentId,
           content,
@@ -46,7 +48,10 @@ export default function CommentOptionButton({
     {
       id: 'report',
       value: '신고',
-      onClick: () => {},
+      onClick: (e: React.MouseEvent<HTMLLIElement>) => {
+        e.stopPropagation()
+        setIsShow(false)
+      },
     },
   ]
 

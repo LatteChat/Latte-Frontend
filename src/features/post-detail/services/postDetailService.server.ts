@@ -70,10 +70,12 @@ export const fetchPostDetailServer = async ({
   userId?: number | null
   memberType?: string | null // SENIOR, JUNIOR
 }): Promise<PostDetailResponse> => {
-  return await httpSSR(
-    `/main/${letterId}/detail/all?userId=${userId}&memberType=${memberType}`,
-    {
-      method: 'GET',
-    }
-  )
+  const query = new URLSearchParams({
+    ...(userId ? { userId: String(userId) } : {}),
+    ...(memberType ? { memberType } : {}),
+  })
+
+  return await httpSSR(`/main/${letterId}/detail/all?${query.toString()}`, {
+    method: 'GET',
+  })
 }

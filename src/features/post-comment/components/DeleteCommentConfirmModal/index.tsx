@@ -1,6 +1,6 @@
-import useDeleteCommentQuery from '@/features/post/comment/hooks/useDeleteCommentQuery'
 import { useModal } from '@/shared/contexts/ModalContext'
 import { useParams } from 'next/navigation'
+import useDeleteCommentMutation from '../../hooks/useDeleteCommentMutation'
 
 export default function DeleteCommentConfirmModal({
   commentId,
@@ -8,9 +8,9 @@ export default function DeleteCommentConfirmModal({
   commentId: number
 }) {
   const params = useParams()
-  const letterId = Number(params.id) ?? null
+  const letterId = Number(params?.id) ?? null
   const { closeModal } = useModal()
-  const { mutate: deleteCommentMutate } = useDeleteCommentQuery(letterId)
+  const { mutate: deleteCommentMutate } = useDeleteCommentMutation(letterId)
 
   return (
     <div className="flex w-full flex-col items-center gap-5 bg-white px-5 py-10">
@@ -25,7 +25,7 @@ export default function DeleteCommentConfirmModal({
             if (!commentId) return
             deleteCommentMutate({ commentId })
           }}
-          className="w-full rounded-10 bg-secondary-brown-2 py-2.5 text-white"
+          className="b4 w-full rounded-10 bg-secondary-brown-2 py-2.5 text-white"
         >
           삭제하기
         </button>
@@ -33,7 +33,7 @@ export default function DeleteCommentConfirmModal({
           onClick={() => {
             closeModal()
           }}
-          className="w-full rounded-10 bg-gray-3 py-2.5 text-black"
+          className="b4 w-full rounded-10 bg-gray-3 py-2.5 text-black"
         >
           취소
         </button>
