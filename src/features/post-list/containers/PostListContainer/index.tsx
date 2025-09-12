@@ -1,6 +1,5 @@
 'use client'
 
-import { usePostFilterStore } from '@/features/post/stores/postFilterStore'
 import PostFilterContainer from '@/shared/containers/PostFilterContainer'
 import { Category } from '@/shared/types/Type'
 import { useEffect, useRef, useState } from 'react'
@@ -9,6 +8,7 @@ import PostListSkeleton from '../../components/PostListSkeleton'
 import useDelayedSkeleton from '@/shared/hooks/useDelayedSkeleton'
 import PostListEmpty from '../../components/PostListEmpty'
 import PostListBox from '../../components/PostListBox'
+import { usePostFilterStore } from '../../stores/postFilterStore'
 
 export default function PostListContainer({ user }: { user?: any }) {
   const [selected, setSelected] = useState<Category | null>(null)
