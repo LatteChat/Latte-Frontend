@@ -1,6 +1,6 @@
-import { useGetLetterArchiveNewStateQuery } from '@/features/letter/hooks/useGetLetterArchiveNewStateQuery'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import Link from 'next/link'
+import { useGetLetterArchiveNewStateQuery } from '../../hooks/useGetLetterArchiveNewStateQuery'
 
 export default function GreetingTopBar({ title }: { title: string }) {
   const { data: userInfo } = useUserInfo()
@@ -11,6 +11,7 @@ export default function GreetingTopBar({ title }: { title: string }) {
   return (
     <div className="mb-3 flex items-start justify-between">
       <p className="h2 text-secondary-brown-5">{title}</p>
+
       <div className="relative">
         <Link
           href={'/latte-chat/letters/archive'}

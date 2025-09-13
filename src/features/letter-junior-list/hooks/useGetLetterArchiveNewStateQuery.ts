@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchLetterArchiveNewState } from '../services/letterService.client'
+import { fetchLetterArchiveNewState } from '../services/letterListService.client'
 
 export const useGetLetterArchiveNewStateQuery = (payload?: {
   juniorId?: number

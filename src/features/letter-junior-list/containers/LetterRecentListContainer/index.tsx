@@ -1,13 +1,13 @@
-import { useGetRecentJuniorLetterListQuery } from '@/features/letter/hooks/useGetRecentJuniorLetterListQuery'
-import GreetingTopBar from '@/features/letter/main/components/GreetingTopBar'
-import LetterActionSection from '@/features/letter/main/components/LetterActionSection'
-import LetterVisual from '@/features/letter/main/components/LetterVisual'
-import JuniorRecentLetterListContainer from '@/features/letter/main/containers/JuniorRecentLetterListContainer'
+import { useGetRecentJuniorLetterListQuery } from '@/features/letter-junior-list/hooks/useGetRecentJuniorLetterListQuery'
 import { Letter } from '@/features/letter/services/letterService.client'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useEffect, useState } from 'react'
+import GreetingTopBar from '../../components/GreetingTopBar'
+import JuniorRecentLetterList from '../../components/JuniorRecentLetterList'
+import LetterVisual from '../../components/LetterVisual'
+import LetterActionSection from '../../components/LetterActionSection'
 
 const TOPBAR_ICONS = [
   {
@@ -22,11 +22,15 @@ const TOPBAR_ICONS = [
   },
 ]
 
-export default function JuniorLettersContainer() {
+export default function JuniorLetterRecentListContainer() {
   const { data: userInfo } = useUserInfo()
   const [selectedLetter, setSelectedLetter] = useState<Letter | null>(null)
 
-  const { data: recentLetters, isFetched } = useGetRecentJuniorLetterListQuery({
+  const {
+    data: recentLetters,
+    isFetched,
+    isLoading,
+  } = useGetRecentJuniorLetterListQuery({
     juniorId: userInfo?.juniorId!,
   })
 
@@ -34,7 +38,7 @@ export default function JuniorLettersContainer() {
     if (recentLetters && recentLetters.length > 0) {
       setSelectedLetter(recentLetters[0])
     }
-  }, [isFetched])
+  }, [isFetched, isLoading])
 
   return (
     <div>
@@ -49,7 +53,7 @@ export default function JuniorLettersContainer() {
         <section className="flex flex-col gap-3">
           {recentLetters && selectedLetter && (
             <>
-              <JuniorRecentLetterListContainer
+              <JuniorRecentLetterList
                 letters={recentLetters}
                 selectedLetter={selectedLetter}
                 setSelectedLetter={setSelectedLetter}
@@ -58,6 +62,7 @@ export default function JuniorLettersContainer() {
             </>
           )}
         </section>
+
         {selectedLetter && (
           <LetterActionSection
             selectedLetterId={selectedLetter.letterId}

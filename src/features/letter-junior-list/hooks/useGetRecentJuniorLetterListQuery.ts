@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import {
   fetchRecentJuniorLetterList,
   Letter,
-} from '../services/letterService.client'
+} from '../services/letterListService.client'
 
 type PlaceholderLetter = Omit<Letter, 'answerStatus'> & {
   answerStatus: 'EMPTY'

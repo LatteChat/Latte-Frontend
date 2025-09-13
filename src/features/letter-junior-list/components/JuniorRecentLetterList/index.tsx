@@ -22,7 +22,7 @@ type Letter = {
   createAt: string
 }
 
-export default function JuniorRecentLetterListContainer({
+export default function JuniorRecentLetterList({
   letters,
   selectedLetter,
   setSelectedLetter,
@@ -66,7 +66,7 @@ export default function JuniorRecentLetterListContainer({
                     .icon
                 }
                 className={`${letter.letterStatus === 'EMPTY' ? 'opacity-30' : 'opacity-100'} aspect-square h-14 w-14`}
-                alt="사연 아이콘"
+                alt="사연"
               />
             </button>
             <span

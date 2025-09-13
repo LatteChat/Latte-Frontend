@@ -1,8 +1,5 @@
-import useSaveLetterImageQuery from '@/features/letter/hooks/useSaveLetterImageQuery'
-import ImageGeneratingModal from '@/features/modal/components/ImageGeneratingModal'
-import { useModal } from '@/shared/contexts/ModalContext'
+import LetterImageGenerateButton from '@/features/letter-image-generate/components/LetterImageGenerateButton'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 export default function LetterActionSection({
   selectedLetterId,
@@ -13,12 +10,6 @@ export default function LetterActionSection({
   type: 'WRITING' | 'SENT' | 'ANSWERED' | 'ADOPTED' | 'MATCHED' | 'EMPTY'
   href?: string
 }) {
-  const router = useRouter()
-  const { openModal } = useModal()
-
-  const { mutate: saveLetterImageMutate } =
-    useSaveLetterImageQuery(selectedLetterId)
-
   const renderActionButton = () => {
     switch (type) {
       case 'EMPTY':
@@ -35,36 +26,15 @@ export default function LetterActionSection({
           </>
         )
       case 'WRITING':
-        // 사연 보내기 button을 컨테이너로 만들기
         return (
           <>
-            <button
-              onClick={() => {
-                openModal(<ImageGeneratingModal />)
-                saveLetterImageMutate(
-                  {
-                    letterId: selectedLetterId,
-                  },
-                  {
-                    onSuccess: () => {
-                      router.push(
-                        `/latte-chat/letters/archive/letter/${selectedLetterId}/generate`
-                      )
-                    },
-                  }
-                )
-              }}
-              className="h4 flex w-full items-center justify-center rounded-2xl bg-secondary-brown-2 py-4 text-secondary-brown-1"
-            >
-              사연 보내기
-            </button>
+            <LetterImageGenerateButton letterId={selectedLetterId} />
             <p className="b6 text-gray-5">
               사연 보내기를 눌러 사연을 전송해보세요.
             </p>
           </>
         )
       default:
-        // 전송됨을 나타내는 버튼은 딱히 버튼으로 만들 필요가 없음.
         return (
           <>
             <div className="h4 flex w-full items-center justify-center rounded-2xl bg-secondary-brown-4 py-4 text-white">

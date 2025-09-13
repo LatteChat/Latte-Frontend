@@ -1,10 +1,10 @@
 'use client'
 
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
-import JuniorLettersContainer from './JuniorLettersContainer'
 import SeniorLettersContainer from './SeniorLettersContainer'
+import JuniorLetterListPage from '@/pages/latte-chat/letter/main/junior/ui'
 
-export default function LettersPage() {
+export default function LetterListRoute() {
   const { data: userInfo } = useUserInfo()
 
   return (
@@ -12,7 +12,7 @@ export default function LettersPage() {
       {userInfo?.memberType === 'SENIOR' ? (
         <SeniorLettersContainer />
       ) : (
-        <JuniorLettersContainer />
+        <JuniorLetterListPage />
       )}
     </>
   )

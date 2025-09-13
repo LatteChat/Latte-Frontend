@@ -19,7 +19,6 @@ export default function Button({
   onClick?: () => void
 }) {
   const selectedStyle = BUTTON_STYLE[type]
-  console.log(type, selectedStyle)
   return (
     <button
       onClick={onClick}

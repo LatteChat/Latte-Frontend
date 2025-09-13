@@ -46,15 +46,15 @@ export default function LetterVisual({
           }
           width={187}
           height={187}
-          alt="사연 상태 이미지"
+          alt="사연"
           className={`aspect-square h-[11.6rem] ${selectedLetter?.letterStatus === 'EMPTY' ? 'opacity-50' : 'opacity-100'}`}
         />
-        {selectedLetter?.letterStatus !== 'EMPTY' && (
+        {selectedLetter?.letterStatus === 'WRITING' && (
           <Image
             src={'/images/roasted-image.svg'}
             width={91}
             height={91}
-            alt="사연 상태 이미지"
+            alt="사연"
             className="absolute -top-2 right-0"
           />
         )}
