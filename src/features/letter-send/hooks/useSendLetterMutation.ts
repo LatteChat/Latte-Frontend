@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { sendLetter } from '../services/letterService.client'
 import { useModal } from '@/shared/contexts/ModalContext'
 import { useRouter } from 'next/navigation'
+import { sendLetter } from '../services/letterSendService.client'
 
-export default function useSendLetterQuery() {
+export default function useSendLetterMutation() {
   const { closeModal } = useModal()
   const router = useRouter()
   const queryClient = useQueryClient()

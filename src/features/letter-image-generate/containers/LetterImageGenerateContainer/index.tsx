@@ -2,12 +2,8 @@
 
 import LetterSendButton from '@/features/letter-send/components/LetterSendButton'
 import { useGetJuniorLetterDetail } from '@/features/letter/detail/hooks/useGetJuniorLetterDetail'
-import useSaveLetterImageQuery from '@/features/letter-image-generate/hooks/useSaveLetterImageMutation'
-import ImageGeneratingModal from '@/features/modal/components/ImageGeneratingModal'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
-import { useModal } from '@/shared/contexts/ModalContext'
-import { useQueryClient } from '@tanstack/react-query'
 import { useParams, useRouter } from 'next/navigation'
 import Button from '@/shared/components/Button'
 import LetterImageRetryButton from '../../components/LetterImageRetryButton'
