@@ -69,7 +69,7 @@ export default function LetterStatusFilter() {
       </button>
 
       {isShow && (
-        <ul className="shadow-border absolute right-0 top-6 z-10 overflow-hidden rounded bg-white">
+        <ul className="absolute right-0 top-6 z-10 overflow-hidden rounded bg-white shadow-border">
           {FILTER_OPTIONS.map((option) => {
             return (
               <li

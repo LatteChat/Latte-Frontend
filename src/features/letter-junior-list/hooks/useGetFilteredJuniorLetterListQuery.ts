@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { fetchFilteredJuniorLetterList } from '../services/letterService.client'
+import { fetchFilteredJuniorLetterList } from '../services/letterListService.client'
 
 export const useGetFilteredJuniorLetterListQuery = ({
   juniorId,

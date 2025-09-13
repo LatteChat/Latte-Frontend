@@ -4,9 +4,10 @@ import DeletePostCard from '../../components/DeletePostCard'
 import { useState, useEffect, useRef } from 'react'
 import { useModal } from '@/shared/contexts/ModalContext'
 import DeleteLetterConfirmModal from '@/features/modal/components/DeleteLetterConfirmModal'
-import { useGetFilteredJuniorLetterListQuery } from '@/features/letter/hooks/useGetFilteredJuniorLetterListQuery'
+import { useGetFilteredJuniorLetterListQuery } from '../../hooks/useGetFilteredJuniorLetterListQuery'
+import Spinner from '@/shared/components/Spinner'
 
-export default function LetterListDeleteContainer({
+export default function LetterArchiveListDeleteContainer({
   juniorId,
   answer,
   category,
@@ -54,14 +55,14 @@ export default function LetterListDeleteContainer({
       <button
         onClick={handleDeleteLetters}
         disabled={deleteList.length === 0}
-        className="absolute -top-8 left-0 disabled:opacity-50"
+        className="absolute -top-8 left-0 aspect-square h-6 w-6 disabled:opacity-40"
       >
         <img src="/icons/trash-icon.svg" className="aspect-square h-6 w-6" />
       </button>
 
       <div className="flex flex-col gap-[1.875rem]">
-        {data?.pages.flatMap((page) =>
-          page.content.map((letter: any) => (
+        {data?.pages?.flatMap((page) =>
+          page?.content?.map((letter: any) => (
             <DeletePostCard
               key={letter.letterId}
               post={{
@@ -80,11 +81,8 @@ export default function LetterListDeleteContainer({
       </div>
 
       {hasNextPage && (
-        <div
-          ref={loadMoreRef}
-          className="flex justify-center py-5 text-gray-400"
-        >
-          {isFetchingNextPage ? '로딩 중...' : '스크롤 시 더 불러오기'}
+        <div ref={loadMoreRef} className="flex justify-center py-5">
+          {isFetchingNextPage && <Spinner />}
         </div>
       )}
     </div>

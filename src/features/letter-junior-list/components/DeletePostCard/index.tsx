@@ -1,9 +1,8 @@
-import Image from 'next/image'
 import { Category } from '@/shared/types/Category'
 import { AnswerStatus } from '@/shared/types/AnswerStatus'
 import { formatDate } from '@/shared/utils/formatDate'
 import PostTag from '@/shared/components/PostTag'
-import Checkbox from '@/features/user/onboarding/components/Checkbox'
+import Checkbox from '@/features/user-onboarding/components/Checkbox'
 
 const LETTER_STATUS_LABEL: Record<AnswerStatus, string> = {
   WRITING: '저장됨',
@@ -45,7 +44,7 @@ export default function DeletePostCard({
         <Checkbox isCheck={isSelected} label={''} showRequired={false} />
       </div>
 
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col gap-4">
         <div className="flex w-full gap-5">
           <div className="flex w-full flex-col gap-2">
             <div className="flex gap-2">

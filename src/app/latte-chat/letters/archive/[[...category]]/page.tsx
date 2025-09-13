@@ -1,8 +1,8 @@
 'use client'
 
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
-import LettersArchiveCategoryContainer from './LettersArchiveCategoryContainer'
 import SeniorLetterListArchiveCategoryContainer from './SeniorLetterListArchiveCategoryContainer'
+import JuniorLetterArchiveListPage from '@/pages/latte-chat/letter/archive/junior/ui'
 
 export default function LettersArchiveCategoryPage() {
   const { data: userInfo } = useUserInfo()
@@ -12,7 +12,7 @@ export default function LettersArchiveCategoryPage() {
       {userInfo?.memberType === 'SENIOR' ? (
         <SeniorLetterListArchiveCategoryContainer />
       ) : (
-        <LettersArchiveCategoryContainer />
+        <JuniorLetterArchiveListPage />
       )}
     </>
   )
