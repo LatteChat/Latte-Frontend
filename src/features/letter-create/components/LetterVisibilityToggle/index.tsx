@@ -1,7 +1,7 @@
-import { useLetterCreateStore } from '@/features/letter/stores/letterCreateStore'
+import { useLetterCreateStore } from '@/features/letter-create/store/letterCreateStore'
 import Toggle from '@/shared/components/Toggle'
 
-export default function LetterVisibilityToggleContainer() {
+export default function LetterVisibilityToggle() {
   const isOpen = useLetterCreateStore((state) => state.isOpen)
   const setIsOpen = useLetterCreateStore((state) => state.setIsOpen)
 

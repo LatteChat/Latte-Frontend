@@ -6,28 +6,6 @@ import { AnswerStatus } from '@/shared/types/AnswerStatus'
 import { Category } from '@/shared/types/Category'
 import { PageResponse } from '@/shared/types/Pagination'
 
-// 청년층 사연 작성
-export const saveLetter = async (
-  { juniorId }: { juniorId: number },
-  body: {
-    category: string | null
-    title: string
-    content: string
-    isOpen: boolean
-  }
-) => {
-  const token = localStorage.getItem('accessToken')
-  if (!token) throw new Error('토큰이 없습니다.')
-
-  return await httpCSR(`/junior/${juniorId}/letter/post`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(body),
-  })
-}
-
 export type Letter = {
   letterId: number
   juniorId: number
@@ -230,6 +208,8 @@ export const fetchLetterArchiveNewState = async ({
 export const deleteLetter = async ({ letterId }: { letterId: number }) => {
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
+
+  console.log(letterId)
 
   return await httpCSR(`/junior/${letterId}/delete`, {
     method: 'DELETE',

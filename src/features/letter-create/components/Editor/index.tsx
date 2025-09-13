@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import AutoResizeTextarea from '@/shared/components/AutoResizeTextarea'
-import { useLetterCreateStore } from '@/features/letter/stores/letterCreateStore'
+import { useLetterCreateStore } from '@/features/letter-create/store/letterCreateStore'
 
 export default function Editor() {
   const title = useLetterCreateStore((state) => state.title)
@@ -34,7 +34,7 @@ export default function Editor() {
         value={title}
         onChange={setTitle}
         placeholder="제목"
-        className="h3 placeholder:text-gray-4 w-full overflow-hidden border-none px-5 pb-3 text-black focus:outline-none"
+        className="h3 w-full overflow-hidden border-none px-5 pb-3 text-black placeholder:text-gray-4 focus:outline-none"
         onKeyDown={handleTitleKeyDown}
         ref={titleRef}
       />
@@ -42,7 +42,7 @@ export default function Editor() {
         value={content}
         onChange={setContent}
         placeholder="내용"
-        className="b1 text-gray-7 placeholder:text-gray-4 mb-20 overflow-hidden border-none px-5 focus:outline-none"
+        className="b1 mb-20 overflow-hidden border-none px-5 text-gray-7 placeholder:text-gray-4 focus:outline-none"
         onKeyDown={handleContentKeyDown}
         ref={contentRef}
       />

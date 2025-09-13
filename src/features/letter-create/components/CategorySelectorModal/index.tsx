@@ -1,8 +1,8 @@
-import { useLetterCreateStore } from '@/features/letter/stores/letterCreateStore'
-import CategoryTag from '@/features/user/onboarding/components/CategoryTag'
+import { useLetterCreateStore } from '@/features/letter-create/store/letterCreateStore'
 import { useModal } from '@/shared/contexts/ModalContext'
 import { Category } from '@/shared/types/Category'
 import AnswerTypeSelectorModal from '../AnswerTypeSelectorModal'
+import TagSelectButton from '@/shared/components/TagSelectButton'
 
 const CATEGORIES: { label: string; value: Category }[] = [
   { label: '취업 및 회사', value: 'CAREER' },
@@ -44,7 +44,7 @@ export default function CategorySelectorModal() {
 
       <div className="flex flex-wrap gap-3">
         {CATEGORIES.map((category) => (
-          <CategoryTag
+          <TagSelectButton
             key={category.value}
             label={category.label}
             isSelected={selectedCategory === category.value}

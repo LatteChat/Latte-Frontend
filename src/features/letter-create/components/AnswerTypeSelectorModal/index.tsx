@@ -1,5 +1,5 @@
-import { useLetterCreateStore } from '@/features/letter/stores/letterCreateStore'
-import CategoryTag from '@/features/user/onboarding/components/CategoryTag'
+import { useLetterCreateStore } from '@/features/letter-create/store/letterCreateStore'
+import TagSelectButton from '@/shared/components/TagSelectButton'
 import { useModal } from '@/shared/contexts/ModalContext'
 
 const ANSWERTYPES = [
@@ -40,7 +40,7 @@ export default function AnswerTypeSelectorModal() {
 
       <div className="flex flex-wrap gap-3">
         {ANSWERTYPES.map((answerType) => (
-          <CategoryTag
+          <TagSelectButton
             key={answerType}
             label={answerType}
             isSelected={selectedAnswerType[0] === answerType}

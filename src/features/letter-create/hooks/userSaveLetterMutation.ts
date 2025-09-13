@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-import { saveLetter } from '../services/letterService.client'
-import { useLetterCreateActions } from '../stores/letterCreateStore'
+import { useLetterCreateActions } from '../store/letterCreateStore'
+import { saveLetter } from '../services/letterCreateService.client'
 
-export default function useSaveLetterQuery() {
+export default function useSaveLetterMutation() {
   const router = useRouter()
   const { reset } = useLetterCreateActions()
 
