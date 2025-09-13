@@ -68,19 +68,7 @@ export type LetterDetailResponseDto = {
   letterStatus: AnswerStatus
   answerResponseDto: AnswerResponse[]
   answerType: string[]
-}
-
-// 사연 전송
-export const sendLetter = async ({ letterId }: { letterId: number }) => {
-  const token = localStorage.getItem('accessToken')
-  if (!token) throw new Error('토큰이 없습니다.')
-
-  return await httpCSR(`/junior/${letterId}/send`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  isOpen: boolean
 }
 
 // 청년층 필터링 별 사연 조회 (카테고리, 사연 상태)
@@ -123,45 +111,6 @@ export const fetchJuniorLetterDetail = async ({
 
   return await httpCSR(`/junior/${letterId}/detail`, {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-}
-
-// 사연 수정
-export const updateLetter = async ({
-  letterId,
-  body,
-}: {
-  letterId: number
-  body: {
-    category: string | null
-    title: string
-    content: string
-    answerType: string[]
-    isOpen: boolean
-  }
-}) => {
-  const token = localStorage.getItem('accessToken')
-  if (!token) throw new Error('토큰이 없습니다.')
-
-  return await httpCSR(`/junior/${letterId}/modify`, {
-    method: 'PATCH',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(body),
-  })
-}
-
-// 사연 이미지 생성 후 저장
-export const saveLetterImage = async ({ letterId }: { letterId: number }) => {
-  const token = localStorage.getItem('accessToken')
-  if (!token) throw new Error('토큰이 없습니다.')
-
-  return await httpCSR(`/junior/${letterId}/generate/image`, {
-    method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
     },

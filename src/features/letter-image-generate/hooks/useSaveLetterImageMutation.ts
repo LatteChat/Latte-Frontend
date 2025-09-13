@@ -1,9 +1,8 @@
 import { useMutation } from '@tanstack/react-query'
-import { saveLetterImage } from '../services/letterService.client'
 import { useModal } from '@/shared/contexts/ModalContext'
-import { useRouter } from 'next/navigation'
+import { saveLetterImage } from '../services/letterImageGenerateService.client'
 
-export default function useSaveLetterImageQuery(letterId: number) {
+export default function useSaveLetterImageMutation(letterId: number) {
   const { closeModal } = useModal()
 
   return useMutation({

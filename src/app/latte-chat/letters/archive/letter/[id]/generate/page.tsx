@@ -1,7 +1,5 @@
-'use client'
+import LetterImageGeneratePage from '@/pages/latte-chat/letter/generate/ui'
 
-import LetterImageGenerateContainer from './LetterImageGenerateContainer'
-
-export default function LetterImageGeneratePage() {
-  return <LetterImageGenerateContainer />
+export default function LetterImageGenerateRoute() {
+  return <LetterImageGeneratePage />
 }
