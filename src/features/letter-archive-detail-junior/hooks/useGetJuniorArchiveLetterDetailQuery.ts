@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchJuniorLetterDetail } from '../../services/letterService.client'
+import { fetchJuniorArchiveLetterDetail } from '../services/letterArchiveDetail.client'
 
-export const useGetJuniorLetterDetail = ({
+export const useGetJuniorArchiveLetterDetailQuery = ({
   letterId,
 }: {
   letterId: number
@@ -9,7 +9,7 @@ export const useGetJuniorLetterDetail = ({
   return useQuery({
     queryKey: ['/junior/letter/detail', letterId],
     queryFn: () =>
-      fetchJuniorLetterDetail({
+      fetchJuniorArchiveLetterDetail({
         letterId,
       }),
     retry: 2,

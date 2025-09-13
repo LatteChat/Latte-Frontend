@@ -4,9 +4,9 @@ import Button from '@/shared/components/Button'
 import { useModal } from '@/shared/contexts/ModalContext'
 import { useParams } from 'next/navigation'
 
-export default function AdoptAnswerButtonContainer() {
+export default function AdoptAnswerButton() {
   const params = useParams()
-  const letterId = params.id ? Number(params.id) : null
+  const letterId = params?.id ? Number(params?.id) : null
 
   if (!letterId) return
 
@@ -46,5 +46,7 @@ export default function AdoptAnswerButtonContainer() {
     )
   }
 
-  return <Button buttonText="채택하기" onClick={handleAdoptLetter} />
+  return (
+    <Button buttonText="채택하기" type="CARD" onClick={handleAdoptLetter} />
+  )
 }

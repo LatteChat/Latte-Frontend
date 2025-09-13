@@ -21,11 +21,23 @@ export default function AnswerListContainer({
   const [maxHeight, setMaxHeight] = useState(0)
 
   useEffect(() => {
-    if (containerRef.current) {
-      const slideEls = containerRef.current.querySelectorAll('.answer-slide')
-      const heights = Array.from(slideEls).map((el) => el.scrollHeight)
-      setMaxHeight(Math.max(...heights))
+    const updateHeight = () => {
+      if (containerRef.current) {
+        const slideEls = containerRef.current.querySelectorAll('.answer-slide')
+        const heights = Array.from(slideEls).map((el) => el.scrollHeight)
+
+        if (heights.length > 0) {
+          setMaxHeight(Math.max(...heights) + 25)
+        } else {
+          setMaxHeight(0)
+        }
+      }
     }
+
+    updateHeight()
+
+    window.addEventListener('resize', updateHeight)
+    return () => window.removeEventListener('resize', updateHeight)
   }, [answers])
 
   useEffect(() => {
@@ -66,7 +78,7 @@ export default function AnswerListContainer({
           }) => (
             <SwiperSlide
               key={answer.answerId}
-              className="flex h-full items-stretch"
+              className="answer-slide flex h-full items-stretch"
             >
               <LetterAnswerCard
                 answer={{

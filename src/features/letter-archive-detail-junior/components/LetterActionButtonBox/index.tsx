@@ -1,14 +1,16 @@
 import { AnswerStatus } from '@/shared/types/AnswerStatus'
 import GoPostButton from '../GoPostButton'
-import RequestMentorButtonContainer from '../../../containers/junior/RequestMentorButtonContainer'
-import AdoptAnswerButtonContainer from '../../../containers/junior/AdoptAnswerButtonContainer'
-import RequestMoreAnswerButtonContainer from '../../../containers/junior/RequestMoreAnswerButtonContainer'
-import EditLetterButtonContainer from '../../../containers/junior/EditLetterButtonContainer'
-import SendLetterButtonContainer from '../../../containers/junior/SendLetterButtonContainer'
+import LetterImageGenerateButton from '@/features/letter-image-generate/components/LetterImageGenerateButton'
+import RequestMoreAnswerButton from '../RequestMoreAnswerButton'
+import EditLetterLinkButton from '../EditLetterLinkButton'
+import RequestMentorButton from '../RequestMentorButton'
+import AdoptAnswerButton from '../AdoptAnswerButton'
 
 export default function LetterActionButtonBox({
+  letterId,
   letterStatus,
 }: {
+  letterId: number
   letterStatus: AnswerStatus
 }) {
   let description = ''
@@ -17,19 +19,24 @@ export default function LetterActionButtonBox({
   if (letterStatus === 'WRITING') {
     description = '사연을 수정하시겠어요?'
     buttons = [
-      <EditLetterButtonContainer key="edit" />,
-      <SendLetterButtonContainer key="send" />,
+      <EditLetterLinkButton key="edit" />,
+      <LetterImageGenerateButton
+        letterId={letterId}
+        key="image-genrate"
+        type="CARD"
+        bgColor="bg-secondary-brown-4"
+      />,
     ]
   } else if (letterStatus === 'ANSWERED') {
     description = '이 답변을 채택하시겠어요?'
     buttons = [
-      <AdoptAnswerButtonContainer key="adopt" />,
-      <RequestMoreAnswerButtonContainer key="request-answer" />,
+      <AdoptAnswerButton key="adopt" />,
+      <RequestMoreAnswerButton key="request-answer" />,
     ]
   } else if (letterStatus === 'ADOPTED') {
     description = '1:1 멘토링을 요청하시겠어요?'
     buttons = [
-      <RequestMentorButtonContainer key="request-mentor" />,
+      <RequestMentorButton key="request-mentor" />,
       <GoPostButton key="go-post" />,
     ]
   } else if (letterStatus === 'MATCHED') {

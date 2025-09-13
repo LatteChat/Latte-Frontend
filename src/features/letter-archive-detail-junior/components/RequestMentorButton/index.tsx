@@ -3,7 +3,7 @@ import Button from '@/shared/components/Button'
 import { useModal } from '@/shared/contexts/ModalContext'
 import { useState } from 'react'
 
-export default function RequestMentorButtonContainer() {
+export default function RequestMentorButton() {
   const { openModal, closeModal } = useModal()
   const [modalStatus, setModalStatus] = useState<
     'REQUEST' | 'FAIL' | 'SUCCESS'
@@ -21,5 +21,11 @@ export default function RequestMentorButtonContainer() {
     ))
   }
 
-  return <Button buttonText="멘토링 요청하기" onClick={handleRequestMentor} />
+  return (
+    <Button
+      buttonText="멘토링 요청하기"
+      type="CARD"
+      onClick={handleRequestMentor}
+    />
+  )
 }
