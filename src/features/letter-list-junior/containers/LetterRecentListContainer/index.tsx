@@ -1,5 +1,4 @@
-import { useGetRecentJuniorLetterListQuery } from '@/features/letter-junior-list/hooks/useGetRecentJuniorLetterListQuery'
-import { Letter } from '@/features/letter/services/letterService.client'
+import { useGetRecentJuniorLetterListQuery } from '@/features/letter-list-junior/hooks/useGetRecentJuniorLetterListQuery'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
@@ -8,6 +7,7 @@ import GreetingTopBar from '../../components/GreetingTopBar'
 import JuniorRecentLetterList from '../../components/JuniorRecentLetterList'
 import LetterVisual from '../../components/LetterVisual'
 import LetterActionSection from '../../components/LetterActionSection'
+import { Letter } from '../../services/letterListService.client'
 
 const TOPBAR_ICONS = [
   {

@@ -1,7 +1,6 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useLetterFilterStore } from '@/features/letter/stores/letterFilterStore'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useState } from 'react'
 import LetterStatusFilter from '../../components/LetterStatusFilter'
@@ -9,6 +8,7 @@ import LetterArchiveListViewContainer from '../LetterArchiveListViewContainer'
 import LetterArchiveListDeleteContainer from '../LetterArchiveListDeleteContainer'
 import ArchiveTitle from '../../components/ArchiveTitle'
 import ArchiveCategorySelector from '../../components/ArchiveCategorySelector'
+import { useLetterFilterStore } from '../../stores/letterFilterStore'
 
 export default function JuniorLetterArchiveListContainer() {
   const searchParams = useSearchParams()

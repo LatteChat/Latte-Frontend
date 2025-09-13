@@ -1,10 +1,10 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import {
   useLetterFilterActions,
   useLetterFilterStore,
-} from '@/features/letter/stores/letterFilterStore'
-import { useEffect, useRef, useState } from 'react'
+} from '../../stores/letterFilterStore'
 
 const FILTER_OPTIONS: { id: 0 | 1 | 2 | 3 | 4; label: string }[] = [
   {
