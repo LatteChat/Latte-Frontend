@@ -4,7 +4,6 @@ import TitleHeader from '@/shared/components/TitleHeader'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import { useGetJuniorLetterDetail } from '@/features/letter/detail/hooks/useGetJuniorLetterDetail'
 import ActiveEditorBox from '../../components/ActiveEditorBox'
 import InactiveEditorBox from '../../components/InactvieEditorBox/inde'
 import OptionSelectBox from '../../components/OptionSelectBox'
@@ -15,6 +14,7 @@ import {
 } from '../../store/letterCreateStore'
 import EditButton from '../../components/EditButton'
 import TemporarySaveMessage from '../../components/temporarySaveMessage'
+import { useGetJuniorArchiveLetterDetailQuery } from '@/features/letter-archive-detail-junior/hooks/useGetJuniorArchiveLetterDetailQuery'
 
 export default function LetterEditContainer() {
   const params = useParams()
@@ -22,7 +22,7 @@ export default function LetterEditContainer() {
 
   if (!letterId) return
 
-  const { data: letterDetail } = useGetJuniorLetterDetail({
+  const { data: letterDetail } = useGetJuniorArchiveLetterDetailQuery({
     letterId,
   })
 

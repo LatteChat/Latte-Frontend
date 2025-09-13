@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useRouter } from 'next/navigation'
-import { updateAdoptedAnswer } from '../services/letterService.client'
+import { updateAdoptedAnswer } from '../services/letterAdoptService.client'
+import { useModal } from '@/shared/contexts/ModalContext'
+import AdoptSuccessModal from '../components/AdoptSuccessModal'
 
-export default function useAdoptAnswerQuery() {
-  const router = useRouter()
+export default function useAdoptAnswerMutation() {
   const queryClient = useQueryClient()
+  const { openModal } = useModal()
 
   return useMutation({
     mutationFn: ({
@@ -19,6 +20,7 @@ export default function useAdoptAnswerQuery() {
       queryClient.invalidateQueries({
         queryKey: ['/junior/letter/detail'],
       })
+      openModal(<AdoptSuccessModal />)
     },
     onError: (error) => {
       console.error('답변 채택 실패:', error)

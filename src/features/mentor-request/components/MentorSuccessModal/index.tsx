@@ -18,7 +18,7 @@ export default function MentorSuccessModal() {
       <div className="flex w-full gap-2">
         <button
           onClick={() => {
-            router.replace('/latte-chat/chats')
+            router.push('/latte-chat/chats')
             closeModal()
           }}
           className="b4 w-full rounded-10 bg-secondary-brown-2 py-2.5 text-white"

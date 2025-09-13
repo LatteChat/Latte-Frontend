@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import MentorSuccessModal from '../MentorSuccessModal'
 
 export default function MentorRequestModal({
-  modalStatus,
+  modalStatus = 'REQUEST',
   closeModal,
   isPremium,
 }: {
@@ -16,8 +16,7 @@ export default function MentorRequestModal({
   closeModal: () => void
   isPremium: boolean
 }) {
-  const { sendMessage, connectSocket, disconnectSocket, subscribe } =
-    useSocket()
+  const { sendMessage, connectSocket, disconnectSocket } = useSocket()
   const { openModal } = useModal()
 
   const chatUser = useChatUserState()
@@ -31,6 +30,8 @@ export default function MentorRequestModal({
       openModal(<MentorSuccessModal />)
     }
   }
+
+  console.log(chatUser)
 
   useEffect(() => {
     const setup = async () => {
@@ -50,7 +51,7 @@ export default function MentorRequestModal({
           <p className="b6 whitespace-pre-line text-center text-gray-5">
             {isPremium
               ? '프리미엄 회원 전용 1회 무료권을 사용하여\n멘토링을 요청할까요?'
-              : `매칭 성사 시, 내 원두 포인트 500콩이 차감됩니다.\n남은 원두 포인트: 5,000콩`}
+              : `해당 답변자에게 1:1 멘토링을 요청하시겠어요?`}
           </p>
         </div>
         <div className="flex w-full gap-2">

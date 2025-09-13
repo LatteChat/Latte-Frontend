@@ -6,8 +6,8 @@ import 'swiper/css/pagination'
 import './customSwiperStyles.css'
 import LetterAnswerCard from '../../components/LetterAnswerCard'
 import { AgeType } from '@/features/user/types/User'
-import { useAnswerAdoptActions } from '@/features/letter/stores/answerAdoptStore'
 import { useEffect, useRef, useState } from 'react'
+import { useAnswerAdoptActions } from '@/features/letter-answer-adopt/stores/answerAdoptStore'
 
 export default function AnswerListContainer({
   answers,

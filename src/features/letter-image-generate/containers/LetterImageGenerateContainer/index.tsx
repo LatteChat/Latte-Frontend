@@ -1,12 +1,12 @@
 'use client'
 
 import LetterSendButton from '@/features/letter-send/components/LetterSendButton'
-import { useGetJuniorLetterDetail } from '@/features/letter/detail/hooks/useGetJuniorLetterDetail'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
 import { useParams, useRouter } from 'next/navigation'
 import Button from '@/shared/components/Button'
 import LetterImageRetryButton from '../../components/LetterImageRetryButton'
+import { useGetJuniorArchiveLetterDetailQuery } from '@/features/letter-archive-detail-junior/hooks/useGetJuniorArchiveLetterDetailQuery'
 
 const TOPBAR_ICONS = [
   {
@@ -28,7 +28,7 @@ export default function LetterImageGenerateContainer() {
 
   if (!letterId) return
 
-  const { data: letterDetail } = useGetJuniorLetterDetail({
+  const { data: letterDetail } = useGetJuniorArchiveLetterDetailQuery({
     letterId,
   })
 

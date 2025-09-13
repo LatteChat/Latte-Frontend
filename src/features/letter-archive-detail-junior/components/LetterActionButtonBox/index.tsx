@@ -3,8 +3,8 @@ import GoPostButton from '../GoPostButton'
 import LetterImageGenerateButton from '@/features/letter-image-generate/components/LetterImageGenerateButton'
 import RequestMoreAnswerButton from '../RequestMoreAnswerButton'
 import EditLetterLinkButton from '../EditLetterLinkButton'
-import RequestMentorButton from '../RequestMentorButton'
-import AdoptAnswerButton from '../AdoptAnswerButton'
+import AdoptAnswerButton from '@/features/letter-answer-adopt/components/AdoptAnswerButton'
+import RequestMentorButton from '@/features/mentor-request/components/RequestMentorButton'
 
 export default function LetterActionButtonBox({
   letterId,

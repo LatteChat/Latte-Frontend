@@ -1,7 +1,7 @@
-import MentorRequestModal from '@/features/modal/components/MentorRequestModal'
 import Button from '@/shared/components/Button'
 import { useModal } from '@/shared/contexts/ModalContext'
 import { useState } from 'react'
+import MentorRequestModal from '../MentorRequestModal'
 
 export default function RequestMentorButton() {
   const { openModal, closeModal } = useModal()
