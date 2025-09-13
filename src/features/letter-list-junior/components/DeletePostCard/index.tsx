@@ -2,18 +2,6 @@ import { Category } from '@/shared/types/Category'
 import { AnswerStatus } from '@/shared/types/AnswerStatus'
 import { formatDate } from '@/shared/utils/formatDate'
 import PostTag from '@/shared/components/PostTag'
-import Checkbox from '@/features/user-onboarding/components/Checkbox'
-
-const LETTER_STATUS_LABEL: Record<AnswerStatus, string> = {
-  WRITING: '저장됨',
-  SENT: '답변 대기 중',
-  WAITING: '답변 대기 중',
-  SAVED: '저장됨',
-  ANSWERED: '답변 완료',
-  ADOPTED: '채택 완료',
-  MATCHED: '답변 완료',
-  EMPTY: '대기 중',
-}
 
 type Post = {
   letterId: number
@@ -38,10 +26,15 @@ export default function DeletePostCard({
   return (
     <article
       onClick={() => onSelect(letterId)}
-      className={`${isSelected ? 'border-secondary-brown-2 bg-secondary-brown-1' : 'border-transparent bg-white'} relative flex w-full cursor-pointer items-start gap-2 rounded-10 border-[2px] p-5 shadow-border`}
+      className={`${isSelected ? 'border-secondary-brown-2 bg-secondary-brown-1' : 'border-transparent bg-white'} relative flex w-full cursor-pointer items-start gap-1 rounded-10 border-[2px] p-5 shadow-border`}
     >
       <div>
-        <Checkbox isCheck={isSelected} label={''} showRequired={false} />
+        <input
+          checked={isSelected}
+          readOnly
+          type="checkbox"
+          className="mr-2 aspect-square h-5 w-5 accent-secondary-brown-4"
+        />
       </div>
 
       <div className="flex flex-1 flex-col gap-4">
