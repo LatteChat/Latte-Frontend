@@ -4,6 +4,7 @@ import '@/shared/styles/fonts.css'
 import ReactQueryProvider from '@/shared/providers/ReactQueryProvider'
 import { ModalProvider } from '@/shared/contexts/ModalContext'
 import { StompProvider } from '@/shared/contexts/SocketContext'
+import { ToastProvider } from '@/shared/contexts/ToastContext'
 
 export const metadata: Metadata = {
   title: '라떼챗',
@@ -26,9 +27,11 @@ export default function RootLayout({
       <body>
         <ReactQueryProvider>
           <StompProvider>
-            <ModalProvider>
-              <div className="flex justify-center">{children}</div>
-            </ModalProvider>
+            <ToastProvider>
+              <ModalProvider>
+                <div className="flex justify-center">{children}</div>
+              </ModalProvider>
+            </ToastProvider>
           </StompProvider>
         </ReactQueryProvider>
       </body>
