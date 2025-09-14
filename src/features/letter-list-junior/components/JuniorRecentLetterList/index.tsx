@@ -1,4 +1,4 @@
-import { LETTER_STATUS_JUNIOR_LABEL } from '@/features/letter/types/Letter'
+import { LETTER_STATUS_JUNIOR_LABEL } from '@/shared/types/Letter'
 import { AnswerStatus } from '@/shared/types/AnswerStatus'
 import { Category } from '@/shared/types/Category'
 
