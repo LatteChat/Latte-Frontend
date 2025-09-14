@@ -27,7 +27,9 @@ export default function LetterSelectButton({
 
   const handleSelectLetter = () => {
     if ((selectedLetterCount ?? 5) >= 5) {
-      showToast('사연은 5개까지 선택할 수 있습니다')
+      showToast(
+        `사연은 5개까지 선택할 수 있습니다\n기존 사연에 답변을 먼저 진행해주세요`
+      )
       return
     }
     selectLetterMutate({

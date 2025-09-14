@@ -25,7 +25,7 @@ export default function ToastMessage({
 
   return (
     <div
-      className={`b4 whitespace-nowrap rounded bg-black bg-opacity-65 px-4 py-2 text-white shadow transition-all duration-500 ease-in-out ${visible ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'} `}
+      className={`b4 whitespace-pre-line rounded bg-black bg-opacity-65 px-4 py-2 text-center text-white shadow transition-all duration-500 ease-in-out ${visible ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'} `}
     >
       {message}
     </div>
