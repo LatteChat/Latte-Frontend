@@ -1,9 +1,10 @@
+'use client'
+
 import UserProfileModal from '@/features/modal/components/UserProfileModal'
 import { AgeType } from '@/features/user/types/User'
 import { useModal } from '@/shared/contexts/ModalContext'
-import Image from 'next/image'
 
-const AGE_CLASS_MAPPING: Record<AgeType, string> = {
+export const AGE_CLASS_MAPPING: Record<AgeType, string> = {
   TEENAGER: "bg-[url('/images/badge/badge-image-1.png')]",
   TWENTIES: "bg-[url('/images/badge/badge-image-2.png')]",
   THIRTIES: "bg-[url('/images/badge/badge-image-3.png')]",

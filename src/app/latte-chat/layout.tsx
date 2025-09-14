@@ -1,4 +1,5 @@
 import BottomNavigationBar from '@/shared/components/BottomNavigationBar'
+import ScrollBox from '@/shared/components/ScrollBox'
 
 export default function LatteChatLayout({
   children,
@@ -8,7 +9,7 @@ export default function LatteChatLayout({
   return (
     <div className="relative flex h-svh w-full max-w-md flex-col">
       <div id="modal-root" />
-      <main className="flex-1 overflow-auto">{children}</main>
+      <ScrollBox>{children}</ScrollBox>
       <BottomNavigationBar />
     </div>
   )
