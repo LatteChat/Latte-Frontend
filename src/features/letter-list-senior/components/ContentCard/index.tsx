@@ -1,10 +1,10 @@
-import useGetSeniorSelectedLetterCountQuery from '@/features/letter/hooks/useGetSeniorSelectedLetterCountQuery'
-import useSelectLetterQuery from '@/features/letter/hooks/useSelectLetterQuery'
 import CoffeeBeanIcon from '@/shared/assets/icons/coffee-bean-icon.svg'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { CATEGORIES_MAP } from '@/shared/types/Category'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import useGetSelectedLetterCountQuery from '../../hooks/useGetSelectedLetterCountQuery'
+import useSelectLetterQuery from '@/features/letter/hooks/useSelectLetterQuery'
 
 export default function ContentCard({
   letter: { letterId, category, writeStyle, title, content, letterType },
@@ -24,7 +24,7 @@ export default function ContentCard({
 }) {
   const pathname = usePathname()
   const { data: userInfo } = useUserInfo()
-  const { data: selectedLetterCount } = useGetSeniorSelectedLetterCountQuery(
+  const { data: selectedLetterCount } = useGetSelectedLetterCountQuery(
     userInfo
       ? {
           seniorId: userInfo.seniorId!,

@@ -4,16 +4,16 @@ import NextIcon from '@/shared/assets/icons/next-icon.svg'
 import PrevIcon from '@/shared/assets/icons/prev-icon.svg'
 import SeniorLetterPreviewCardCarousel from '../SeniorLetterPreviewCardCarousel'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
-import useGetSeniorSelectedLetterCountQuery from '@/features/letter/hooks/useGetSeniorSelectedLetterCountQuery'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import useSelectLetterQuery from '@/features/letter/hooks/useSelectLetterQuery'
 import { useGetSeniorLetterListInfiniteQuery } from '../../hooks/useGetSeniorLetterListInfiniteQuery'
 import {
   useLetterViewState,
   useLetterViewStateActions,
 } from '../../stores/letterViewStateStore'
 import { useEffect } from 'react'
+import useGetSelectedLetterCountQuery from '../../hooks/useGetSelectedLetterCountQuery'
+import useSelectLetterQuery from '@/features/letter/hooks/useSelectLetterQuery'
 
 export default function SeniorLetterPreviewCardListContainer() {
   const pathname = usePathname()
@@ -30,7 +30,7 @@ export default function SeniorLetterPreviewCardListContainer() {
 
   const letters = data?.pages.flatMap((page) => page.content) ?? []
 
-  const { data: selectedLetterCount } = useGetSeniorSelectedLetterCountQuery(
+  const { data: selectedLetterCount } = useGetSelectedLetterCountQuery(
     userInfo ? { seniorId: userInfo.seniorId! } : undefined
   )
 

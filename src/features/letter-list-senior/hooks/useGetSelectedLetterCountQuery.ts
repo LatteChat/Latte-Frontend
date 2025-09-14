@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchSelectedLetterCount } from '../services/letterService.senior.client'
+import { fetchSelectedLetterCount } from '../services/letterListService.client'
 
-export default function useGetSeniorSelectedLetterCountQuery(payload?: {
+export default function useGetSelectedLetterCountQuery(payload?: {
   seniorId: number
 }) {
   return useQuery({

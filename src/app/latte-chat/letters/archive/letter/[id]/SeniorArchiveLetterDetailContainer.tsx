@@ -1,4 +1,6 @@
-import LetterAnswerCard from '@/features/letter/detail/components/LetterAnswerCard'
+'use client'
+
+import LetterAnswerCard from '@/features/letter-archive-detail-junior/components/LetterAnswerCard'
 import LetterActionButtonBox from '@/features/letter/detail/components/senior/LetterActionButtonBox'
 import { useGetSeniorLetterDetail } from '@/features/letter/detail/hooks/useGetSeniorLetterDetail'
 import LetterCardLayout from '@/shared/components/LetterCardLayout'
@@ -10,7 +12,7 @@ import { useParams } from 'next/navigation'
 
 export default function SeniorArchiveLetterDetailContainer() {
   const params = useParams()
-  const letterId = params.id ? Number(params.id) : null
+  const letterId = params?.id ? Number(params?.id) : null
 
   if (!letterId) return
 
