@@ -4,11 +4,13 @@ import Button from '@/shared/components/Button'
 
 export default function DeleteLetterConfirmModal({
   deleteList,
+  isBack = false,
 }: {
   deleteList: number[]
+  isBack?: boolean
 }) {
   const { closeModal } = useModal()
-  const { mutate: deleteLetterMutate } = useDeleteLetterMutation()
+  const { mutate: deleteLetterMutate } = useDeleteLetterMutation(isBack)
 
   return (
     <div className="flex w-full flex-col items-center gap-5 bg-white px-5 py-10">
@@ -20,7 +22,7 @@ export default function DeleteLetterConfirmModal({
       <div className="flex w-full gap-2">
         <Button
           type="MODAL"
-          buttonText=" 삭제"
+          buttonText="삭제"
           onClick={() => {
             deleteLetterMutate({ letterIds: deleteList })
           }}

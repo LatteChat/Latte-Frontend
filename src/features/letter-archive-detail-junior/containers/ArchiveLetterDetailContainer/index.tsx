@@ -75,6 +75,7 @@ export default function JuniorArchiveLetterDetailContainer() {
           />
         )
       }
+      isMore
     >
       <LetterHeader
         category={letterDetail?.category}
