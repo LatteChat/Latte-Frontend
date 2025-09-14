@@ -1,15 +1,16 @@
+'use client'
+
 import UserProfileModal from '@/features/modal/components/UserProfileModal'
 import { AgeType } from '@/features/user/types/User'
 import { useModal } from '@/shared/contexts/ModalContext'
-import Image from 'next/image'
 
-const AGE_CLASS_MAPPING: Record<AgeType, string> = {
-  UNDER_10: "bg-[url('/images/badge/badge-image-1.png')]",
+export const AGE_CLASS_MAPPING: Record<AgeType, string> = {
+  TEENAGER: "bg-[url('/images/badge/badge-image-1.png')]",
   TWENTIES: "bg-[url('/images/badge/badge-image-2.png')]",
   THIRTIES: "bg-[url('/images/badge/badge-image-3.png')]",
   FORTIES: "bg-[url('/images/badge/badge-image-4.png')]",
   FIFTIES: "bg-[url('/images/badge/badge-image-5.png')]",
-  SIXTIES_AND_ABOVE: "bg-[url('/images/badge/badge-image-6.png')]",
+  SIXTIES: "bg-[url('/images/badge/badge-image-6.png')]",
 } as const
 
 export default function UserProfile({
@@ -30,14 +31,13 @@ export default function UserProfile({
   return (
     <div
       onClick={() => {
-        console.log(isView)
         if (!juniorId && !seniorId) return
         if (!isView) return
         openModal(<UserProfileModal juniorId={juniorId} seniorId={seniorId} />)
       }}
       className="relative aspect-square h-full w-full shrink-0 rounded-full"
     >
-      <Image
+      <img
         src={profile}
         alt="작성자 프로필 이미지"
         className={`${isView ? 'cursor-pointer' : ''} absolute bottom-0 left-0 aspect-square w-[93%] rounded-full bg-primary object-cover`}

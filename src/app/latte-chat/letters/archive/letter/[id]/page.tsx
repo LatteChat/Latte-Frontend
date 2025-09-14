@@ -1,8 +1,8 @@
 'use client'
 
+import JuniorLetterArchiveDetailPage from '@/screens/latte-chat/letter/archive/detail/junior/ui'
+import SeniorLetterArchiveDetailPage from '@/screens/latte-chat/letter/archive/detail/senior/ui'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
-import JuniorArchiveLetterDetailContainer from './JuniorArchiveLetterDetailContainer'
-import SeniorArchiveLetterDetailContainer from './SeniorArchiveLetterDetailContainer'
 
 export default function ArchiveLetterDetailPage() {
   const { data: userInfo } = useUserInfo()
@@ -10,9 +10,9 @@ export default function ArchiveLetterDetailPage() {
   return (
     <>
       {userInfo?.memberType === 'SENIOR' ? (
-        <SeniorArchiveLetterDetailContainer />
+        <SeniorLetterArchiveDetailPage />
       ) : (
-        <JuniorArchiveLetterDetailContainer />
+        <JuniorLetterArchiveDetailPage />
       )}
     </>
   )

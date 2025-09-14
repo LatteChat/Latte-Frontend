@@ -1,16 +1,28 @@
+'use client'
+
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 export default function ImageGeneratingModal() {
   return (
     <div className="flex flex-col items-center rounded-lg pb-10 text-center">
-      <Image
-        src="/images/sparkling-coffee-bean-image.svg"
-        alt="로딩중 이미지"
-        width={236}
-        height={236}
-        className="aspect-square h-60 w-60"
-      />
-      <div className="flex flex-col gap-5">
+      <motion.div
+        animate={{ y: [40, 20, 40] }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      >
+        <Image
+          src="/images/sparkling-coffee-bean-image.svg"
+          alt="로딩중 이미지"
+          width={236}
+          height={236}
+          className="aspect-square h-60 w-60"
+        />
+      </motion.div>
+      <div className="mt-5 flex flex-col gap-5">
         <p className="b10 text-black">약 2분 정도 소요됩니다.</p>
         <div className="flex flex-col gap-1">
           <h2 className="h3 text-black">AI 이미지를 생성하고 있어요...</h2>

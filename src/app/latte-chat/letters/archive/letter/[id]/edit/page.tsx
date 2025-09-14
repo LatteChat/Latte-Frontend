@@ -1,7 +1,5 @@
-'use client'
+import LetterEditPage from '@/screens/latte-chat/letter/edit/ui'
 
-import LetterEditContainer from './LetterEditContainer'
-
-export default function LetterEditPage() {
-  return <LetterEditContainer />
+export default function LetterEditRoute() {
+  return <LetterEditPage />
 }

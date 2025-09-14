@@ -12,8 +12,6 @@ export default function ChatThread() {
     chatRoomId,
   })
 
-  console.log('existChats:', existChats)
-
   return (
     <div className="mx-auto max-w-md">
       <div className="flex min-h-screen flex-col">

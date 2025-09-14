@@ -1,41 +1,40 @@
-import { useGetPostListQuery } from '@/features/home/hooks/useGetPostListQuery'
-import { usePostFilterStore } from '@/features/post/stores/postFilterStore'
+'use client'
+
+import { usePostFilterStore } from '@/features/post-list/stores/postFilterStore'
+import useGetPostListQuery from '@/features/post-popular-list/hooks/useGetPostListQuery'
 import PostCard from '@/shared/components/PostCard'
 import PostFilterContainer from '@/shared/containers/PostFilterContainer'
-import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { Category } from '@/shared/types/Type'
 import Link from 'next/link'
 import { useState } from 'react'
 
-export default function PostListContainer() {
-  const { data: userInfo } = useUserInfo()
+export default function PostListContainer({
+  user,
+  initialPosts,
+}: {
+  user: any
+  initialPosts?: any
+}) {
   const [selected, setSelected] = useState<Category | null>(null)
   const { statusFilter } = usePostFilterStore()
 
-  const { data: postListByCategory } = useGetPostListQuery(
-    userInfo
-      ? {
-          page: 0,
-          filter: statusFilter,
-          category: selected,
-          userId:
-            userInfo.memberType === 'JUNIOR'
-              ? userInfo.juniorId
-              : userInfo.seniorId,
-          memberType: userInfo.memberType,
-        }
-      : undefined
-  )
-
-  console.log('postListByCategory:', postListByCategory)
+  const { data: postListByCategory } = useGetPostListQuery({
+    page: 0,
+    filter: statusFilter,
+    category: selected,
+    ...(user && {
+      userId: user.memberType === 'JUNIOR' ? user.juniorId : user.seniorId,
+      memberType: user.memberType,
+    }),
+    initialData: initialPosts,
+  })
 
   return (
     <section className="flex flex-col">
       <PostFilterContainer selected={selected} setSelected={setSelected} />
 
       <main className="flex flex-col gap-3.5 px-5">
-        {postListByCategory?.content.map((post, index) => {
-          console.log(post)
+        {postListByCategory?.content.map((post: any) => {
           return (
             <Link
               key={post.letterId}

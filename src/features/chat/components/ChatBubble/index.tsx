@@ -48,7 +48,7 @@ export default function ChatBubble({
         {!isMe && (
           <div className="aspect-square h-[1.875rem] w-[1.875rem] shrink-0">
             {isProfile && (
-              <Image
+              <img
                 src={receiver?.profile ?? '/images/coffee-bean-image.png'}
                 alt="상대 유저 프로필"
                 width={30}

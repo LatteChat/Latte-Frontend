@@ -109,7 +109,7 @@ export default function StorePage() {
 
       {/* Banner */}
       <div className="mb-5 px-5">
-        <Image
+        <img
           src="/images/lattechat-advertisement.png"
           width={1340}
           height={256}

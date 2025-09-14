@@ -8,7 +8,7 @@ const NAVIGATION_OPTIONS = [
     iconUrl: '/icons/daum-icon.svg',
     value: 'home',
     name: '홈',
-    href: '/',
+    href: '/latte-chat',
   },
   {
     iconUrl: '/icons/back-arrow-icon.svg',
@@ -49,7 +49,7 @@ export default function BottomNavigationBar() {
   }
 
   return (
-    <nav className="shadow-top-line z-10 h-20 w-full">
+    <nav className="z-10 h-20 w-full bg-white shadow-top-line">
       <ul className="flex h-full w-full">
         {NAVIGATION_OPTIONS.map(({ iconUrl, value, name, href }) => {
           const content = (

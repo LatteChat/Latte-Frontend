@@ -8,7 +8,6 @@ export const useGetChatRoomListQuery = ({
   userId?: number | null
   memberType?: 'SENIOR' | 'JUNIOR'
 }) => {
-  console.log(userId, memberType)
   return useQuery({
     queryKey: [`/chat/rooms`, userId],
     queryFn: () =>

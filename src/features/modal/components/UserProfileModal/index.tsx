@@ -9,13 +9,11 @@ export default function UserProfileModal({
   juniorId?: number
   seniorId?: number
 }) {
-  console.log(juniorId, seniorId)
   const { data: userInfo, error } = useGetUserQuery({
     userId: juniorId ? juniorId : seniorId,
     memberType: juniorId ? 'JUNIOR' : 'SENIOR',
   })
 
-  console.log(error)
   const { closeModal } = useModal()
 
   return (
