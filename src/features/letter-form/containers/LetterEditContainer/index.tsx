@@ -13,7 +13,7 @@ import {
   useLetterCreateState,
 } from '../../store/letterCreateStore'
 import EditButton from '../../components/EditButton'
-import TemporarySaveMessage from '../../components/temporarySaveMessage'
+import TemporarySaveMessage from '../../components/TemporarySaveMessage'
 import { useGetJuniorArchiveLetterDetailQuery } from '@/features/letter-archive-detail-junior/hooks/useGetJuniorArchiveLetterDetailQuery'
 
 export default function LetterEditContainer() {
@@ -29,7 +29,7 @@ export default function LetterEditContainer() {
   const [isEditorFocus, setIsEditorFocus] = useState(false)
 
   const { category, title, content } = useLetterCreateState()
-  const { setAll } = useLetterCreateActions()
+  const { setAll, reset } = useLetterCreateActions()
 
   useEffect(() => {
     if (letterDetail) {
@@ -42,6 +42,10 @@ export default function LetterEditContainer() {
       })
     }
   }, [letterDetail])
+
+  useEffect(() => {
+    return () => reset()
+  }, [])
 
   return (
     <>

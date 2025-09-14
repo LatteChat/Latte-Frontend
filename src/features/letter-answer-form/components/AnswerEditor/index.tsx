@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import AutoResizeTextarea from '@/shared/components/AutoResizeTextarea'
-import { useAnswerCreateStore } from '@/features/letter/stores/answerCreateStore'
+import { useAnswerCreateStore } from '@/features/letter-answer-form/store/answerCreateStore'
 
 export default function AnswerEditor() {
   const content = useAnswerCreateStore((state) => state.content)
@@ -14,7 +14,7 @@ export default function AnswerEditor() {
         value={content}
         onChange={setContent}
         placeholder="내용"
-        className="b1 text-gray-7 placeholder:text-gray-4 mb-20 overflow-hidden border-none px-5 focus:outline-none"
+        className="b1 mb-20 overflow-hidden border-none px-5 text-gray-7 placeholder:text-gray-4 focus:outline-none"
         ref={contentRef}
       />
     </div>

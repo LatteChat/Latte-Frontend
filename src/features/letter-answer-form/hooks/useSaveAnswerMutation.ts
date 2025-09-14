@@ -1,9 +1,13 @@
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-import { saveAnswer } from '../services/letterService.senior.client'
-import { useAnswerCreateActions } from '../stores/answerCreateStore'
+import { useAnswerCreateActions } from '../store/answerCreateStore'
+import { saveAnswer } from '../services/answerCreateService.client'
 
-export default function useSaveAnswer({ letterId }: { letterId: number }) {
+export default function useSaveAnswerMutation({
+  letterId,
+}: {
+  letterId: number
+}) {
   const router = useRouter()
   const { reset } = useAnswerCreateActions()
 

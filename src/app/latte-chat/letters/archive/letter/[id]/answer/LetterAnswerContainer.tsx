@@ -1,9 +1,8 @@
 import useSendAnswerQuery from '@/features/letter/answer/hooks/useSendAnswerQuery'
-import { useGetSeniorLetterDetail } from '@/features/letter/detail/hooks/useGetSeniorLetterDetail'
+import useGetSeniorArchiveLetterDetailQuery from '@/features/letter-archive-detail-senior/hooks/useGetArchiveLetterDetailQuery'
 import LetterCardLayout from '@/shared/components/LetterCardLayout'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { CATEGORIES_MAP } from '@/shared/types/Category'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -15,7 +14,7 @@ export default function LetterAnswerContainer({
   const { data: userInfo } = useUserInfo()
   const [isLetterOpen, setIsLetterOpen] = useState(false)
 
-  const { data: letterDetail } = useGetSeniorLetterDetail({
+  const { data: letterDetail } = useGetSeniorArchiveLetterDetailQuery({
     letterId,
     seniorId: userInfo?.seniorId!,
   })

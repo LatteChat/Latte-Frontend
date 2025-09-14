@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-import { useLetterCreateActions } from '../stores/letterCreateStore'
-import { updateAnswer } from '../services/letterService.senior.client'
+import { updateAnswer } from '../services/answerCreateService.client'
+import { useLetterCreateActions } from '@/features/letter-form/store/letterCreateStore'
 
-export default function useUpdateAnswerQuery() {
+export default function useUpdateAnswerMutation() {
   const router = useRouter()
   const { reset } = useLetterCreateActions()
 

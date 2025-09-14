@@ -7,7 +7,7 @@ export default function TemporarySaveMessage() {
     const interval = setInterval(() => {
       setShowSaving(true)
       setTimeout(() => setShowSaving(false), 2000)
-    }, 6000)
+    }, 5500)
 
     return () => clearInterval(interval)
   }, [])

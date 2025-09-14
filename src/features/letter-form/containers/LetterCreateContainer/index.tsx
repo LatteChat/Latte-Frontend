@@ -9,7 +9,7 @@ import InactiveEditorBox from '../../components/InactvieEditorBox/inde'
 import ActiveEditorBox from '../../components/ActiveEditorBox'
 import { useLetterCreateState } from '../../store/letterCreateStore'
 import SaveButton from '../../components/SaveButton'
-import TemporarySaveMessage from '../../components/temporarySaveMessage'
+import TemporarySaveMessage from '../../components/TemporarySaveMessage'
 
 export default function LetterCreateContainer() {
   const [isEditorFocus, setIsEditorFocus] = useState(false)

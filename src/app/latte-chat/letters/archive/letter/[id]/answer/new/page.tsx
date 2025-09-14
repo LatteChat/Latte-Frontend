@@ -1,7 +1,5 @@
-'use client'
+import AnswerCreatePage from '@/pages/latte-chat/letter/answer/create/ui'
 
-import LetterAnswerWriteContainer from './LetterAnswerWriteContainer'
-
-export default function LetterAnswerWritePage() {
-  return <LetterAnswerWriteContainer />
+export default function LetterAnswerCreateRoute() {
+  return <AnswerCreatePage />
 }
