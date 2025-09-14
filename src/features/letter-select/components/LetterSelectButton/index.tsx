@@ -26,7 +26,7 @@ export default function LetterSelectButton({
   const { showToast } = useToast()
 
   const handleSelectLetter = () => {
-    if (selectedLetterCount ?? 5 >= 5) {
+    if ((selectedLetterCount ?? 5) >= 5) {
       showToast('사연은 5개까지 선택할 수 있습니다')
       return
     }
