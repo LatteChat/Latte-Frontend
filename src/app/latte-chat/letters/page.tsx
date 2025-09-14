@@ -1,8 +1,8 @@
 'use client'
 
+import JuniorLetterListPage from '@/screens/latte-chat/letter/main/junior/ui'
+import SeniorLetterListPage from '@/screens/latte-chat/letter/main/senior/ui'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
-import JuniorLetterListPage from '@/pages/latte-chat/letter/main/junior/ui'
-import SeniorLetterListPage from '@/pages/latte-chat/letter/main/senior/ui'
 
 export default function LetterListRoute() {
   const { data: userInfo } = useUserInfo()

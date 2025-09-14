@@ -1,4 +1,4 @@
-import LatteChatHomePage from '@/pages/latte-chat/ui'
+import LatteChatHomePage from '@/screens/latte-chat/ui'
 
 export default function LatteChatHomeRoute() {
   return <LatteChatHomePage />

@@ -1,4 +1,4 @@
-import PostDetailPage from '@/pages/latte-chat/posts/detail/ui'
+import PostDetailPage from '@/screens/latte-chat/posts/detail/ui'
 
 export default async function PostDetailRoute({
   params,

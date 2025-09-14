@@ -34,7 +34,7 @@ export default function CommentSortBox({
       <div ref={sentinelRef} className="h-0" />
 
       <div
-        className={`sticky top-0 z-10 bg-white px-5 pb-1 pt-5 transition-shadow ${
+        className={`bg-white px-5 pb-1 pt-5 transition-shadow ${
           isSticky ? 'shadow-bottom-line' : ''
         }`}
       >
