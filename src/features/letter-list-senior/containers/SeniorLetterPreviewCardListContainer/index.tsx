@@ -12,8 +12,7 @@ import {
   useLetterViewStateActions,
 } from '../../stores/letterViewStateStore'
 import { useEffect } from 'react'
-import useGetSelectedLetterCountQuery from '../../hooks/useGetSelectedLetterCountQuery'
-import useSelectLetterQuery from '@/features/letter/hooks/useSelectLetterQuery'
+import LetterSelectButton from '@/features/letter-select/components/LetterSelectButton'
 
 export default function SeniorLetterPreviewCardListContainer() {
   const pathname = usePathname()
@@ -29,22 +28,6 @@ export default function SeniorLetterPreviewCardListContainer() {
     )
 
   const letters = data?.pages.flatMap((page) => page.content) ?? []
-
-  const { data: selectedLetterCount } = useGetSelectedLetterCountQuery(
-    userInfo ? { seniorId: userInfo.seniorId! } : undefined
-  )
-
-  const { mutate: selectLetterMutate } = useSelectLetterQuery({
-    letterId: letters[selectedIndex]?.letterId,
-  })
-
-  const handleSelectLetter = () => {
-    if (!letters.length) return
-    selectLetterMutate({
-      letterId: letters[selectedIndex].letterId,
-      seniorId: userInfo?.seniorId!,
-    })
-  }
 
   const next = () => {
     if (selectedIndex >= letters.length - 1) return
@@ -126,15 +109,13 @@ export default function SeniorLetterPreviewCardListContainer() {
       {letters.length > 0 && (
         <div className="mt-8 flex flex-col items-center gap-2">
           <div className="flex w-full gap-4">
-            <button
-              onClick={handleSelectLetter}
-              className="flex-1 rounded-10 bg-secondary-brown-2 py-3 text-white"
-            >
-              {`선택하기 (${selectedLetterCount}/5)`}
-            </button>
+            <LetterSelectButton
+              letterId={letters[selectedIndex]?.letterId}
+              type="CAROUSEL"
+            />
             <Link
               href={`${pathname}/${letters[selectedIndex]?.letterId}`}
-              className="flex-1 rounded-10 bg-gray-3 py-3 text-center text-black"
+              className="b4 flex-1 rounded-10 bg-gray-3 py-3 text-center text-black"
             >
               사연 보기
             </Link>
