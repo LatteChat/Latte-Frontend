@@ -4,7 +4,7 @@ import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-export default function ChatLayout({
+export default function MypageLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
