@@ -41,7 +41,7 @@ export default async function PostDetailPage({
 
   return (
     <div>
-      <div className="flex flex-col gap-4">
+      <div className="sticky top-0 z-50 flex flex-col gap-4">
         <Topbar icons={TOPBAR_ICONS} />
       </div>
 

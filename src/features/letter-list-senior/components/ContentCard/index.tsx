@@ -71,18 +71,18 @@ export default function ContentCard({
           <span className="b9 text-gray-5">{nickname}</span>
         </div>
         <div className="flex w-full gap-4">
-          <Link
-            href={`${pathname}/${letterId}`}
-            className="b4 flex-1 rounded-10 bg-gray-3 py-2 text-center text-black"
-          >
-            사연 보기
-          </Link>
           <button
             onClick={handleSelectLetter}
             className="b4 flex-1 rounded-10 bg-secondary-brown-2 py-2 text-white"
           >
             {`선택하기 (${selectedLetterCount}/5)`}
           </button>
+          <Link
+            href={`${pathname}/${letterId}`}
+            className="b4 flex-1 rounded-10 bg-gray-3 py-2 text-center text-black"
+          >
+            사연 보기
+          </Link>
         </div>
       </div>
     </section>
