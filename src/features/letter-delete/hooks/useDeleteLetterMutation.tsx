@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteLetter } from '../services/letterService.client'
+import { deleteLetter } from '../services/letterDeleteService.client'
 import { useModal } from '@/shared/contexts/ModalContext'
-import DeleteLetterSuccessModal from '@/features/modal/components/DeleteLetterSuccessModal'
+import DeleteLetterSuccessModal from '../components/DeleteLetterSuccessModal'
 
-export default function useDeleteLetterQuery() {
+export default function useDeleteLetterMutation() {
   const { openModal } = useModal()
   const queryClient = useQueryClient()
 

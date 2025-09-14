@@ -1,15 +1,5 @@
-'use client'
-
-import { useParams } from 'next/navigation'
-import LetterAnswerContainer from './LetterAnswerContainer'
+import AnswerDetailPage from '@/pages/latte-chat/letter/answer/detail/ui'
 
 export default function LetterAnswerPage() {
-  const params = useParams()
-  const letterId = params.id ? Number(params.id) : null
-
-  if (!letterId) {
-    console.log('권한 없음')
-  }
-
-  return <LetterAnswerContainer letterId={letterId!} />
+  return <AnswerDetailPage />
 }

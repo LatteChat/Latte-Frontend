@@ -1,3 +1,4 @@
+import Button from '@/shared/components/Button'
 import { useModal } from '@/shared/contexts/ModalContext'
 
 export default function DeleteLetterSuccessModal() {
@@ -10,12 +11,13 @@ export default function DeleteLetterSuccessModal() {
       </div>
 
       <div className="flex w-full gap-2">
-        <button
+        <Button
+          type="MODAL"
+          buttonText="닫기"
+          bgColor="bg-gray-3"
+          textColor="text-black"
           onClick={closeModal}
-          className="w-full rounded-10 bg-gray-3 py-2.5 text-black"
-        >
-          닫기
-        </button>
+        />
       </div>
     </div>
   )

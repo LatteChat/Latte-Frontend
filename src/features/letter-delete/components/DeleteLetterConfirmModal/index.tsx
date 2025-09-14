@@ -1,13 +1,14 @@
-import useDeleteLetterQuery from '@/features/letter/hooks/useDeleteLetterQuery'
 import { useModal } from '@/shared/contexts/ModalContext'
+import useDeleteLetterMutation from '../../hooks/useDeleteLetterMutation'
+import Button from '@/shared/components/Button'
 
 export default function DeleteLetterConfirmModal({
   deleteList,
 }: {
   deleteList: number[]
 }) {
-  const { closeModal, openModal } = useModal()
-  const { mutate: deleteLetterMutate } = useDeleteLetterQuery()
+  const { closeModal } = useModal()
+  const { mutate: deleteLetterMutate } = useDeleteLetterMutation()
 
   return (
     <div className="flex w-full flex-col items-center gap-5 bg-white px-5 py-10">
@@ -17,20 +18,21 @@ export default function DeleteLetterConfirmModal({
       </div>
 
       <div className="flex w-full gap-2">
-        <button
+        <Button
+          type="MODAL"
+          buttonText=" 삭제"
           onClick={() => {
             deleteLetterMutate({ letterIds: deleteList })
           }}
-          className="w-full rounded-10 bg-secondary-brown-2 py-2.5 text-white"
-        >
-          삭제
-        </button>
-        <button
+        />
+
+        <Button
+          type="MODAL"
+          buttonText="취소"
           onClick={closeModal}
-          className="w-full rounded-10 bg-gray-3 py-2.5 text-black"
-        >
-          취소
-        </button>
+          bgColor="bg-gray-3"
+          textColor="text-black"
+        />
       </div>
     </div>
   )

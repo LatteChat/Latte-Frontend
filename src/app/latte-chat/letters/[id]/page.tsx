@@ -1,7 +1,7 @@
 'use client'
 
-import SeniorLetterDetailContainer from './SeniorLetterDetailContainer'
+import LetterDetailPage from '@/pages/latte-chat/letter/detail/ui'
 
 export default function SeniorLetterDetailPage() {
-  return <SeniorLetterDetailContainer />
+  return <LetterDetailPage />
 }

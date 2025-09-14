@@ -3,9 +3,9 @@
 import DeletePostCard from '../../components/DeletePostCard'
 import { useState, useEffect, useRef } from 'react'
 import { useModal } from '@/shared/contexts/ModalContext'
-import DeleteLetterConfirmModal from '@/features/modal/components/DeleteLetterConfirmModal'
 import { useGetFilteredJuniorLetterListQuery } from '../../hooks/useGetFilteredJuniorLetterListQuery'
 import Spinner from '@/shared/components/Spinner'
+import DeleteLetterConfirmModal from '@/features/letter-delete/components/DeleteLetterConfirmModal'
 
 export default function LetterArchiveListDeleteViewContainer({
   juniorId,
