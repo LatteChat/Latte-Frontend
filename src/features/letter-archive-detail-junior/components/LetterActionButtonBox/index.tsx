@@ -1,10 +1,10 @@
 import { AnswerStatus } from '@/shared/types/AnswerStatus'
-import GoPostButton from '../GoPostButton'
 import LetterImageGenerateButton from '@/features/letter-image-generate/components/LetterImageGenerateButton'
 import RequestMoreAnswerButton from '../RequestMoreAnswerButton'
 import EditLetterLinkButton from '../EditLetterLinkButton'
 import AdoptAnswerButton from '@/features/letter-answer-adopt/components/AdoptAnswerButton'
 import RequestMentorButton from '@/features/mentor-request/components/RequestMentorButton'
+import GoPostButton from '@/features/letter-archive-detail/components/GoPostButton'
 
 export default function JuniorLetterActionButtonBox({
   letterId,

@@ -1,6 +1,6 @@
 import { AnswerStatus } from '@/shared/types/AnswerStatus'
-import GoPostButton from '@/features/letter-archive-detail-junior/components/GoPostButton'
 import AnswerLetterButton from '../AnswerLetterButton'
+import GoPostButton from '@/features/letter-archive-detail/components/GoPostButton'
 
 export default function SeniorLetterActionButtonBox({
   letterStatus,
