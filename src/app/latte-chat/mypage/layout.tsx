@@ -1,24 +1,26 @@
 'use client'
 
-import { useUserInfo } from '@/shared/hooks/useUserInfo'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 
-export default function MypageLayout({
+export default function LettersLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
-  const { data: user, isLoading } = useUserInfo()
+}) {
   const router = useRouter()
+  const [token, setToken] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!isLoading && !user) {
+    const stored = localStorage.getItem('accessToken')
+    setToken(stored)
+
+    if (!stored) {
       router.replace('/login')
     }
-  }, [user, isLoading, router])
+  }, [router])
 
-  if (isLoading || !user) {
+  if (!token) {
     return null
   }
 
