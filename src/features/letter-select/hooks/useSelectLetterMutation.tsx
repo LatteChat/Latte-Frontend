@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { fetchSelectLetter } from '../services/letterService.senior.client'
 import { useModal } from '@/shared/contexts/ModalContext'
-import SelectLetterModal from '@/features/modal/components/SelectLetterModal'
 import { useRouter } from 'next/navigation'
+import { fetchSelectLetter } from '../services/letterSelect.clinet'
+import SelectLetterModal from '../components/SelectLetterModal'
+import { useToast } from '@/shared/contexts/ToastContext'
 
-export default function useSelectLetterQuery({
+export default function useSelectLetterMutation({
   letterId,
 }: {
   letterId: number
@@ -12,6 +13,7 @@ export default function useSelectLetterQuery({
   const router = useRouter()
   const queryClient = useQueryClient()
   const { openModal } = useModal()
+  const { showToast } = useToast()
 
   return useMutation({
     mutationFn: ({
@@ -22,8 +24,6 @@ export default function useSelectLetterQuery({
       seniorId: number
     }) => fetchSelectLetter({ letterId, seniorId }),
     onSuccess: (data) => {
-      console.log('사연 선택 성공:', data)
-
       queryClient.invalidateQueries({
         queryKey: ['/senior/letter/list'],
       })
@@ -35,7 +35,7 @@ export default function useSelectLetterQuery({
       router.replace('/latte-chat/letters')
     },
     onError: (error) => {
-      console.error('사연 선택 실패:', error)
+      showToast('사연 선택에 실패했습니다. 다시 시도해주세요')
     },
   })
 }

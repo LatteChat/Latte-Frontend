@@ -1,10 +1,8 @@
 import CoffeeBeanIcon from '@/shared/assets/icons/coffee-bean-icon.svg'
-import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { CATEGORIES_MAP } from '@/shared/types/Category'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import useGetSelectedLetterCountQuery from '../../hooks/useGetSelectedLetterCountQuery'
-import useSelectLetterQuery from '@/features/letter/hooks/useSelectLetterQuery'
+import LetterSelectButton from '@/features/letter-select/components/LetterSelectButton'
 
 export default function ContentCard({
   letter: { letterId, category, writeStyle, title, content, letterType },
@@ -23,22 +21,6 @@ export default function ContentCard({
   }
 }) {
   const pathname = usePathname()
-  const { data: userInfo } = useUserInfo()
-  const { data: selectedLetterCount } = useGetSelectedLetterCountQuery(
-    userInfo
-      ? {
-          seniorId: userInfo.seniorId!,
-        }
-      : undefined
-  )
-  const { mutate: selectLetterMutate } = useSelectLetterQuery({ letterId })
-
-  const handleSelectLetter = () => {
-    selectLetterMutate({
-      letterId: letterId,
-      seniorId: userInfo?.seniorId!,
-    })
-  }
 
   return (
     <section
@@ -71,12 +53,7 @@ export default function ContentCard({
           <span className="b9 text-gray-5">{nickname}</span>
         </div>
         <div className="flex w-full gap-4">
-          <button
-            onClick={handleSelectLetter}
-            className="b4 flex-1 rounded-10 bg-secondary-brown-2 py-2 text-white"
-          >
-            {`선택하기 (${selectedLetterCount}/5)`}
-          </button>
+          <LetterSelectButton type="LIST" letterId={letterId} />
           <Link
             href={`${pathname}/${letterId}`}
             className="b4 flex-1 rounded-10 bg-gray-3 py-2 text-center text-black"

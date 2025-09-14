@@ -1,3 +1,4 @@
+import Button from '@/shared/components/Button'
 import { useModal } from '@/shared/contexts/ModalContext'
 import { useRouter } from 'next/navigation'
 
@@ -8,28 +9,29 @@ export default function SelectLetterModal() {
   return (
     <div className="flex w-full flex-col items-center gap-5 bg-white px-5 py-10">
       <div className="flex flex-col items-center gap-2">
-        <h1 className="h2 text-black">사연이 선택되었어요</h1>
+        <h1 className="h2 text-black">사연이 선택되었어요?</h1>
         <p className="b6 text-gray-5">글 보관함에서 답변을 작성할 수 있어요.</p>
       </div>
 
       <div className="flex w-full gap-2">
-        <button
+        <Button
+          type="CARD_SMALL"
+          buttonText="글 보관함"
           onClick={() => {
             router.push(`/latte-chat/letters/archive`)
             closeModal()
           }}
-          className="w-full rounded-10 bg-secondary-brown-2 py-2.5 text-white"
-        >
-          글 보관함
-        </button>
-        <button
+          // className="w-full rounded-10 bg-secondary-brown-2 py-2.5 text-white"
+        />
+
+        <Button
+          type="MODAL"
+          buttonText=" 닫기"
           onClick={() => {
             closeModal()
           }}
-          className="w-full rounded-10 bg-gray-3 py-2.5 text-black"
-        >
-          닫기
-        </button>
+          // className="w-full rounded-10 bg-gray-3 py-2.5 text-black"
+        />
       </div>
     </div>
   )
