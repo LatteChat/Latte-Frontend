@@ -10,8 +10,8 @@ import { useEffect } from 'react'
 import AnswerListContainer from '../AnswerListContainer'
 import { useGetJuniorArchiveLetterDetailQuery } from '../../hooks/useGetJuniorArchiveLetterDetailQuery'
 import LetterActionButtonBox from '../../components/LetterActionButtonBox'
-import LetterHeader from '../../components/LetterHeader'
-import LetterContentBox from '../../components/LetterContentBox'
+import LetterHeader from '@/features/letter-archive-detail/components/LetterHeader'
+import LetterContentBox from '@/features/letter-archive-detail/components/LetterContentBox'
 
 export default function JuniorArchiveLetterDetailContainer() {
   const params = useParams()
@@ -71,6 +71,7 @@ export default function JuniorArchiveLetterDetailContainer() {
           <LetterActionButtonBox
             letterId={letterId}
             letterStatus={letterDetail?.letterStatus}
+            isOpen={letterDetail?.isOpen}
           />
         )
       }

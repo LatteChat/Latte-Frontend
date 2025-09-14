@@ -6,12 +6,14 @@ import EditLetterLinkButton from '../EditLetterLinkButton'
 import AdoptAnswerButton from '@/features/letter-answer-adopt/components/AdoptAnswerButton'
 import RequestMentorButton from '@/features/mentor-request/components/RequestMentorButton'
 
-export default function LetterActionButtonBox({
+export default function JuniorLetterActionButtonBox({
   letterId,
   letterStatus,
+  isOpen,
 }: {
   letterId: number
   letterStatus: AnswerStatus
+  isOpen: boolean
 }) {
   let description = ''
   let buttons: React.ReactNode[] = []
@@ -37,7 +39,7 @@ export default function LetterActionButtonBox({
     description = '1:1 멘토링을 요청하시겠어요?'
     buttons = [
       <RequestMentorButton key="request-mentor" />,
-      <GoPostButton key="go-post" />,
+      isOpen && <GoPostButton key="go-post" />,
     ]
   } else if (letterStatus === 'MATCHED') {
     description = '멘토링이 진행되었어요'
