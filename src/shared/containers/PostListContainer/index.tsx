@@ -12,22 +12,16 @@ export default function PostListContainer() {
   const [selected, setSelected] = useState<Category | null>(null)
   const { statusFilter } = usePostFilterStore()
 
-  const { data: postListByCategory } = useGetPostListQuery(
-    userInfo
-      ? {
-          page: 0,
-          filter: statusFilter,
-          category: selected,
-          userId:
-            userInfo.memberType === 'JUNIOR'
-              ? userInfo.juniorId
-              : userInfo.seniorId,
-          memberType: userInfo.memberType,
-        }
-      : undefined
-  )
-
-  console.log('postListByCategory:', postListByCategory)
+  const { data: postListByCategory } = useGetPostListQuery({
+    page: 0,
+    filter: statusFilter,
+    category: selected,
+    userId:
+      userInfo?.memberType === 'JUNIOR'
+        ? userInfo?.juniorId
+        : userInfo?.seniorId,
+    memberType: userInfo?.memberType,
+  })
 
   return (
     <section className="flex flex-col">
@@ -35,7 +29,6 @@ export default function PostListContainer() {
 
       <main className="flex flex-col gap-3.5 px-5">
         {postListByCategory?.content.map((post, index) => {
-          console.log(post)
           return (
             <Link
               key={post.letterId}

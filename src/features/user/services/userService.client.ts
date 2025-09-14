@@ -76,8 +76,6 @@ export const fetchSeniorUser = async ({
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
 
-  console.log(token)
-
   return await httpCSR(`/senior/${seniorId}/mypage`, {
     method: 'GET',
     headers: {

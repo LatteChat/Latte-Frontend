@@ -37,8 +37,6 @@ export default function LetterImageGenerateContainer() {
     letterId,
   })
 
-  console.log(letterDetail)
-
   return (
     <div className="bg-secondary-brown-1">
       <div className="sticky top-0 z-10 flex flex-col gap-4 bg-white">
@@ -53,7 +51,7 @@ export default function LetterImageGenerateContainer() {
           <div className="flex w-full flex-col items-center gap-4">
             {letterDetail?.image && (
               <div className="px-5">
-                <Image
+                <img
                   src={letterDetail?.image}
                   width={400}
                   height={400}
@@ -74,6 +72,9 @@ export default function LetterImageGenerateContainer() {
                     onSuccess: (data) => {
                       queryClient.invalidateQueries({
                         queryKey: ['/junior/letter/detail', letterId],
+                      })
+                      queryClient.invalidateQueries({
+                        queryKey: ['/junior/coffee'],
                       })
                     },
                   }

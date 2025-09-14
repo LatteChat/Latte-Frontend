@@ -17,8 +17,6 @@ export default function CommentListContainer({
     sort,
   })
 
-  console.log('댓글 리스트:', comments)
-
   return (
     <section className="flex flex-col items-start pt-5">
       <div className="w-full px-5 pb-5">

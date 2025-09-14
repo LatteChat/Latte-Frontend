@@ -147,7 +147,7 @@ export default function MypageEditContainer() {
         </div>
 
         <div className="relative mb-10 mt-4">
-          <div className="flex gap-2 rounded-10 bg-gray-1 px-2">
+          <div className="flex items-center gap-2 rounded-10 bg-gray-1 px-2">
             <input
               placeholder="#검색하거나 직접 태그 추가하기"
               className="b12 flex-1 bg-transparent py-2.5 outline-none placeholder:text-gray-5"
@@ -155,7 +155,23 @@ export default function MypageEditContainer() {
               onKeyDown={handleKeyDown}
               value={searchTag}
             />
-            <img src="/icons/search-icon.svg" />
+            <button
+              type="button"
+              className="b12 rounded bg-secondary-brown-2 px-1 py-0.5 text-white"
+              onClick={() => {
+                const newTag = searchTag.trim()
+
+                if (!newTag) return
+                if (selectedTags.includes(newTag)) return
+                if (selectedTags.length >= 3)
+                  return alert('태그는 최대 3개까지 추가할 수 있습니다.')
+
+                setSelectedTags((prev) => [...prev, newTag])
+                setSearchTag('')
+              }}
+            >
+              추가
+            </button>
           </div>
 
           {searchedTags?.length > 0 && (

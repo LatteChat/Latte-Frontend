@@ -7,12 +7,12 @@ import { useEffect, useState } from 'react'
 import {
   useLetterCreateActions,
   useLetterCreateState,
-  useLetterCreateStore,
 } from '@/features/letter/stores/letterCreateStore'
 import { useUserInfo } from '@/shared/hooks/useUserInfo'
 import { useModal } from '@/shared/contexts/ModalContext'
 import CategorySelectorModal from '@/features/modal/components/CategorySelectorModal'
 import { CATEGORIES_MAP } from '@/shared/types/Category'
+import RightArrowIcon from '@/shared/assets/icons/right-arrow-icon.svg'
 
 export default function LetterWriteContainer() {
   const { data: userInfo } = useUserInfo() // 추후 여기서 juniorId 추출해서 API에 적용
@@ -48,10 +48,7 @@ export default function LetterWriteContainer() {
                   {CATEGORIES_MAP[category]}
                 </span>
               )}
-              <img
-                src="/icons/right-arrow-icon.svg"
-                className="aspect-square h-6 w-6"
-              />
+              <RightArrowIcon className="h-6 w-6" color="#000000" />
             </button>
           </div>
 
@@ -96,7 +93,6 @@ export default function LetterWriteContainer() {
                   className="b3 absolute bottom-5 left-1/2 -translate-x-1/2 rounded-10 bg-secondary-brown-2 px-7 py-2 text-secondary-brown-1"
                   onClick={() => {
                     if (!userInfo?.juniorId) return
-                    console.log(letterCreateState)
                     saveLetterMutate({
                       juniorId: userInfo?.juniorId,
                       body: letterCreateState,

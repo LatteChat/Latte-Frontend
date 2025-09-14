@@ -6,7 +6,6 @@ export default function useGetCommentListQuery(payload?: {
   page: number
   sort: string
 }) {
-  console.log(payload?.page, payload?.sort)
   return useQuery({
     queryKey: ['/comments', payload?.letterId, payload?.page, payload?.sort],
     queryFn: () =>

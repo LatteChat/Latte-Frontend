@@ -39,7 +39,6 @@ export default function SeniorLetterListArchiveCategoryContainer() {
     category: selectedCategory,
     page: 0,
   })
-  console.log('filteredLetterList:', filteredLetterList)
 
   const handleSelectCategory = (category: Category) => {
     if (selectedCategory === category) {
@@ -79,14 +78,13 @@ export default function SeniorLetterListArchiveCategoryContainer() {
         </div>
         <div className="flex flex-col gap-[1.875rem]">
           {filteredLetterList?.content?.map((letter: any, index: number) => {
-            console.log(letter)
             return (
               <Link
                 key={index}
                 href={
-                  letter.answerStatus === 'SAVED'
-                    ? `archive/letter/${letter.letterId}/answer`
-                    : `archive/letter/${letter.letterId}`
+                  letter?.answerStatus === 'SAVED'
+                    ? `/latte-chat/letters/archive/letter/${letter.letterId}/answer`
+                    : `/latte-chat/letters/archive/letter/${letter.letterId}`
                 }
               >
                 <PostCard

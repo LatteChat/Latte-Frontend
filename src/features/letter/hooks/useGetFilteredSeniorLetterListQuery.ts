@@ -12,7 +12,6 @@ export const useGetFilteredSeniorLetterListQuery = ({
   answer: 0 | 1 | 2 | 3 | 4
   page: number
 }) => {
-  console.log(seniorId, answer, category, page)
   return useQuery({
     queryKey: ['/senior/letter/list', { seniorId, answer, category, page }],
     queryFn: () =>

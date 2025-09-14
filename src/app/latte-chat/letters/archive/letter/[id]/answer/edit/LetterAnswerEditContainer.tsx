@@ -30,8 +30,6 @@ export default function LetterAnswerEditContainer() {
   const { setContent } = useAnswerCreateActions()
   const { mutate: updateAnswerMutate } = useUpdateAnswerQuery()
 
-  console.log(letterDetail)
-
   useEffect(() => {
     if (letterDetail) {
       setContent(letterDetail.answerResponseDto.content)

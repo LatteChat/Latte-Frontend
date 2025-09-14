@@ -14,7 +14,9 @@ export default function Topbar({ icons }: { icons: TopbarIcons }) {
 
   return (
     <header className="flex justify-between bg-white px-5 py-3 shadow-bottom-line">
-      <img src="/images/lattechat-logo.svg" />
+      <Link href={'/latte-chat'}>
+        <img src="/images/lattechat-logo.svg" />
+      </Link>
       <div className="flex gap-3">
         {icons.map((icon, index) => {
           if (!userInfo && index === 0) {

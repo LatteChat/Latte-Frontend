@@ -78,10 +78,10 @@ export const fetchPostList = async ({
 }): Promise<PostListResponse> => {
   const query = new URLSearchParams({
     ...(category ? { category } : {}),
+    ...(userId ? { userId: String(userId) } : {}),
+    ...(memberType ? { memberType } : {}),
     page: String(page),
     filter: String(filter),
-    userId: String(userId),
-    memberType: String(memberType),
   })
 
   return await httpCSR(`/main/list?${query.toString()}`, {

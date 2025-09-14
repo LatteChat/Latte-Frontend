@@ -6,7 +6,7 @@ export const useGetPostListQuery = (payload?: {
   filter: 'all' | 'view'
   category: string | null
   userId?: number | null
-  memberType: string
+  memberType?: string | null
 }) => {
   return useQuery({
     queryKey: ['/main/list', payload?.page, payload?.filter, payload?.category],
@@ -16,9 +16,9 @@ export const useGetPostListQuery = (payload?: {
         filter: payload!.filter,
         category: payload!.category!,
         userId: payload!.userId!,
-        memberType: payload!.memberType,
+        memberType: payload!.memberType!,
       }),
     retry: 2,
-    enabled: !!payload && !!payload.userId && !!payload.memberType,
+    enabled: !!payload,
   })
 }

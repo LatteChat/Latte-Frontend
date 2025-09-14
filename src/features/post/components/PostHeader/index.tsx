@@ -2,12 +2,12 @@ import UserProfile from '@/shared/components/UserProfile'
 import { formatDateDefault } from '@/shared/utils/formatDate'
 
 type AgeType =
-  | 'UNDER_10'
+  | 'TEENAGER'
   | 'TWENTIES'
   | 'THIRTIES'
   | 'FORTIES'
   | 'FIFTIES'
-  | 'SIXTIES_AND_ABOVE'
+  | 'SIXTIES'
 
 type PostHeaderProps = {
   user: {

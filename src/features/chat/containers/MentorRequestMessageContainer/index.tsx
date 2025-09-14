@@ -28,7 +28,7 @@ export default function MentorRequestMessageContainer() {
   return (
     <div className="flex flex-col gap-5">
       <p className="b10 flex items-center justify-center rounded-10 bg-gray-1 py-2">
-        상대방이 멘토 신청과 함께 커피콩을 보내고 싶어해요!
+        멘토 신청이 도착했어요
       </p>
       <div className="flex justify-center gap-5">
         <button

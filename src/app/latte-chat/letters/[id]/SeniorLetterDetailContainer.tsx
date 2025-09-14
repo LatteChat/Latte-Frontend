@@ -21,7 +21,6 @@ export default function SeniorLetterDetailContainer() {
     letterId,
     seniorId: userInfo?.seniorId,
   })
-  console.log('중장년 사연 상세 조회:', letterDetail)
 
   const { data: selectedLetterCount } = useGetSeniorSelectedLetterCountQuery(
     userInfo
@@ -45,10 +44,6 @@ export default function SeniorLetterDetailContainer() {
       letterDetail?.letterStatus === 'MATCHED'
     ) {
       return '채택 완료된 사연'
-    } else if (letterDetail?.letterStatus === 'ANSWERED') {
-      return '내가 답변을 쓴 사연'
-    } else if (letterDetail?.letterStatus === 'SENT') {
-      return '사연 보기'
     } else {
       return ''
     }
@@ -99,7 +94,7 @@ export default function SeniorLetterDetailContainer() {
       </div>
 
       <figure className="p-5">
-        <Image
+        <img
           src={letterDetail?.image ?? '/images/test-image.png'}
           alt="사연 이미지"
           className="aspect-square w-full rounded-10 object-cover shadow-border"

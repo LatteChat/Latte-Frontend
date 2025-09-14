@@ -1,12 +1,12 @@
 import { httpCSR } from '@/shared/apis/http'
 
 type AgeType =
-  | 'UNDER_10'
+  | 'TEENAGER'
   | 'TWENTIES'
   | 'THIRTIES'
   | 'FORTIES'
   | 'FIFTIES'
-  | 'SIXTIES_AND_ABOVE'
+  | 'SIXTIES'
 
 type CategoryType = 'NEWS' | 'OTHER' // 실제 도메인에 맞게 확장
 
@@ -71,7 +71,7 @@ export const fetchPostDetail = async ({
   memberType: string // SENIOR, JUNIOR
 }): Promise<PostDetailResponse> => {
   return await httpCSR(
-    `/main/${letterId}/${userId}/detail/all?memberType=${memberType}`,
+    `/main/${letterId}/detail/all?memberType=${memberType}`,
     {
       method: 'GET',
     }

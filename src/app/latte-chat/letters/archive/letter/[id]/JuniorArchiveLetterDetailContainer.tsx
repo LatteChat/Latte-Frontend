@@ -47,8 +47,6 @@ export default function JuniorArchiveLetterDetailContainer() {
     }
   }, [letterDetail])
 
-  console.log('청년 사연 상세 조회:', letterDetail)
-
   const renderTitle = () => {
     if (letterDetail?.letterStatus === 'WRITING') {
       return '저장된 사연'
@@ -103,7 +101,7 @@ export default function JuniorArchiveLetterDetailContainer() {
 
       {letterDetail?.letterStatus !== 'WRITING' && (
         <figure className="mb-5 px-5">
-          <Image
+          <img
             src={letterDetail?.image ?? '/images/test-image.png'}
             alt="사연 이미지"
             className="aspect-square w-full rounded-10 object-cover shadow-border"

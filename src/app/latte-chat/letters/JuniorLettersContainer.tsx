@@ -30,11 +30,8 @@ export default function JuniorLettersContainer() {
     juniorId: userInfo?.juniorId!,
   })
 
-  console.log(recentLetters)
-
   useEffect(() => {
     if (recentLetters && recentLetters.length > 0) {
-      console.log(recentLetters)
       setSelectedLetter(recentLetters[0])
     }
   }, [isFetched])

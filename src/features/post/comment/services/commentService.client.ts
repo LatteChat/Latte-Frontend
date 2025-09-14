@@ -3,12 +3,12 @@
 import { httpCSR } from '@/shared/apis/http'
 
 type AgeType =
-  | 'UNDER_10'
+  | 'TEENAGER'
   | 'TWENTIES'
   | 'THIRTIES'
   | 'FORTIES'
   | 'FIFTIES'
-  | 'SIXTIES_AND_ABOVE'
+  | 'SIXTIES'
 
 interface MemberDetailDto {
   name: string
@@ -91,8 +91,6 @@ export const saveComment = async ({
 }) => {
   const token = localStorage.getItem('accessToken')
   if (!token) throw new Error('토큰이 없습니다.')
-
-  console.log(letterId, body)
 
   return await httpCSR(`/comment/${letterId}/comment`, {
     method: 'POST',

@@ -38,7 +38,6 @@ export default function CommentInput() {
 
     if (type === 'COMMENT') {
       if (!letterId) return
-      console.log(userInfo)
       saveCommentMutate({
         letterId: letterId,
         body: {
@@ -110,7 +109,7 @@ export default function CommentInput() {
         onSubmit={handleSubmitComment}
         className="flex w-full items-center gap-2 bg-white px-5 py-2 shadow-top-line"
       >
-        <Image
+        <img
           src={userInfo?.image ?? '/images/coffee-bean-image.png'}
           alt="작성자 프로필 이미지"
           className="object- aspect-square h-9 w-9 self-end rounded-full bg-primary"

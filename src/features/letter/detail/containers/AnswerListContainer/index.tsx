@@ -34,7 +34,6 @@ export default function AnswerListContainer({
     }
   }, [answers])
 
-  console.log('answers:', answers)
   return (
     <section
       ref={containerRef}

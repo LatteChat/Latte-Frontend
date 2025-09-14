@@ -21,8 +21,6 @@ export default function LetterAnswerContainer({
   })
   const { mutate: sendAnswerMutate } = useSendAnswerQuery({ letterId })
 
-  console.log(letterDetail)
-
   return (
     <LetterCardLayout
       title="저장된 답변"
@@ -79,7 +77,7 @@ export default function LetterAnswerContainer({
               </header>
 
               <figure className="px-5 pt-5">
-                <Image
+                <img
                   src={letterDetail.image ?? '/images/test-image.png'}
                   alt="사연 이미지"
                   className="aspect-square w-full rounded-10 object-cover shadow-border"

@@ -47,7 +47,6 @@ export default function JuniorRecentLetterListContainer({
       )}
 
       {letters.map((letter) => {
-        console.log(letter)
         return (
           <div
             key={letter.letterId}

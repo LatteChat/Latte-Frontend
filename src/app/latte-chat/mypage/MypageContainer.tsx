@@ -4,6 +4,7 @@ import UserInfoBox from '@/features/user/mypage/components/UserInfoBox'
 import NavTabBar from '@/shared/components/NavTabBar'
 import Topbar from '@/shared/components/Topbar'
 import Link from 'next/link'
+import RightArrowIcon from '@/shared/assets/icons/right-arrow-icon.svg'
 
 const TOPBAR_ICONS = [
   {
@@ -56,7 +57,6 @@ const FOOTER_CONTENT2 = [
 
 export default function MypageContainer() {
   const { data: userInfo } = useGetMyInfoQuery()
-  console.log(userInfo)
 
   const MENU_ICONS = [
     {
@@ -185,10 +185,10 @@ export default function MypageContainer() {
                   alt={setting.title}
                 />
                 <span className="b1 flex-1 text-black">{setting.title}</span>
-                <img
-                  src="/icons/right-arrow-icon.svg"
+
+                <RightArrowIcon
                   className="aspect-square h-6 w-6 shrink-0"
-                  alt={setting.title}
+                  color="#000000"
                 />
               </div>
             )

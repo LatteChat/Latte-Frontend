@@ -58,7 +58,7 @@ export default function ChatItem({
         setStatus(chatRoomStatus)
       }}
     >
-      <Image
+      <img
         src={profile ?? '/images/coffee-bean-image.png'}
         alt="사용자 프로필 이미지"
         width={44}

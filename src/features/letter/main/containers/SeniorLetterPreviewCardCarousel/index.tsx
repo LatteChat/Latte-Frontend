@@ -10,8 +10,6 @@ export default function SeniorLetterPreviewCardCarousel({
   index: number
   handleDragEnd: any
 }) {
-  console.log('letters:', letters)
-
   return (
     <div className="relative flex w-full items-center justify-center">
       <div className="relative flex aspect-square w-[70%] items-center justify-center">
