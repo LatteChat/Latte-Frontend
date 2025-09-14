@@ -64,7 +64,7 @@ export default function SeniorLetterArchiveListContainer() {
           {!isFetching && filteredLetters?.pages[0]?.content.length === 0 ? (
             <LetterListEmpty />
           ) : (
-            <div className="flex flex-col gap-[1.875rem]">
+            <div className="flex w-full flex-col gap-[1.875rem]">
               {filteredLetters?.pages.flatMap((page) =>
                 page.content.map((letter: any) => {
                   return (
