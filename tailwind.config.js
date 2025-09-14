@@ -1,3 +1,5 @@
+const { scale } = require('framer-motion')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -66,8 +68,8 @@ module.exports = {
       },
       keyframes: {
         twinkle: {
-          '0%, 100%': { opacity: '0.5' },
-          '50%': { opacity: '1' },
+          '0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
+          '50%': { opacity: '1', transform: 'scale(1.2)' },
         },
         shimmer: {
           '0%': { backgroundPosition: '-200% 0' },
@@ -75,7 +77,7 @@ module.exports = {
         },
       },
       animation: {
-        twinkle: 'twinkle 1.5s ease-in-out infinite',
+        twinkle: 'twinkle 1.5s ease-in-out infinite ',
         shimmer: 'shimmer 1.5s linear infinite',
       },
     },
