@@ -1,8 +1,12 @@
 import { useMutation } from '@tanstack/react-query'
-import { sendAnswer } from '../../services/letterService.senior.client'
 import { usePathname, useRouter } from 'next/navigation'
+import { sendAnswer } from '../services/answerSendService.client'
 
-export default function useSendAnswerQuery({ letterId }: { letterId: number }) {
+export default function useSendAnswerMutation({
+  letterId,
+}: {
+  letterId: number
+}) {
   const router = useRouter()
 
   return useMutation({
