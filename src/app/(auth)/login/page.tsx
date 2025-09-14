@@ -20,6 +20,12 @@ export default function LoginPage() {
         </div>
 
         <div className="flex w-full gap-2 px-5 pb-10">
+          <Link
+            href={`${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/kakao`}
+            className="w-full"
+          >
+            <Button buttonText="로그인하러가기"></Button>
+          </Link>
           <Button
             buttonText="돌아가기"
             bgColor="bg-gray-3"
@@ -28,12 +34,6 @@ export default function LoginPage() {
               router.back()
             }}
           ></Button>
-          <Link
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/kakao`}
-            className="w-full"
-          >
-            <Button buttonText="로그인하러가기"></Button>
-          </Link>
         </div>
       </div>
 
