@@ -1,7 +1,5 @@
-'use client'
+import AnswerEditPage from '@/screens/latte-chat/letter/answer/edit/ui'
 
-import LetterAnswerEditContainer from './LetterAnswerEditContainer'
-
-export default function LetterAnswerEditPage() {
-  return <LetterAnswerEditContainer />
+export default function LetterAnswerEditRoute() {
+  return <AnswerEditPage />
 }

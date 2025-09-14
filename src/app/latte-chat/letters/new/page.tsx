@@ -1,7 +1,5 @@
-'use client'
+import LetterCreatePage from '@/screens/latte-chat/letter/create/ui'
 
-import LetterWriteContainer from './LetterWriteContainer'
-
-export default function LetterWritePage() {
-  return <LetterWriteContainer />
+export default function LetterCreateRoute() {
+  return <LetterCreatePage />
 }

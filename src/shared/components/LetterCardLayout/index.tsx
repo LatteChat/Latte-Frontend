@@ -2,25 +2,23 @@
 
 import { useRouter } from 'next/navigation'
 import TitleHeader from '../TitleHeader'
+import MoreButton from '@/features/letter-archive-detail-junior/components/MoreButton'
 
 export default function LetterCardLayout({
   title,
   actionButton,
   children,
+  isMore,
 }: {
   title: string
   actionButton?: React.ReactNode
   children: React.ReactNode
+  isMore?: boolean
 }) {
   const router = useRouter()
 
   const handleBack = () => {
     router.back()
-    // if (document.referrer) {
-    //   router.back()
-    // } else {
-    //   router.push('/latte-chat/letters/archive') // fallback
-    // }
   }
 
   return (
@@ -29,12 +27,12 @@ export default function LetterCardLayout({
 
       <div className="min-h-[calc(100svh-8rem)] bg-secondary-brown-1 px-5 pb-24 pt-5">
         <section className="rounded-10 bg-white p-5 shadow-border">
-          <header className="mb-10 flex items-center justify-between">
-            <button onClick={handleBack}>
+          <header className="relative mb-10 flex items-center justify-center">
+            <button onClick={handleBack} className="absolute left-0">
               <img src="/icons/close-icon.svg" />
             </button>
             <h1 className="h4">{title}</h1>
-            <img src="/icons/more-icon.svg" />
+            {isMore && <MoreButton />}
           </header>
 
           <article>{children}</article>

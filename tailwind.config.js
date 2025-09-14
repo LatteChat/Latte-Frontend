@@ -1,3 +1,5 @@
+const { scale } = require('framer-motion')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -5,6 +7,7 @@ module.exports = {
     './src/components/**/*.{js,jsx,ts,tsx}',
     './src/app/**/*.{js,jsx,ts,tsx}',
     './src/shared/**/*.{js,jsx,ts,tsx}',
+    './src/pages/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
@@ -44,6 +47,10 @@ module.exports = {
           'conic-gradient(from 230deg at 57.45% 76.53%, #FFF 0.009085076089832deg, #FFF9EE 340deg)',
         'latte-gradient-5':
           'linear-gradient(90deg, #F14918  0%, #FA9009  100%)',
+        'skeleton': 'linear-gradient(to right, #e3e3e3, #efefef, #e3e3e3)',
+      },
+      backgroundSize: {
+        skeleton: '200% 100%',
       },
       minHeight: {
         main: 'calc(100svh - 5rem)',
@@ -61,12 +68,17 @@ module.exports = {
       },
       keyframes: {
         twinkle: {
-          '0%, 100%': { opacity: '0.5' },
-          '50%': { opacity: '1' },
+          '0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
+          '50%': { opacity: '1', transform: 'scale(1.2)' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
         },
       },
       animation: {
-        twinkle: 'twinkle 1.5s ease-in-out infinite',
+        twinkle: 'twinkle 1.5s ease-in-out infinite ',
+        shimmer: 'shimmer 1.5s linear infinite',
       },
     },
   },

@@ -1,7 +1,12 @@
-'use client'
+import PostDetailPage from '@/screens/latte-chat/posts/detail/ui'
 
-import PostDetailContainer from './PostDetailContainer'
+export default async function PostDetailRoute({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const letterId = Number(id)
 
-export default function PostDetailPage() {
-  return <PostDetailContainer />
+  return <PostDetailPage letterId={letterId} />
 }
