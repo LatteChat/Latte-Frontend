@@ -20,7 +20,9 @@ export default function Tag({
   }
 
   return (
-    <span className={`${style()} b9 rounded border border-primary px-2 py-0.5`}>
+    <span
+      className={`${style()} b9 rounded border border-primary px-1.5 py-0.5`}
+    >
       {label}
     </span>
   )

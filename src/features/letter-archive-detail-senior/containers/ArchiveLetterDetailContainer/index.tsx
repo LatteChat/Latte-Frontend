@@ -8,7 +8,7 @@ import LetterActionButtonBox from '../../components/LetterActionButtonBox'
 import LetterAnswerCard from '@/features/letter-archive-detail/components/LetterAnswerCard'
 import LetterHeader from '@/features/letter-archive-detail/components/LetterHeader'
 import LetterContentBox from '@/features/letter-archive-detail/components/LetterContentBox'
-import LetterProfile from '../../components/LetterProfile'
+import LetterProfile from '@/features/letter-archive-detail/components/LetterProfile'
 
 export default function SeniorArchiveLetterDetailContainer() {
   const params = useParams()
