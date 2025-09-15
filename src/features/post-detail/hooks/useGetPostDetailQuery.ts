@@ -4,7 +4,7 @@ import { fetchPostDetail } from '../services/postDetailService.client'
 export default function useGetPostDetailQuery(payload?: {
   letterId: number
   userId?: number | null
-  memberType: string
+  memberType?: string
 }) {
   return useQuery({
     queryKey: ['/post/detail', payload?.letterId],

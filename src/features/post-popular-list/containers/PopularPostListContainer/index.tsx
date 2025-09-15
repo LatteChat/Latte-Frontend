@@ -11,14 +11,16 @@ import Link from 'next/link'
 import RightArrowIcon from '@/shared/assets/icons/right-arrow-icon.svg'
 import useGetPostListQuery from '../../hooks/useGetPostListQuery'
 import PopularPostListEmpty from '../../components/PopularPostListEmpty'
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
 
 export default function PopularPostListContainer({
-  user,
+  // user,
   initialPosts,
 }: {
   user: any
   initialPosts: any
 }) {
+  const { data: user } = useUserInfo()
   const { data: popularPosts } = useGetPostListQuery({
     page: 0,
     filter: 'view',

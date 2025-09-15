@@ -7,14 +7,16 @@ import { useEffect } from 'react'
 import useGetPostDetailQuery from '../../hooks/useGetPostDetailQuery'
 import { PostLikeButtonFeature } from '@/features/post-like'
 import { useCommentActionActions } from '@/features/post-comment/stores/commentActionStore'
+import { useUserInfo } from '@/shared/hooks/useUserInfo'
 
 export default function PostDetailContainer({
   letterId,
-  user,
+  // user,
 }: {
   letterId: number
   user?: any
 }) {
+  const { data: user } = useUserInfo()
   const { data: post } = useGetPostDetailQuery({
     letterId,
     userId: user?.memberType === 'JUNIOR' ? user?.juniorId : user?.seniorId,
